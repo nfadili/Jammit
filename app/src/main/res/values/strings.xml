@@ -17,4 +17,5 @@
     <string name="prompt_password_verify">Verify Password</string>
     <string name="action_register_new">Create account</string>
     <string name="login_create_account_leading_text">Not a user?</string>
+    <string name="register_label">Create new account</string>
 </resources>
