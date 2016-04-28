@@ -1,3 +1,4 @@
+<!--focusable prevents the keyboard from popping up automatically -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="nfadili.tacoma.uw.edu.jammit.LoginActivity">
 
     <!-- Login progress -->
@@ -79,6 +82,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
+
             <!--fontFamily isnt supported but I don't know how else to change the font-->
             <Button
                 android:id="@+id/login_sign_in_button"
@@ -92,13 +96,18 @@
                 android:text="@string/action_sign_in_short"
                 android:textStyle="bold"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/login_create_account_leading_text"/>
             <Button
                 android:id="@+id/login_register_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-smallcaps"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="80dp"
                 android:layout_marginRight="80dp"
                 android:text="@string/action_register_new"
