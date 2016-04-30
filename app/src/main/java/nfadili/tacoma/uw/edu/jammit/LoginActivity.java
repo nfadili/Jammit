@@ -309,6 +309,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Log.e("LoginActivity", "User authenticated!");
                 //TODO: Switch to main screen and pass the UserAccount object!
             }
+            else {
+                //TODO: Prompt user to try again.
+            }
         }
 
 
