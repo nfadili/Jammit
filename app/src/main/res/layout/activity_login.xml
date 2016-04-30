@@ -65,7 +65,6 @@
                 android:layout_height="wrap_content">
 
                 <!--fontFamily isnt supported but I don't know how else to change the font-->
-
                 <EditText
                 android:id="@+id/login_password_text"
                 android:layout_width="match_parent"
