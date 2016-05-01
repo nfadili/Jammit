@@ -22,12 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/register_label">
-        </activity>
-
+            android:label="@string/register_label" />
+        <activity android:name=".MainMenuActivity" />
+        <activity android:name=".EditProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,50 @@
+package nfadili.tacoma.uw.edu.jammit;
+
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import nfadili.tacoma.uw.edu.jammit.dummy.DummyContent;
+
+public class EditProfileActivity extends AppCompatActivity implements EditProfileListFragment.OnListFragmentInteractionListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_profile);
+
+        if (findViewById(R.id.fragment_container)!= null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new EditProfileListFragment())
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onListFragmentInteraction(int parameter) {
+        // Capture the student fragment from the activity layout
+        EditProfileParameterFragment profParamFragment = (EditProfileParameterFragment) getSupportFragmentManager().findFragmentById(R.id.editprofparam_frag);
+        profParamFragment.setParameter(parameter);
+        if (profParamFragment != null) {
+            // If courseItem frag is available, we're in two-pane layout...
+            // Call a method in the student fragment to update its content
+            profParamFragment.updateCourseItemView(parameter);
+        } else {
+            // If the frag is not available, we're in the one-pane layout and must swap frags...
+            // Create fragment and give it an argument for the selected student
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            profParamFragment = new EditProfileParameterFragment();
+            Bundle args = new Bundle();
+            //args.putInt(EditProfileParameterFragment.ARG_POSITION, parameter);
+            profParamFragment.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, profParamFragment)
+                    .addToBackStack(null);
+
+            // Commit the transaction
+            transaction.commit();
+        }
+    }
+}
