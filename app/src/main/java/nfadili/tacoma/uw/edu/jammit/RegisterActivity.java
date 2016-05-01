@@ -3,11 +3,13 @@ package nfadili.tacoma.uw.edu.jammit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -15,20 +17,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import model.UserAccount;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
+    private static final String LOGIN_URL
+            = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addUser.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -44,9 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.register_email_text);
-        //This is removed because a new user shouldn't see that information
-        //populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.register_password_text);
         mPasswordVerifyView = (EditText) findViewById(R.id.register_password_verify_text);
         mPasswordVerifyView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -80,13 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptRegister() {
-        /*
-        *** Might use this later ***
-        if (mAuthTask != null) {
-            return;
-        }
-        */
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -94,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Store values at the time of the register attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String passwordVerifier = mPasswordVerifyView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -101,6 +94,15 @@ public class RegisterActivity extends AppCompatActivity {
         // Check for a valid login_password_text, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check if the two passwords match
+        if(!password.equals(passwordVerifier)) {
+            mPasswordView.setError(getString(R.string.error_mismatch_password));
+            mPasswordView.setText("");
+            mPasswordVerifyView.setText("");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -124,8 +126,9 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user register attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            VerifyUserAccountTask task = new VerifyUserAccountTask();
+            String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
+            task.execute(new String[]{authString});
         }
     }
 
@@ -147,61 +150,68 @@ public class RegisterActivity extends AppCompatActivity {
         return password.length() > 5;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
+    private class VerifyUserAccountTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+                    InputStream content = urlConnection.getInputStream();
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the login_password_text matches.
-                    return pieces[1].equals(mPassword);
+                } catch (Exception e) {
+                    response = "Unable to connect with databse, Reason: "
+                            + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
                 }
             }
-
-            // TODO: register the new account here.
-            return true;
+            return response;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
+        protected void onPostExecute(String result) {
+            // Something wrong with the network or the URL.
+            if (result.startsWith("Unable to")) {
+                Log.e("RegisterActivity", result.toString());
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+            // Displays result info. For debugging
+            if (result != null) {
+                Log.e("", result.toString());
+            }
+            // Everything is good, return to login activity.
+            if (result.contains("success")) {
+                Log.e("RegisterActivity", "User account created.");
+                Toast.makeText(getApplicationContext(), "User account created.", Toast.LENGTH_LONG)
+                        .show();
+                showProgress(false);
                 finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+            }
+            else {
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unable to add user.", Toast.LENGTH_LONG)
+                        .show();
             }
         }
 
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+
+    }
+
+    public void switchToLoginActivity(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     /**
