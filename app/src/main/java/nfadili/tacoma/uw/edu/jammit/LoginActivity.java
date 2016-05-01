@@ -122,7 +122,11 @@ public class LoginActivity extends AppCompatActivity {
             VerifyUserAccountTask task = new VerifyUserAccountTask();
             String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
             task.execute(new String[]{authString});
-        }
+            //if (task.isVerified()) {
+                //startActivity(new Intent(this, MainMenuActivity.class));
+            //}
+         }
+        startActivity(new Intent(this, MainMenuActivity.class));
     }
 
     /**
@@ -188,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private class VerifyUserAccountTask extends AsyncTask<String, Void, String> {
+        private boolean mVerified = false;
 
         @Override
         protected String doInBackground(String... urls) {
@@ -237,12 +242,16 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("LoginActivity", "User authenticated!");
                 showProgress(false);
                 //TODO: Switch to main screen and pass the UserAccount object!
+                mVerified = true;
             }
             else {
                 showProgress(false);
                 Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG)
                         .show();
             }
+        }
+        protected boolean isVerified() {
+            return mVerified;
         }
 
 
