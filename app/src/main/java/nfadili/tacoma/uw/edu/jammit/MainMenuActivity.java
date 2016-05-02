@@ -22,6 +22,15 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(edit);
             }
         });
+
+        Button mSearchMusicianButton = (Button) findViewById(R.id.search_musicians_button);
+        final Intent search = new Intent(this, SearchMusicianActivity.class);
+        mSearchMusicianButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(search);
+            }
+        });
     }
 //    @Override
 //    public void onFragmentInteraction() {
