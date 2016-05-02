@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
 
@@ -37,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/login.php";
-
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -82,6 +82,9 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void attemptLogin() {
 
+        //Result of AsyncTask authentication
+        String verificationResult = "";
+
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -121,12 +124,18 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(true);
             VerifyUserAccountTask task = new VerifyUserAccountTask();
             String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
-            task.execute(new String[]{authString});
-            //if (task.isVerified()) {
-                //startActivity(new Intent(this, MainMenuActivity.class));
-            //}
-         }
-        startActivity(new Intent(this, MainMenuActivity.class));
+            try {
+                verificationResult = task.execute(new String[]{authString}).get();
+                Log.e("THIS RIGHT HERE", verificationResult);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        if (verificationResult.contains("success")) {
+            startActivity(new Intent(this, MainMenuActivity.class));
+        }
     }
 
     /**
@@ -192,8 +201,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private class VerifyUserAccountTask extends AsyncTask<String, Void, String> {
-        private boolean mVerified = false;
-
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -210,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to connect with user databasef, Reason: "
+                    response = "Unable to connect with user database, Reason: "
                             + e.getMessage();
                 }
                 finally {
@@ -232,7 +239,6 @@ public class LoginActivity extends AppCompatActivity {
             }
             //Instantiate account
             UserAccount account = UserAccount.parseUserAccountJSON(result);
-            Log.e("HERE", account.getEmail() + " " + account.getPassword());
             // Displays result info. For debugging
             if (result != null) {
                 Log.e("", result.toString());
@@ -241,8 +247,6 @@ public class LoginActivity extends AppCompatActivity {
             if (account.getAuthenticated()) {
                 Log.e("LoginActivity", "User authenticated!");
                 showProgress(false);
-                //TODO: Switch to main screen and pass the UserAccount object!
-                mVerified = true;
             }
             else {
                 showProgress(false);
@@ -250,10 +254,6 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         }
-        protected boolean isVerified() {
-            return mVerified;
-        }
-
 
     }
 
