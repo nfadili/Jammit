@@ -28,7 +28,8 @@
             android:label="@string/register_label" />
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".SearchMusicianActivity"></activity>
+        <activity android:name=".SearchMusicianActivity" />
+        <activity android:name=".BrowseSearchedActivity"></activity>
     </application>
 
 </manifest>

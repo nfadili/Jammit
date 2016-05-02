@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import nfadili.tacoma.uw.edu.jammit.dummy.DummyContent;
+import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
 
 /**
@@ -23,7 +23,7 @@ public class EditProfileParameterFragment extends Fragment {
 
     public static final String ARG_POSITION = "POSITION" ;
     //private OnFragmentInteractionListener mListener;
-    private DummyContent.ProfileParameter mParameter;
+    private EditProfileContent.ProfileParameter mParameter;
     private int mCurrentPosition = -1;
     @Override public void onStart()
     {     super.onStart();
@@ -83,11 +83,11 @@ public class EditProfileParameterFragment extends Fragment {
 
     public void updateProfileParameterView(int pos) {
 //        TextView courseIdTextView = (TextView) getActivity().findViewById(R.id.prof_param_id);
-//        courseIdTextView.setText((CharSequence) String.valueOf(DummyContent.ITEMS.get(pos).id));
+//        courseIdTextView.setText((CharSequence) String.valueOf(EditProfileContent.ITEMS.get(pos).id));
         TextView courseTitleTextView = (TextView) getActivity().findViewById(R.id.prof_param_content);
-        courseTitleTextView.setText((CharSequence) DummyContent.ITEMS.get(pos).content);
+        courseTitleTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).content);
         TextView courseShortDescTextView = (TextView) getActivity().findViewById(R.id.prof_param_details);
-        courseShortDescTextView.setText((CharSequence) DummyContent.ITEMS.get(pos).details);
+        courseShortDescTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).details);
         EditText edit = (EditText) getActivity().findViewById(R.id.editText);
         Button submitButton = (Button) getActivity().findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
