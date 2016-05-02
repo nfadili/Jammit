@@ -1,27 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/editprofparam_frag"
+    android:orientation="vertical"
     tools:context="nfadili.tacoma.uw.edu.jammit.EditProfileParameterFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:id="@+id/course_item_id" />
+        android:layout_gravity="center"
+        android:id="@+id/prof_param_id" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:id="@+id/course_item_title" />
+        android:layout_gravity="center"
+        android:id="@+id/prof_param_content"
+        android:textStyle="bold" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/prof_param_details" />
+
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="Enter Text Here"
+        android:layout_gravity="center"
+        android:elegantTextHeight="false" />
 
-        android:id="@+id/course_item_short_desc" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submit_button"
+        android:layout_gravity="center_horizontal" />
 
-</FrameLayout>
+</LinearLayout>

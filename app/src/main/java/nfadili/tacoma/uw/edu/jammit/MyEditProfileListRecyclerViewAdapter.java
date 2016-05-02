@@ -1,5 +1,6 @@
 package nfadili.tacoma.uw.edu.jammit;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,9 @@ public class MyEditProfileListRecyclerViewAdapter extends RecyclerView.Adapter<M
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.valueOf(mValues.get(position).id));
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(String.valueOf(mValues.get(position).content));
+        holder.mIdView.setTextColor(Color.RED);
+        holder.mContentView.setText(mValues.get(position).details);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +67,8 @@ public class MyEditProfileListRecyclerViewAdapter extends RecyclerView.Adapter<M
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.content);
+            mContentView = (TextView) view.findViewById(R.id.details);
         }
 
         @Override

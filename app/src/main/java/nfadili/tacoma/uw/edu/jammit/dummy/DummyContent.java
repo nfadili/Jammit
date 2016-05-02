@@ -30,13 +30,13 @@ public class DummyContent {
 //        for (int i = 1; i <= COUNT; i++) {
 //            addItem(createDummyItem(i));
 //        }
-        addItem(new ProfileParameter(0,"Image","Change your profile picture."));
-        addItem(new ProfileParameter(1,"Name","Update your name."));
-        addItem(new ProfileParameter(2,"Instruments Played","List the instruments that you can play."));
-        addItem(new ProfileParameter(3,"Styles","List the musical styles you can play."));
-        addItem(new ProfileParameter(4,"Age","Update your age.."));
-        addItem(new ProfileParameter(5,"Bio","Write a little bit about yourself."));
-        addItem(new ProfileParameter(6,"City","Update your city."));
+        addItem(new ProfileParameter(1,"Image","Change your profile picture."));
+        addItem(new ProfileParameter(2,"Name","Update your name."));
+        addItem(new ProfileParameter(3,"Instruments","List the instruments that you can play."));
+        addItem(new ProfileParameter(4,"Styles","List the musical styles you can play."));
+        addItem(new ProfileParameter(5,"Age","Update your age.."));
+        addItem(new ProfileParameter(6,"Bio","Write a little bit about yourself."));
+        addItem(new ProfileParameter(7,"City","Update your city."));
     }
 
     private static void addItem(ProfileParameter item) {

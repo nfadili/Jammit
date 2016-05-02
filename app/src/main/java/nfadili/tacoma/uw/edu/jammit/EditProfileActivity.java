@@ -4,8 +4,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import nfadili.tacoma.uw.edu.jammit.dummy.DummyContent;
-
 public class EditProfileActivity extends AppCompatActivity implements EditProfileListFragment.OnListFragmentInteractionListener {
 
     @Override
@@ -24,11 +22,11 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     public void onListFragmentInteraction(int parameter) {
         // Capture the student fragment from the activity layout
         EditProfileParameterFragment profParamFragment = (EditProfileParameterFragment) getSupportFragmentManager().findFragmentById(R.id.editprofparam_frag);
-        profParamFragment.setParameter(parameter);
+        //profParamFragment.setParameter(parameter);
         if (profParamFragment != null) {
             // If courseItem frag is available, we're in two-pane layout...
             // Call a method in the student fragment to update its content
-            profParamFragment.updateCourseItemView(parameter);
+            profParamFragment.updateProfileParameterView(parameter);
         } else {
             // If the frag is not available, we're in the one-pane layout and must swap frags...
             // Create fragment and give it an argument for the selected student
@@ -36,7 +34,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             // and add the transaction to the back stack so the user can navigate back
             profParamFragment = new EditProfileParameterFragment();
             Bundle args = new Bundle();
-            //args.putInt(EditProfileParameterFragment.ARG_POSITION, parameter);
+            args.putInt(EditProfileParameterFragment.ARG_POSITION, parameter);
             profParamFragment.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager()
                     .beginTransaction()
