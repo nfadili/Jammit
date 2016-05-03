@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
-import nfadili.tacoma.uw.edu.jammit.search.SearchContent.SearchedProfileItem;
+
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnSearchListFragmentInteractionListener}
  * interface.
  */
 public class SearchListFragment extends Fragment {
@@ -24,7 +24,7 @@ public class SearchListFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    private OnListFragmentInteractionListener mListener;
+    private OnSearchListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,8 +62,8 @@ public class SearchListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnSearchListFragmentInteractionListener) {
+            mListener = (OnSearchListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -86,8 +86,8 @@ public class SearchListFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(SearchedProfileItem item);
+    public interface OnSearchListFragmentInteractionListener {
+
+        void onSearchListFragmentInteraction(int position);
     }
 }

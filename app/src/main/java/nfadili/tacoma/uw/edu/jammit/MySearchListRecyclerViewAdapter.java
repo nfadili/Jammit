@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnListFragmentInteractionListener;
+import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnSearchListFragmentInteractionListener;
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent.SearchedProfileItem;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link SearchedProfileItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link OnSearchListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySearchListRecyclerViewAdapter.ViewHolder> {
 
     private final List<SearchedProfileItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OnSearchListFragmentInteractionListener mListener;
 
-    public MySearchListRecyclerViewAdapter(List<SearchedProfileItem> items, OnListFragmentInteractionListener listener) {
+    public MySearchListRecyclerViewAdapter(List<SearchedProfileItem> items, OnSearchListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -34,7 +34,7 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).username);
         holder.mAgeView.setText(mValues.get(position).age);
@@ -46,7 +46,7 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    //mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onSearchListFragmentInteraction(position);
                 }
             }
         });

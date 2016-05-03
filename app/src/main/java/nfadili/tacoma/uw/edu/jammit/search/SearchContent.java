@@ -21,25 +21,30 @@ public class SearchContent {
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, SearchedProfileItem> ITEM_MAP = new HashMap<String, SearchedProfileItem>();
+    public static final Map<Integer, SearchedProfileItem> ITEM_MAP = new HashMap<Integer, SearchedProfileItem>();
 
     private static final int COUNT = 25;
 
     static {
         // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+        //for (int i = 1; i <= COUNT; i++) {
+
+//            addItem(createDummyItem(i));
+        //}
+        addItem(new SearchedProfileItem(1, "Prince", "26", "Tacoma"));
+        addItem(new SearchedProfileItem(2, "Tom Petty", "26", "Tacoma"));
+        addItem(new SearchedProfileItem(3, "Matt Bellamy", "26", "Tacoma"));
+        addItem(new SearchedProfileItem(4, "Jimi Hendrix", "26", "Tacoma"));
     }
 
     private static void addItem(SearchedProfileItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.username, item);
+        ITEM_MAP.put(item.id, item);
     }
 
-    private static SearchedProfileItem createDummyItem(int position) {
-        return new SearchedProfileItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
+//    private static SearchedProfileItem createDummyItem(int position) {
+//        return new SearchedProfileItem(String.valueOf(position), "Item " + position, makeDetails(position));
+//    }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
@@ -54,11 +59,13 @@ public class SearchContent {
      * A dummy item representing a piece of username.
      */
     public static class SearchedProfileItem {
+        public final int id;
         public final String username;
         public final String age;
         public final String city;
 
-        public SearchedProfileItem(String username, String age, String city) {
+        public SearchedProfileItem(int id, String username, String age, String city) {
+            this.id = id;
             this.username = username;
             this.age = age;
             this.city = city;

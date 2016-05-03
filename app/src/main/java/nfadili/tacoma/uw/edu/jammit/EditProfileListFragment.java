@@ -20,7 +20,6 @@ import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
  */
 public class EditProfileListFragment extends Fragment {
 
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     private OnListFragmentInteractionListener mListener;
