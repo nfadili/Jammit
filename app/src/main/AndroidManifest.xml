@@ -26,9 +26,15 @@
         <activity
             android:name=".RegisterActivity"
             android:label="@string/register_label" />
-        <activity android:name=".MainMenuActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".SearchMusicianActivity"></activity>
+        <activity android:name=".MainMenuActivity"
+            android:label="Jammit - Main Menu"/>
+        <activity android:name=".EditProfileActivity"
+            android:label="Jammit - Edit Profile"/>
+        <activity android:name=".SearchMusicianActivity"
+            android:label="Jammit - Search Musicians"/>
+        <activity android:name=".BrowseSearchedActivity"
+            android:label="Jammit - Search Results"/>
+
     </application>
 
 </manifest>

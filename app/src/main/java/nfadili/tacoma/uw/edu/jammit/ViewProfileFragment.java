@@ -1,5 +1,7 @@
 package nfadili.tacoma.uw.edu.jammit;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,19 +13,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
+import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
-
  * to handle interaction events.
  */
-public class EditProfileParameterFragment extends Fragment {
+public class ViewProfileFragment extends Fragment {
 
     public static final String ARG_POSITION = "POSITION" ;
+
     //private OnFragmentInteractionListener mListener;
-    private EditProfileContent.ProfileParameter mParameter;
+
     private int mCurrentPosition = -1;
     @Override public void onStart()
     {     super.onStart();
@@ -35,14 +38,13 @@ public class EditProfileParameterFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-             updateProfileParameterView(args.getInt(ARG_POSITION));
+            updateProfileView(args.getInt(ARG_POSITION));
         } else if (mCurrentPosition != -1) {
             // Set article based on saved instance state defined during onCreateView
-            updateProfileParameterView(mCurrentPosition);
+            updateProfileView(mCurrentPosition);
         }
     }
-
-    public EditProfileParameterFragment() {
+    public ViewProfileFragment() {
         // Required empty public constructor
     }
 
@@ -51,13 +53,10 @@ public class EditProfileParameterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile_parameter, container, false);
+        return inflater.inflate(R.layout.fragment_view_profile, container, false);
     }
 
-//    public void setParameter(int id) {
-//
-//    }
-    // TODO: Rename method, update argument and hook method into UI event
+//    // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
 //        if (mListener != null) {
 //            mListener.onFragmentInteraction(uri);
@@ -81,31 +80,33 @@ public class EditProfileParameterFragment extends Fragment {
 //        mListener = null;
 //    }
 
-    public void updateProfileParameterView(int pos) {
+    public void updateProfileView(int pos) {
 //        TextView courseIdTextView = (TextView) getActivity().findViewById(R.id.prof_param_id);
 //        courseIdTextView.setText((CharSequence) String.valueOf(EditProfileContent.ITEMS.get(pos).id));
-        TextView courseTitleTextView = (TextView) getActivity().findViewById(R.id.prof_param_content);
-        courseTitleTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).content);
-        TextView courseShortDescTextView = (TextView) getActivity().findViewById(R.id.prof_param_details);
-        courseShortDescTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).details);
-        EditText edit = (EditText) getActivity().findViewById(R.id.editText);
-        Button submitButton = (Button) getActivity().findViewById(R.id.submit_button);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
+        nameView.setText((CharSequence) SearchContent.ITEMS.get(pos).username);
 
-                Toast.makeText(getActivity().getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+        TextView ageView = (TextView) getActivity().findViewById(R.id.view_prof_age);
+        ageView.setText((CharSequence) SearchContent.ITEMS.get(pos).age);
+
+        TextView cityView = (TextView) getActivity().findViewById(R.id.view_prof_city);
+        cityView.setText((CharSequence) SearchContent.ITEMS.get(pos).city);
+
+        TextView instrumentsView = (TextView) getActivity().findViewById(R.id.view_prof_instruments);
+        instrumentsView.setText("INSTRUMENTS GO HERE");
+
+        TextView stylesView = (TextView) getActivity().findViewById(R.id.view_prof_styles);
+        stylesView.setText("STYLES GO HERE");
+
+        TextView bioView = (TextView) getActivity().findViewById(R.id.view_prof_bio);
+        bioView.setText("BIO GOES HERE");
     }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

@@ -1,28 +1,27 @@
 package nfadili.tacoma.uw.edu.jammit;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import nfadili.tacoma.uw.edu.jammit.EditProfileListFragment.OnListFragmentInteractionListener;
-import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent.ProfileParameter;
+import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnSearchListFragmentInteractionListener;
+import nfadili.tacoma.uw.edu.jammit.search.SearchContent.SearchedProfileItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link ProfileParameter} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link SearchedProfileItem} and makes a call to the
+ * specified {@link OnSearchListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyEditProfileListRecyclerViewAdapter extends RecyclerView.Adapter<MyEditProfileListRecyclerViewAdapter.ViewHolder> {
+public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySearchListRecyclerViewAdapter.ViewHolder> {
 
-    private final List<ProfileParameter> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<SearchedProfileItem> mValues;
+    private final OnSearchListFragmentInteractionListener mListener;
 
-    public MyEditProfileListRecyclerViewAdapter(List<ProfileParameter> items, OnListFragmentInteractionListener listener) {
+    public MySearchListRecyclerViewAdapter(List<SearchedProfileItem> items, OnSearchListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,16 +29,16 @@ public class MyEditProfileListRecyclerViewAdapter extends RecyclerView.Adapter<M
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_editprofilelist, parent, false);
+                .inflate(R.layout.fragment_searchlist, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.valueOf(mValues.get(position).content));
-        holder.mIdView.setTextColor(Color.RED);
-        holder.mContentView.setText(mValues.get(position).details);
+        holder.mContentView.setText(mValues.get(position).username);
+        holder.mAgeView.setText(mValues.get(position).age);
+        holder.mCityView.setText(mValues.get(position).city);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +46,7 @@ public class MyEditProfileListRecyclerViewAdapter extends RecyclerView.Adapter<M
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(position);
+                    mListener.onSearchListFragmentInteraction(position);
                 }
             }
         });
@@ -60,15 +59,18 @@ public class MyEditProfileListRecyclerViewAdapter extends RecyclerView.Adapter<M
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
-        public ProfileParameter mItem;
+        public final TextView mAgeView;
+        public final TextView mCityView;
+
+        public SearchedProfileItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.content);
-            mContentView = (TextView) view.findViewById(R.id.details);
+            mContentView = (TextView) view.findViewById(R.id.name);
+            mAgeView = (TextView) view.findViewById(R.id.age);
+            mCityView = (TextView) view.findViewById(R.id.city);
         }
 
         @Override
