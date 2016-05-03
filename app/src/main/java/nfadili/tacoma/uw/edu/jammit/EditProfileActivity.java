@@ -25,7 +25,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         //profParamFragment.setParameter(parameter);
         if (profParamFragment != null) {
             // If courseItem frag is available, we're in two-pane layout...
-            // Call a method in the student fragment to update its content
+            // Call a method in the student fragment to update its username
             profParamFragment.updateProfileParameterView(parameter);
         } else {
             // If the frag is not available, we're in the one-pane layout and must swap frags...

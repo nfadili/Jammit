@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import nfadili.tacoma.uw.edu.jammit.EditProfileListFragment.OnListFragmentInteractionListener;
+import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnListFragmentInteractionListener;
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent.SearchedProfileItem;
 
 import java.util.List;
@@ -36,8 +36,9 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mContentView.setText(mValues.get(position).username);
+        holder.mAgeView.setText(mValues.get(position).age);
+        holder.mCityView.setText(mValues.get(position).city);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +59,18 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
+        public final TextView mAgeView;
+        public final TextView mCityView;
+
         public SearchedProfileItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContentView = (TextView) view.findViewById(R.id.name);
+            mAgeView = (TextView) view.findViewById(R.id.age);
+            mCityView = (TextView) view.findViewById(R.id.city);
         }
 
         @Override

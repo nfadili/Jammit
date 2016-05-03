@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper class for providing sample content for user interfaces created by
+ * Helper class for providing sample username for user interfaces created by
  * Android template wizards.
  * <p/>
  * TODO: Replace all uses of this class before publishing your app.
@@ -34,7 +34,7 @@ public class SearchContent {
 
     private static void addItem(SearchedProfileItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put(item.username, item);
     }
 
     private static SearchedProfileItem createDummyItem(int position) {
@@ -51,22 +51,22 @@ public class SearchContent {
     }
 
     /**
-     * A dummy item representing a piece of content.
+     * A dummy item representing a piece of username.
      */
     public static class SearchedProfileItem {
-        public final String id;
-        public final String content;
-        public final String details;
+        public final String username;
+        public final String age;
+        public final String city;
 
-        public SearchedProfileItem(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+        public SearchedProfileItem(String username, String age, String city) {
+            this.username = username;
+            this.age = age;
+            this.city = city;
         }
 
         @Override
         public String toString() {
-            return content;
+            return username;
         }
     }
 }
