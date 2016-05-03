@@ -3,7 +3,9 @@ package nfadili.tacoma.uw.edu.jammit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -39,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/login.php";
 
+    private SharedPreferences mSharedPreferences;
+
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -62,6 +66,16 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS)
+                , Context.MODE_PRIVATE);
+        if (mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
+            Intent i = new Intent(this, MainMenuActivity.class);
+            startActivity(i);
+            finish();   //TODO: Need this?
+        }
+        else {
+
+        }
 
         Button mEmailSignInButton = (Button) findViewById(R.id.login_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +148,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         if (verificationResult.contains("success")) {
+            mSharedPreferences
+                    .edit()
+                    .putBoolean(getString(R.string.LOGGEDIN), true)
+                    .commit();
             startActivity(new Intent(this, MainMenuActivity.class));
         }
     }
