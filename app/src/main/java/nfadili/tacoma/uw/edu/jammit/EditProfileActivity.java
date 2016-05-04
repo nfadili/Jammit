@@ -1,8 +1,12 @@
 package nfadili.tacoma.uw.edu.jammit;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class EditProfileActivity extends AppCompatActivity implements EditProfileListFragment.OnListFragmentInteractionListener {
 
@@ -15,7 +19,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new EditProfileListFragment())
                     .commit();
+
         }
+
     }
 
     @Override
@@ -23,7 +29,11 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         // Capture the student fragment from the activity layout
         EditProfileParameterFragment profParamFragment = (EditProfileParameterFragment) getSupportFragmentManager().findFragmentById(R.id.editprofparam_frag);
         //profParamFragment.setParameter(parameter);
-        if (profParamFragment != null) {
+        if (parameter == 0) {
+            Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
+                    .show();
+
+        } else if (profParamFragment != null) {
             // If courseItem frag is available, we're in two-pane layout...
             // Call a method in the student fragment to update its username
             profParamFragment.updateProfileParameterView(parameter);
