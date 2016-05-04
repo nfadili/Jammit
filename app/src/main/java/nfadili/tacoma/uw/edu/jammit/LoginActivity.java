@@ -232,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * This AsyncTask handles account crednetial verification.
+     * This AsyncTask handles account credential verification.
      */
     private class VerifyUserAccountTask extends AsyncTask<String, Void, String> {
         @Override
