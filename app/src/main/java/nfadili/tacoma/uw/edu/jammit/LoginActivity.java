@@ -70,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                 , Context.MODE_PRIVATE);
         if (mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
             Intent i = new Intent(this, MainMenuActivity.class);
+            String savedEmail = mSharedPreferences.getString("loggedInEmail", "ERROR RETRIEVING SHARED PREF").toString();
+            i.putExtra("loggedInEmail", savedEmail);
             startActivity(i);
             finish();   //TODO: Need this?
         }
@@ -140,7 +142,6 @@ public class LoginActivity extends AppCompatActivity {
             String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
             try {
                 verificationResult = task.execute(new String[]{authString}).get();
-                Log.e("THIS RIGHT HERE", verificationResult);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -151,8 +152,11 @@ public class LoginActivity extends AppCompatActivity {
             mSharedPreferences
                     .edit()
                     .putBoolean(getString(R.string.LOGGEDIN), true)
+                    .putString("loggedInEmail", mEmailView.getText().toString())
                     .commit();
-            startActivity(new Intent(this, MainMenuActivity.class));
+            Intent beginMainMenu = new Intent(this, MainMenuActivity.class);
+            beginMainMenu.putExtra("loggedInEmail", mEmailView.getText().toString());
+            startActivity(beginMainMenu);
         }
     }
 
@@ -256,6 +260,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             //Instantiate account
+            Log.e("AHHHHHH", result);
             UserAccount account = UserAccount.parseUserAccountJSON(result);
             // Displays result info. For debugging
             if (result != null) {
