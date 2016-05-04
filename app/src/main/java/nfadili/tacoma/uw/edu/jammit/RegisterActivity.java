@@ -24,13 +24,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String LOGIN_URL
+    private static final String REGISTER_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addUser.php";
+
+    private static final String EMPTY_PROFILE_URL
+            = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addProfile.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -52,7 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptRegister();
+                    if(attemptRegister()) {
+                        addEmptyProfile();
+                    }
                     return true;
                 }
                 return false;
@@ -71,6 +77,21 @@ public class RegisterActivity extends AppCompatActivity {
         mProgressView = findViewById(R.id.register_progress);
     }
 
+    private void addEmptyProfile() {
+        VerifyUserAccountTask task = new VerifyUserAccountTask();
+        String addProfileString = EMPTY_PROFILE_URL + "?email=" + mEmailView.getText().toString();
+        Log.e("EMAIL",mEmailView.getText().toString());
+        String resultProfileAdd = "Unable to add profile.";
+        try {
+            resultProfileAdd = task.execute(new String[]{addProfileString}).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.e("RegisterActivity", resultProfileAdd);
+    }
+
 
 
     /**
@@ -78,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
      * If there are form errors (invalid login_email_text, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptRegister() {
+    private boolean attemptRegister() {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -122,13 +143,22 @@ public class RegisterActivity extends AppCompatActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
+            return false;
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user register attempt.
             showProgress(true);
             VerifyUserAccountTask task = new VerifyUserAccountTask();
-            String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
-            task.execute(new String[]{authString});
+            String authString = REGISTER_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
+            try {
+                String resultAuth = task.execute(new String[]{authString}).get();
+                Log.e("RegisterActivity", resultAuth);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            return true;
         }
     }
 
@@ -168,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to connect with databse, Reason: "
+                    response = "Unable to connect with database, Reason: "
                             + e.getMessage();
                 }
                 finally {
@@ -206,8 +236,64 @@ public class RegisterActivity extends AppCompatActivity {
                         .show();
             }
         }
+    }
 
+    private class AddEmptyProfileAccountTask extends AsyncTask<String, Void, String> {
 
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+                    InputStream content = urlConnection.getInputStream();
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to connect with database, Reason: "
+                            + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Something wrong with the network or the URL.
+            if (result.startsWith("Unable to")) {
+                Log.e("RegisterActivity", result.toString());
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+            // Displays result info. For debugging
+            if (result != null) {
+                Log.e("AddProfileResult", result.toString());
+            }
+            // Everything is good, return to login activity.
+            if (result.contains("success")) {
+                Log.e("RegisterActivity", "User account created.");
+                Toast.makeText(getApplicationContext(), "User account created.", Toast.LENGTH_LONG)
+                        .show();
+                showProgress(false);
+                finish();
+            }
+            else {
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unable to add user.", Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
     }
 
     public void switchToLoginActivity(View view) {

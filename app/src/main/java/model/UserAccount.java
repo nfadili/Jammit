@@ -96,7 +96,7 @@ public class UserAccount implements Serializable {
 
     public static UserAccount parseProfileQueryJSON(String profileInfoJSON) {
         UserAccount account = new UserAccount();
-        if (profileInfoJSON != null) {
+        if (profileInfoJSON.contains("email")) {
             try {
                 //This cuts off brackets surrounding the JSON object so that it can be passed into the constructor
                 if (profileInfoJSON.charAt(0) == '[') {
