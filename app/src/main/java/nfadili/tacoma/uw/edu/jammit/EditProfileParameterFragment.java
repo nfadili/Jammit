@@ -88,13 +88,18 @@ public class EditProfileParameterFragment extends Fragment {
         courseTitleTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).content);
         TextView courseShortDescTextView = (TextView) getActivity().findViewById(R.id.prof_param_details);
         courseShortDescTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).details);
-        EditText edit = (EditText) getActivity().findViewById(R.id.editText);
-        Button submitButton = (Button) getActivity().findViewById(R.id.submit_button);
+        final EditText edit = (EditText) getActivity().findViewById(R.id.editText);
+        final Button submitButton = (Button) getActivity().findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String text = edit.getText().toString();
+                if (text != "") {
+                    ((EditProfileActivity)getActivity()).getmAccount().setmName("text");
+                }
                 Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
+                        .show();
+                Toast.makeText(getActivity().getApplicationContext(), "new = " + ((EditProfileActivity)getActivity()).getmAccount().getmName(), Toast.LENGTH_SHORT)
                         .show();
             }
         });

@@ -29,13 +29,7 @@
         android:hint="Enter desired instrument here"
         android:layout_gravity="left" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search By Instrument"
-        android:id="@+id/search_by_instrument_button"
-        android:layout_weight="0.08"
-        android:layout_gravity="left" />
+
 
     <EditText
         android:layout_width="match_parent"
@@ -45,13 +39,7 @@
         android:hint="Enter desired style here"
         android:layout_gravity="left" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search By Style"
-        android:id="@+id/search_by_style_button"
-        android:layout_gravity="left|center_horizontal"
-        android:layout_weight="0.08" />
+
 
     <EditText
         android:layout_width="match_parent"
@@ -61,12 +49,7 @@
         android:layout_gravity="left"
         android:hint="Enter desired age here" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search By Age"
-        android:id="@+id/search_by_age_button"
-        android:layout_weight="0.08" />
+
 
     <EditText
         android:layout_width="match_parent"
@@ -78,8 +61,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search By City"
-        android:id="@+id/search_by_city_button"
+        android:text="Search"
+        android:id="@+id/search_button"
         android:layout_weight="0.08" />
 
 </LinearLayout>
