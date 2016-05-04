@@ -20,6 +20,8 @@
     <string name="login_create_account_leading_text">Not a user?</string>
     <string name="register_label">Create new account</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="LOGIN_PREFS">edu.uw.tacoma.nfadili.Jammit.PREFS</string>
+    <string name="LOGGEDIN">loggedin</string>
+    <string name="logout_text">Logout</string>
+
 </resources>

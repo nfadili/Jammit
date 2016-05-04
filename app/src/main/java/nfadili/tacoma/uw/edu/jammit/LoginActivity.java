@@ -3,7 +3,9 @@ package nfadili.tacoma.uw.edu.jammit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -39,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/login.php";
 
+    private SharedPreferences mSharedPreferences;
+
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -62,6 +66,18 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS)
+                , Context.MODE_PRIVATE);
+        if (mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
+            Intent i = new Intent(this, MainMenuActivity.class);
+            String savedEmail = mSharedPreferences.getString("loggedInEmail", "ERROR RETRIEVING SHARED PREF").toString();
+            i.putExtra("loggedInEmail", savedEmail);
+            startActivity(i);
+            finish();   //TODO: Need this?
+        }
+        else {
+
+        }
 
         Button mEmailSignInButton = (Button) findViewById(R.id.login_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +142,6 @@ public class LoginActivity extends AppCompatActivity {
             String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
             try {
                 verificationResult = task.execute(new String[]{authString}).get();
-                Log.e("THIS RIGHT HERE", verificationResult);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -134,7 +149,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         if (verificationResult.contains("success")) {
-            startActivity(new Intent(this, MainMenuActivity.class));
+            mSharedPreferences
+                    .edit()
+                    .putBoolean(getString(R.string.LOGGEDIN), true)
+                    .putString("loggedInEmail", mEmailView.getText().toString())
+                    .commit();
+            Intent beginMainMenu = new Intent(this, MainMenuActivity.class);
+            beginMainMenu.putExtra("loggedInEmail", mEmailView.getText().toString());
+            startActivity(beginMainMenu);
         }
     }
 
@@ -238,6 +260,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             //Instantiate account
+            Log.e("AHHHHHH", result);
             UserAccount account = UserAccount.parseUserAccountJSON(result);
             // Displays result info. For debugging
             if (result != null) {
