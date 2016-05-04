@@ -94,7 +94,7 @@ public class EditProfileParameterFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getActivity().getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
+                Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
                         .show();
             }
         });
