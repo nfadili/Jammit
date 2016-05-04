@@ -81,7 +81,7 @@ public class EditProfileParameterFragment extends Fragment {
 //        mListener = null;
 //    }
 
-    public void updateProfileParameterView(int pos) {
+    public void updateProfileParameterView(final int pos) {
 //        TextView courseIdTextView = (TextView) getActivity().findViewById(R.id.prof_param_id);
 //        courseIdTextView.setText((CharSequence) String.valueOf(EditProfileContent.ITEMS.get(pos).id));
         TextView courseTitleTextView = (TextView) getActivity().findViewById(R.id.prof_param_content);
@@ -93,14 +93,42 @@ public class EditProfileParameterFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int param = pos;
                 String text = edit.getText().toString();
                 if (text != "") {
-                    ((EditProfileActivity)getActivity()).getmAccount().setmName("text");
+                    switch (param) {
+                        //case: 2((EditProfileActivity)getActivity()).getmAccount().setmName(text);
+                        case 2: ((EditProfileActivity) getActivity()).getmAccount().setmName(text);
+                            Toast.makeText(getActivity().getApplicationContext(), "name = " + ((EditProfileActivity)getActivity()).getmAccount().getmName(), Toast.LENGTH_SHORT)
+                                    .show();
+                            break;
+                        case 3: ((EditProfileActivity) getActivity()).getmAccount().setmInstruments(text);
+                            Toast.makeText(getActivity().getApplicationContext(), "instr = " + ((EditProfileActivity)getActivity()).getmAccount().getmInstruments(), Toast.LENGTH_SHORT)
+                                    .show();
+                            break;
+                        case 4: ((EditProfileActivity) getActivity()).getmAccount().setmStyles(text);
+                            Toast.makeText(getActivity().getApplicationContext(), "sty = " + ((EditProfileActivity)getActivity()).getmAccount().getmStyles(), Toast.LENGTH_SHORT)
+                                    .show();
+                            break;
+                        case 5: ((EditProfileActivity) getActivity()).getmAccount().setmAge(text);
+                            Toast.makeText(getActivity().getApplicationContext(), "age = " + ((EditProfileActivity)getActivity()).getmAccount().getmAge(), Toast.LENGTH_SHORT)
+                                    .show();
+                            break;
+                        case 6: ((EditProfileActivity) getActivity()).getmAccount().setmBio(text);
+                            Toast.makeText(getActivity().getApplicationContext(), "bio = " + ((EditProfileActivity)getActivity()).getmAccount().getmBio(), Toast.LENGTH_SHORT)
+                                    .show();
+                            break;
+                        case 7: ((EditProfileActivity) getActivity()).getmAccount().setmCity(text);
+                            Toast.makeText(getActivity().getApplicationContext(), "city = " + ((EditProfileActivity)getActivity()).getmAccount().getmCity(), Toast.LENGTH_SHORT)
+                                    .show();
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
                         .show();
-                Toast.makeText(getActivity().getApplicationContext(), "new = " + ((EditProfileActivity)getActivity()).getmAccount().getmName(), Toast.LENGTH_SHORT)
-                        .show();
+
             }
         });
     }
