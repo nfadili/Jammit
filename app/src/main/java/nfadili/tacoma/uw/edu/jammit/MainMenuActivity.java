@@ -54,6 +54,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         Button mEditProfileButton = (Button) findViewById(R.id.edit_profile_button);
         final Intent edit = new Intent(this, EditProfileActivity.class);
+        edit.putExtra("Profile", mAccount);
         mEditProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +132,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 Log.e("RESULT", result.toString());
             }
         }
+
 
     }
 

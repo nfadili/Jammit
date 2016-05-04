@@ -3,6 +3,7 @@ package nfadili.tacoma.uw.edu.jammit;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
 
@@ -18,6 +19,27 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
                     .add(R.id.fragment_container2, new SearchListFragment())
                     .commit();
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String instrument = getIntent().getStringExtra("Instrument");
+        String city = getIntent().getStringExtra("City");
+        String age = getIntent().getStringExtra("Age");
+        String style = getIntent().getStringExtra("Style");
+
+        Toast.makeText(getApplicationContext(), "Instrument = " + instrument, Toast.LENGTH_SHORT)
+                .show();
+        Toast.makeText(getApplicationContext(), "City = " + city, Toast.LENGTH_SHORT)
+                .show();
+        Toast.makeText(getApplicationContext(), "Age = " + age, Toast.LENGTH_SHORT)
+                .show();
+        Toast.makeText(getApplicationContext(), "Style = " + style, Toast.LENGTH_SHORT)
+                .show();
+
+        
     }
 
     @Override

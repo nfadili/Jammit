@@ -8,13 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import model.UserAccount;
+
 public class EditProfileActivity extends AppCompatActivity implements EditProfileListFragment.OnListFragmentInteractionListener {
 
+    public UserAccount mAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
+
+        Toast.makeText(getApplicationContext(), "City " + mAccount.getmCity(), Toast.LENGTH_SHORT)
+                .show();
         if (findViewById(R.id.fragment_container)!= null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new EditProfileListFragment())
@@ -54,5 +61,8 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             // Commit the transaction
             transaction.commit();
         }
+    }
+    public UserAccount getmAccount() {
+        return mAccount;
     }
 }
