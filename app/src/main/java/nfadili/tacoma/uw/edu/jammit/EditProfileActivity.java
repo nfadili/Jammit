@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
@@ -54,13 +55,20 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         if (parameter == 0) {
             //UPDATE `Profile` table with changes
             Log.e("Account: ", mAccount.toString());
-            String urlString = UPDATE_PROFILE_URL + "?email=" + mAccount.getEmail() + "&" +
-                    "name=" + mAccount.getmName() + "&" +
-                    "age=" + mAccount.getmAge() + "&" +
-                    "instruments=" + mAccount.getmInstruments() + "&" +
-                    "styles=" + mAccount.getmStyles() + "&" +
-                    "city=" + mAccount.getmCity() + "&" +
-                    "bio=" + mAccount.getmBio();
+            String urlString = "";
+            try {
+                urlString = UPDATE_PROFILE_URL + "?email=" + mAccount.getEmail() + "&" +
+                        "name=" + URLEncoder.encode(mAccount.getmName(), "UTF-8") + "&" +
+                        "age=" + URLEncoder.encode(mAccount.getmAge(), "UTF-8") + "&" +
+                        "instruments=" + URLEncoder.encode(mAccount.getmInstruments(), "UTF-8") + "&" +
+                        "styles=" + URLEncoder.encode(mAccount.getmStyles(), "UTF-8") + "&" +
+                        "city=" + URLEncoder.encode(mAccount.getmCity(), "UTF-8") + "&" +
+                        "bio=" + URLEncoder.encode(mAccount.getmBio(), "UTF-8");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.e("URL: ", urlString);
             UpdateProfileTask task = new UpdateProfileTask();
             String result = "";
             try {
