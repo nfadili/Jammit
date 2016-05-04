@@ -82,7 +82,13 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
     }
-
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Toast.makeText(getApplicationContext(), mAccount.toString(), Toast.LENGTH_SHORT)
+//                .show();
+//        Log.e("Account", mAccount.toString());
+//    }
     public boolean logoutUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();

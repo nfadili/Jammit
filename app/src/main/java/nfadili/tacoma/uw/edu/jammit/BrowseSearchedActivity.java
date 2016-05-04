@@ -39,7 +39,7 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         Toast.makeText(getApplicationContext(), "Style = " + style, Toast.LENGTH_SHORT)
                 .show();
 
-        
+
     }
 
     @Override

@@ -74,7 +74,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
             Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
                     .show();
-
+        } else if (parameter == 1) {
+            Toast.makeText(getApplicationContext(), "Image functionality coming soon!", Toast.LENGTH_SHORT)
+                    .show();
         } else if (profParamFragment != null) {
             // If courseItem frag is available, we're in two-pane layout...
             // Call a method in the student fragment to update its username
