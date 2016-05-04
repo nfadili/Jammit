@@ -95,7 +95,7 @@ public class EditProfileParameterFragment extends Fragment {
             public void onClick(View view) {
                 String text = edit.getText().toString();
                 if (text != "") {
-                    ((EditProfileActivity)getActivity()).getmAccount().setmName("text");
+                    ((EditProfileActivity)getActivity()).getmAccount().setmName(text);
                 }
                 Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
                         .show();
