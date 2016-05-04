@@ -16,7 +16,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -34,13 +33,20 @@ import java.util.concurrent.ExecutionException;
 import model.UserAccount;
 
 /**
- * A login screen that offers login via login_email_text/login_password_text.
+ * A login screen that gives the user the option to sign into an existing account or to register for
+ * a new one.
  */
 public class LoginActivity extends AppCompatActivity {
 
+    /**
+     * URL for login authentication with the database server.
+     */
     private static final String LOGIN_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/login.php";
 
+    /**
+     * Saves login state and user's email in local storage.
+     */
     private SharedPreferences mSharedPreferences;
 
     // UI references.
@@ -68,17 +74,17 @@ public class LoginActivity extends AppCompatActivity {
         });
         mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS)
                 , Context.MODE_PRIVATE);
+
+        //If local storage indicates the user already signed in, than the app will open to the MainMenuActivity
         if (mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
             Intent i = new Intent(this, MainMenuActivity.class);
             String savedEmail = mSharedPreferences.getString("loggedInEmail", "ERROR RETRIEVING SHARED PREF").toString();
             i.putExtra("loggedInEmail", savedEmail);
             startActivity(i);
-            finish();   //TODO: Need this?
-        }
-        else {
-
+            finish();
         }
 
+        //This button calls the methods needed to verify correct login information
         Button mEmailSignInButton = (Button) findViewById(R.id.login_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
             VerifyUserAccountTask task = new VerifyUserAccountTask();
             String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
             try {
+                //Returns query result
                 verificationResult = task.execute(new String[]{authString}).get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -148,12 +155,14 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        //If the authentication was successful, the user's login info and state are saved.
         if (verificationResult.contains("success")) {
             mSharedPreferences
                     .edit()
                     .putBoolean(getString(R.string.LOGGEDIN), true)
                     .putString("loggedInEmail", mEmailView.getText().toString())
                     .commit();
+            //Launch the MainMenuActivity with the user's info passed
             Intent beginMainMenu = new Intent(this, MainMenuActivity.class);
             beginMainMenu.putExtra("loggedInEmail", mEmailView.getText().toString());
             startActivity(beginMainMenu);
@@ -222,6 +231,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(this, RegisterActivity.class));
     }
 
+    /**
+     * This AsyncTask handles account crednetial verification.
+     */
     private class VerifyUserAccountTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -250,17 +262,19 @@ public class LoginActivity extends AppCompatActivity {
             return response;
         }
 
+        /**
+         * Temporarily shows a progress bar while the result is determined.
+         * @param result represents database query result
+         */
         @Override
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                Log.e("LoginActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
             }
             //Instantiate account
-            Log.e("AHHHHHH", result);
             UserAccount account = UserAccount.parseUserAccountJSON(result);
             // Displays result info. For debugging
             if (result != null) {
@@ -268,7 +282,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             // Everything is good, allow access!
             if (account.getAuthenticated()) {
-                Log.e("LoginActivity", "User authenticated!");
+                Log.d("LoginActivity", "User authenticated!");
                 showProgress(false);
             }
             else {
