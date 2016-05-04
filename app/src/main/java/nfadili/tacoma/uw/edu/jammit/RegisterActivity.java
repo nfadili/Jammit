@@ -50,6 +50,9 @@ public class RegisterActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
 
+    //db flag
+    private boolean accountCreated = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,10 @@ public class RegisterActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
                     //If the register attempt it successful, and empty profile entry is inserted in the database
-                    if(attemptRegister()) {
+                    attemptRegister();
+                    Log.e("FLAG OUTSUDE IS", String.valueOf(accountCreated));
+                    if (accountCreated) {
+                        Log.e("", "ENTERED!!!");
                         addEmptyProfile();
                     }
                     return true;
@@ -78,6 +84,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attemptRegister();
+                if (accountCreated) {
+                    Log.e("", "ENTERED!!!");
+                    addEmptyProfile();
+                }
             }
         });
 
@@ -111,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
      * If there are form errors (invalid login_email_text, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private boolean attemptRegister() {
+    private void attemptRegister() {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -155,7 +165,6 @@ public class RegisterActivity extends AppCompatActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-            return false;
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user register attempt.
@@ -165,12 +174,19 @@ public class RegisterActivity extends AppCompatActivity {
             try {
                 String resultAuth = task.execute(new String[]{authString}).get();
                 Log.e("RegisterActivity", resultAuth);
+                if (resultAuth.contains("success")) {
+                    Log.e("FLAG IS", "TRUE");
+                    accountCreated = true;
+                }
+                else {
+                    Log.e("FLAG IS", "FALSE");
+                    accountCreated = false;
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            return true;
         }
     }
 
