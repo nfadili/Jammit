@@ -2,18 +2,23 @@ package model;
 
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 /**
- * Created by nabilfadili on 4/29/16.
+ * Class representing a single instance of a Jammit user. Constants and fields match profile information
+ * inside the `Profile` database. This class is also responsible for parsing the returned JSON string from
+ * the LoginActity and the RegisterActivity. This parsing populates and instatiates the account object
+ * for the login session of the app.
  */
 public class UserAccount implements Serializable {
 
+    /**
+     * Constants representing columns names in the `Profile` database.
+     */
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String NAME = "name";
@@ -23,34 +28,22 @@ public class UserAccount implements Serializable {
     public static final String CITY = "city";
     public static final String BIO = "bio";
 
+    /**
+     * Fields for authentication purposes.
+     */
     private String mEmail;
     private String mPassword;
     private boolean authenticated;
 
-    /* Profile details */
+    /**
+     * Profile detail fields.
+     */
     private String mName;
-
-    @Override
-    public String toString() {
-        return "UserAccount{" +
-                "mEmail='" + mEmail + '\'' +
-                ", mPassword='" + mPassword + '\'' +
-                ", authenticated=" + authenticated +
-                ", mName='" + mName + '\'' +
-                ", mAge='" + mAge + '\'' +
-                ", mInstruments='" + mInstruments + '\'' +
-                ", mCity='" + mCity + '\'' +
-                ", mStyles='" + mStyles + '\'' +
-                ", mBio='" + mBio + '\'' +
-                '}';
-    }
-
     private String mAge;
     private String mInstruments;
     private String mCity;
     private String mStyles;
     private String mBio;
-
 
     public UserAccount(String email, String password, boolean auth) {
         mEmail = email;
@@ -72,9 +65,9 @@ public class UserAccount implements Serializable {
 
 
     /**
-     * Parses the json string, returns aa authenticated account if successful.
-     * If unsuccessful, returns an invalid account to be handled by the LoginActivity.
-     * @return reason or null if successful.
+     * Parses the json string, returns a authenticated account if successful.
+     * If unsuccessful, returns an invalid account to be handled by the calling Activity.
+     * @return reason or null.
      */
     public static UserAccount parseUserAccountJSON(String userAccountJSON) {
         UserAccount account = null;
@@ -94,9 +87,14 @@ public class UserAccount implements Serializable {
         return account;
     }
 
+    /**
+     * Parses the json string, returns an updated account object if successful.
+     * If unsuccessful, returns an empty account to be handled by the calling Activity.
+     * @return updated or empty account.
+     */
     public static UserAccount parseProfileQueryJSON(String profileInfoJSON) {
         UserAccount account = new UserAccount();
-        if (profileInfoJSON != null) {
+        if (profileInfoJSON.contains("email")) {
             try {
                 //This cuts off brackets surrounding the JSON object so that it can be passed into the constructor
                 if (profileInfoJSON.charAt(0) == '[') {
@@ -164,4 +162,18 @@ public class UserAccount implements Serializable {
         return authenticated;
     }
 
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "mEmail='" + mEmail + '\'' +
+                ", mPassword='" + mPassword + '\'' +
+                ", authenticated=" + authenticated +
+                ", mName='" + mName + '\'' +
+                ", mAge='" + mAge + '\'' +
+                ", mInstruments='" + mInstruments + '\'' +
+                ", mCity='" + mCity + '\'' +
+                ", mStyles='" + mStyles + '\'' +
+                ", mBio='" + mBio + '\'' +
+                '}';
+    }
 }
