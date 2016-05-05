@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * Activity that allows a user to browse through a list of users that matched a previously
  * entered set of parameters to meet their band-finding needs.
- * 
+ *
  */
 public class BrowseSearchedActivity extends AppCompatActivity implements SearchListFragment.OnSearchListFragmentInteractionListener {
 
