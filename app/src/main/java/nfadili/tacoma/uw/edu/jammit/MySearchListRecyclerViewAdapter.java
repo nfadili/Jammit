@@ -6,21 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnSearchListFragmentInteractionListener;
-import nfadili.tacoma.uw.edu.jammit.search.SearchContent.SearchedProfileItem;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnSearchListFragmentInteractionListener;
+import model.UserAccount;
+
 /**
- * {@link RecyclerView.Adapter} that can display a {@link SearchedProfileItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link UserAccount} and makes a call to the
  * specified {@link OnSearchListFragmentInteractionListener}.
  */
 public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySearchListRecyclerViewAdapter.ViewHolder> {
 
-    private final List<SearchedProfileItem> mValues;
+    private final ArrayList<UserAccount> mValues;
     private final OnSearchListFragmentInteractionListener mListener;
 
-    public MySearchListRecyclerViewAdapter(List<SearchedProfileItem> items, OnSearchListFragmentInteractionListener listener) {
+    public MySearchListRecyclerViewAdapter(ArrayList<UserAccount> items, OnSearchListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -35,9 +36,9 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).username);
-        holder.mAgeView.setText(mValues.get(position).age);
-        holder.mCityView.setText(mValues.get(position).city);
+        holder.mNameView.setText(mValues.get(position).getmName());
+        holder.mAgeView.setText(mValues.get(position).getmAge());
+        holder.mCityView.setText(mValues.get(position).getmCity());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,23 +59,29 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mContentView;
+        public final TextView mNameView;
         public final TextView mAgeView;
         public final TextView mCityView;
+//        public final TextView mInstrumentsView;
+//        public final TextView mStylesView;
+//        public final TextView mBioView;
 
-        public SearchedProfileItem mItem;
+        public UserAccount mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.name);
+            mNameView = (TextView) view.findViewById(R.id.name);
             mAgeView = (TextView) view.findViewById(R.id.age);
             mCityView = (TextView) view.findViewById(R.id.city);
+//            mNameView = (TextView) view.findViewById(R.id.instruments);
+//            mAgeView = (TextView) view.findViewById(R.id.);
+//            mCityView = (TextView) view.findViewById(R.id.city);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNameView.getText() + "'";
         }
     }
 }
