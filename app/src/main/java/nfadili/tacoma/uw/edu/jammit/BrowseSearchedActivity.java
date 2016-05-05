@@ -69,7 +69,7 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         }
         if (findViewById(R.id.fragment_container2)!= null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container2, new SearchListFragment(mSelectedUsers))
+                    .add(R.id.fragment_container2, new SearchListFragment())
                     .commit();
         }
 
