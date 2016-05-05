@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -52,6 +53,9 @@ public class MainMenuActivity extends AppCompatActivity {
         mAccount = UserAccount.parseProfileQueryJSON(queryResult);
         Log.e("INSTATIATE", mAccount.toString());
 
+        TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
+        nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
+
         Button mViewProfileButton = (Button) findViewById(R.id.view_profile_button);
         final Intent viewProfile = new Intent(this, ViewProfileActivity.class);
         viewProfile.putExtra("Profile", mAccount);
@@ -92,13 +96,16 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
     }
-//    @Override
-//    protected void onResume() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
+        nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
 //        super.onResume();
 //        Toast.makeText(getApplicationContext(), mAccount.toString(), Toast.LENGTH_SHORT)
 //                .show();
-//        Log.e("Account", mAccount.toString());
-//    }
+        Log.e("Account", mAccount.toString());
+    }
     public boolean logoutUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();

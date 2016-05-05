@@ -39,6 +39,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         if (parameter == 0) {
             Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
                     .show();
+            finish();
         } else if (parameter == 1) {
             Toast.makeText(getApplicationContext(), "Image functionality coming soon!", Toast.LENGTH_SHORT)
                     .show();
