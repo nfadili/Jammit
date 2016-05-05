@@ -58,10 +58,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
         Button mViewProfileButton = (Button) findViewById(R.id.view_profile_button);
         final Intent viewProfile = new Intent(this, ViewProfileActivity.class);
-        viewProfile.putExtra("Profile", mAccount);
+
         mViewProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewProfile.putExtra("Profile", mAccount);
                 startActivity(viewProfile);
             }
         });
@@ -99,12 +100,30 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Intent intent = getIntent();
+        String accountEmail = intent.getExtras().getString("loggedInEmail");
+
+        VerifyUserAccountTask task = new VerifyUserAccountTask();
+        String authString = PROFILE_URL + "?email=" + accountEmail;
+        String queryResult = "";
+        try {
+            queryResult = task.execute(new String[]{authString}).get();
+            //Log.e("THIS RIGHT HERE", queryResult);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        //Instaniate the current user's account as an object.
+        mAccount = UserAccount.parseProfileQueryJSON(queryResult);
         TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
         nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
 //        super.onResume();
 //        Toast.makeText(getApplicationContext(), mAccount.toString(), Toast.LENGTH_SHORT)
 //                .show();
-        Log.e("Account", mAccount.toString());
+        Log.e("Account on Resume: ", mAccount.toString());
     }
     public boolean logoutUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
