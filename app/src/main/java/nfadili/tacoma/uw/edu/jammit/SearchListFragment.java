@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.UserAccount;
+
 
 
 /**
@@ -20,6 +24,7 @@ public class SearchListFragment extends Fragment {
 
     private int mColumnCount = 1;
 
+    private ArrayList<UserAccount> mUsers;
     private OnSearchListFragmentInteractionListener mListener;
 
     /**
@@ -29,6 +34,9 @@ public class SearchListFragment extends Fragment {
     public SearchListFragment() {
     }
 
+    public SearchListFragment(ArrayList<UserAccount> users) {
+        mUsers = users;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +57,7 @@ public class SearchListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MySearchListRecyclerViewAdapter(SearchContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MySearchListRecyclerViewAdapter(mUsers, mListener));
         }
         return view;
     }

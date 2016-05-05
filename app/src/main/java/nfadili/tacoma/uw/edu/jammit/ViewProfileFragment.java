@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
+
 
 
 /**
@@ -18,6 +18,7 @@ public class ViewProfileFragment extends Fragment {
 
     public static final String ARG_POSITION = "POSITION" ;
 
+    //private UserAccount mUser;
 
     private int mCurrentPosition = -1;
     @Override public void onStart()
@@ -35,10 +36,16 @@ public class ViewProfileFragment extends Fragment {
             // Set article based on saved instance state defined during onCreateView
             updateProfileView(mCurrentPosition);
         }
+        //if (mUser != null) updateProfileViewWithAccount(mUser);
     }
     public ViewProfileFragment() {
         // Required empty public constructor
     }
+
+//    public ViewProfileFragment(UserAccount user) {
+//        // Required empty public constructor
+//        mUser = user;
+//    }
 
 
     @Override
@@ -56,23 +63,44 @@ public class ViewProfileFragment extends Fragment {
      */
     public void updateProfileView(int pos) {
 //        Log.e("In", " HERE");
+//        TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
+//        nameView.setText((CharSequence) SearchContent.ITEMS.get(pos).username);
+//
+//        TextView ageView = (TextView) getActivity().findViewById(R.id.view_prof_age);
+//        ageView.setText((CharSequence) SearchContent.ITEMS.get(pos).age);
+//
+//        TextView cityView = (TextView) getActivity().findViewById(R.id.view_prof_city);
+//        cityView.setText((CharSequence) SearchContent.ITEMS.get(pos).city);
+//
+//        TextView instrumentsView = (TextView) getActivity().findViewById(R.id.view_prof_instruments);
+//        instrumentsView.setText("INSTRUMENTS GO HERE");
+//
+//        TextView stylesView = (TextView) getActivity().findViewById(R.id.view_prof_styles);
+//        stylesView.setText("STYLES GO HERE");
+//
+//        TextView bioView = (TextView) getActivity().findViewById(R.id.view_prof_bio);
+//        bioView.setText("BIO GOES HERE");
+        updateProfileViewWithAccount(((BrowseSearchedActivity)getActivity()).mSelectedUsers.get(pos));
+    }
+
+    public void updateProfileViewWithAccount(UserAccount user) {
         TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
-        nameView.setText((CharSequence) SearchContent.ITEMS.get(pos).username);
+        nameView.setText((CharSequence) user.getmName());
 
         TextView ageView = (TextView) getActivity().findViewById(R.id.view_prof_age);
-        ageView.setText((CharSequence) SearchContent.ITEMS.get(pos).age);
+        ageView.setText((CharSequence) user.getmAge());
 
         TextView cityView = (TextView) getActivity().findViewById(R.id.view_prof_city);
-        cityView.setText((CharSequence) SearchContent.ITEMS.get(pos).city);
+        cityView.setText((CharSequence) user.getmCity());
 
         TextView instrumentsView = (TextView) getActivity().findViewById(R.id.view_prof_instruments);
-        instrumentsView.setText("INSTRUMENTS GO HERE");
+        instrumentsView.setText((CharSequence) user.getmInstruments());
 
         TextView stylesView = (TextView) getActivity().findViewById(R.id.view_prof_styles);
-        stylesView.setText("STYLES GO HERE");
+        stylesView.setText((CharSequence) user.getmStyles());
 
         TextView bioView = (TextView) getActivity().findViewById(R.id.view_prof_bio);
-        bioView.setText("BIO GOES HERE");
+        bioView.setText((CharSequence) user.getmBio());
     }
 
     /**

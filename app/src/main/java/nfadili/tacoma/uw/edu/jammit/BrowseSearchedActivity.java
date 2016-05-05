@@ -17,10 +17,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
+
 
 /**
  * Activity that allows a user to browse through a list of users that matched a previously
@@ -31,35 +33,21 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
 
     private final static String PROFILES_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/profiles.php";
 
+    private String mInstrument;
+    private String mCity;
+    private String mAge;
+    private String mStyles;
+
+    public ArrayList<UserAccount> mSelectedUsers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_searched);
 
-        if (findViewById(R.id.fragment_container2)!= null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container2, new SearchListFragment())
-                    .commit();
-        }
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        String instrument = getIntent().getStringExtra("Instrument");
-        String city = getIntent().getStringExtra("City");
-        String age = getIntent().getStringExtra("Age");
-        String style = getIntent().getStringExtra("Style");
-
-        Toast.makeText(getApplicationContext(), "Instrument = " + instrument, Toast.LENGTH_SHORT)
-                .show();
-        Toast.makeText(getApplicationContext(), "City = " + city, Toast.LENGTH_SHORT)
-                .show();
-        Toast.makeText(getApplicationContext(), "Age = " + age, Toast.LENGTH_SHORT)
-                .show();
-        Toast.makeText(getApplicationContext(), "Style = " + style, Toast.LENGTH_SHORT)
-                .show();
+        mInstrument = getIntent().getStringExtra("Instrument");
+        mCity = getIntent().getStringExtra("City");
+        mAge = getIntent().getStringExtra("Age");
+        mStyles = getIntent().getStringExtra("Style");
 
         String result = "";
         SelectProfilesTask task = new SelectProfilesTask();
@@ -70,9 +58,65 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.e("SearchResults: ", result);
+        Log.e("AllSearchResults: ", result);
+        ArrayList<UserAccount> allUsers = parseListOfProfilesJSON(result);
+        mSelectedUsers = trimList(allUsers);
+        Log.e("SearchResults: ", mSelectedUsers.toString());
+
+        if (mSelectedUsers.size() == 0) {
+            Toast.makeText(getApplicationContext(), "No users match search query.", Toast.LENGTH_LONG)
+                    .show();
+        }
+        if (findViewById(R.id.fragment_container2)!= null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container2, new SearchListFragment(mSelectedUsers))
+                    .commit();
+        }
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        mInstrument = getIntent().getStringExtra("Instrument");
+//        mCity = getIntent().getStringExtra("City");
+//        mAge = getIntent().getStringExtra("Age");
+//        mStyles = getIntent().getStringExtra("Style");
+//
+//        String result = "";
+//        SelectProfilesTask task = new SelectProfilesTask();
+//        try {
+//            result = task.execute(PROFILES_URL).get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        Log.e("AllSearchResults: ", result);
+//        List<UserAccount> allUsers = parseListOfProfilesJSON(result);
+//        List<UserAccount> selectedUsers = trimList(allUsers);
+//        Log.e("SearchResults: ", selectedUsers.toString());
+    }
+
+    private ArrayList<UserAccount> trimList(List<UserAccount> oldList) {
+        ArrayList<UserAccount> users = new ArrayList<UserAccount>();
+
+
+        for (int i = 0; i < oldList.size(); i++) {
+            if (mInstrument != "" && oldList.get(i).getmInstruments().contains(mInstrument)) {
+                if (mAge != "" && oldList.get(i).getmAge().contains(mAge)) {
+                    if (mCity != "" && oldList.get(i).getmCity().contains(mCity)) {
+                        if (mStyles != "" && oldList.get(i).getmStyles().contains(mStyles)) {
+                            users.add(oldList.get(i));
+                        }
+                    }
+                }
+            }
+        }
+
+        return users;
+
+    }
     @Override
     public void onSearchListFragmentInteraction(int position) {
         // Capture the student fragment from the activity layout
@@ -101,19 +145,27 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         }
     }
 
-    private UserAccount parseListOfProfilesJSON(String JSONString, String searchKey) {
+    private ArrayList<UserAccount> parseListOfProfilesJSON(String JSONString) {
+        ArrayList<UserAccount> users = new ArrayList<UserAccount>();
         try {
             JSONArray array = new JSONArray(JSONString);
+            JSONObject profile;
+
             for(int i = 0; i < array.length(); i++) {
-                JSONObject profile = array.getJSONObject(i);
+                profile = array.getJSONObject(i);
                 String name = profile.getString("name");
                 String age = profile.getString("age");
                 String instruments = profile.getString("instruments");
+                String city = profile.getString("city");
+                String styles = profile.getString("styles");
+                String bio = profile.getString("bio");
+                users.add(new UserAccount(name, age, instruments, styles, city, bio));
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new UserAccount();   //Instantiate??
+        return users;
     }
 
     /**
