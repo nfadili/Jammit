@@ -24,13 +24,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
-import model.UserAccount;
-
+/**
+ * Screen for registering as a new Jammit user.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String LOGIN_URL
+    /**
+     * URL for adding a new user to the `User` table
+     */
+    private static final String REGISTER_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addUser.php";
+
+    /**
+     * URL for adding an empty profile into the `Profile` table.
+     */
+    private static final String EMPTY_PROFILE_URL
+            = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addProfile.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -38,6 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mPasswordVerifyView;
     private View mProgressView;
     private View mLoginFormView;
+
+    //db flag
+    private boolean accountCreated = false;
 
 
     @Override
@@ -52,7 +66,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    //If the register attempt it successful, and empty profile entry is inserted in the database
                     attemptRegister();
+                    Log.e("FLAG OUTSUDE IS", String.valueOf(accountCreated));
+                    if (accountCreated) {
+                        Log.e("", "ENTERED!!!");
+                        addEmptyProfile();
+                    }
                     return true;
                 }
                 return false;
@@ -64,11 +84,34 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attemptRegister();
+                if (accountCreated) {
+                    Log.e("", "ENTERED!!!");
+                    addEmptyProfile();
+                }
             }
         });
 
         mLoginFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.register_progress);
+    }
+
+    /**
+     * Utility method for adding an empty row entry into the `Profile` table in the database.
+     * Only the email column is filled in.
+     */
+    private void addEmptyProfile() {
+        InsertEmptyProfileTask task = new InsertEmptyProfileTask();
+        String addProfileString = EMPTY_PROFILE_URL + "?email=" + mEmailView.getText().toString();
+        Log.e("EMAIL",mEmailView.getText().toString());
+        String resultProfileAdd = "Unable to add profile.";
+        try {
+            resultProfileAdd = task.execute(new String[]{addProfileString}).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.e("RegisterActivity", resultProfileAdd);
     }
 
 
@@ -126,9 +169,24 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user register attempt.
             showProgress(true);
-            VerifyUserAccountTask task = new VerifyUserAccountTask();
-            String authString = LOGIN_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
-            task.execute(new String[]{authString});
+            InsertEmptyProfileTask task = new InsertEmptyProfileTask();
+            String authString = REGISTER_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
+            try {
+                String resultAuth = task.execute(new String[]{authString}).get();
+                Log.e("RegisterActivity", resultAuth);
+                if (resultAuth.contains("success")) {
+                    Log.e("FLAG IS", "TRUE");
+                    accountCreated = true;
+                }
+                else {
+                    Log.e("FLAG IS", "FALSE");
+                    accountCreated = false;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -150,7 +208,10 @@ public class RegisterActivity extends AppCompatActivity {
         return password.length() > 5;
     }
 
-    private class VerifyUserAccountTask extends AsyncTask<String, Void, String> {
+    /**
+     * This AsyncTask handles adding an empty profile to the `Profile` table.
+     */
+    private class InsertEmptyProfileTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -168,7 +229,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to connect with databse, Reason: "
+                    response = "Unable to connect with database, Reason: "
                             + e.getMessage();
                 }
                 finally {
@@ -179,6 +240,10 @@ public class RegisterActivity extends AppCompatActivity {
             return response;
         }
 
+        /**
+         * Temporarily shows a progress bar while the result is determined.
+         * @param result represents database insert result
+         */
         @Override
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
@@ -206,12 +271,6 @@ public class RegisterActivity extends AppCompatActivity {
                         .show();
             }
         }
-
-
-    }
-
-    public void switchToLoginActivity(View view) {
-        startActivity(new Intent(this, LoginActivity.class));
     }
 
     /**
