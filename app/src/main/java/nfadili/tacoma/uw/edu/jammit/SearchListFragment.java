@@ -32,11 +32,10 @@ public class SearchListFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public SearchListFragment() {
+        mUsers = ((BrowseSearchedActivity)getActivity()).mSelectedUsers;
     }
 
-    public SearchListFragment(ArrayList<UserAccount> users) {
-        mUsers = users;
-    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
