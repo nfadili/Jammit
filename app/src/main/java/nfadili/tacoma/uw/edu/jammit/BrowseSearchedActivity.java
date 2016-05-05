@@ -78,26 +78,15 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     @Override
     protected void onStart() {
         super.onStart();
-//        mInstrument = getIntent().getStringExtra("Instrument");
-//        mCity = getIntent().getStringExtra("City");
-//        mAge = getIntent().getStringExtra("Age");
-//        mStyles = getIntent().getStringExtra("Style");
-//
-//        String result = "";
-//        SelectProfilesTask task = new SelectProfilesTask();
-//        try {
-//            result = task.execute(PROFILES_URL).get();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        Log.e("AllSearchResults: ", result);
-//        List<UserAccount> allUsers = parseListOfProfilesJSON(result);
-//        List<UserAccount> selectedUsers = trimList(allUsers);
-//        Log.e("SearchResults: ", selectedUsers.toString());
     }
 
+    /**
+     * Method for taking search parameters and filtering out the undesirable elements from the
+     * database;
+     *
+     * @param oldList
+     * @return a filtered list of UserAccount objects
+     */
     private ArrayList<UserAccount> trimList(List<UserAccount> oldList) {
         ArrayList<UserAccount> users = new ArrayList<UserAccount>();
 
@@ -145,6 +134,12 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         }
     }
 
+    /**
+     * Takes a JSON string and turns it into a list of UserAccount objects
+     *
+     * @param JSONString
+     * @return a list of UserAccounts
+     */
     private ArrayList<UserAccount> parseListOfProfilesJSON(String JSONString) {
         ArrayList<UserAccount> users = new ArrayList<UserAccount>();
         try {
