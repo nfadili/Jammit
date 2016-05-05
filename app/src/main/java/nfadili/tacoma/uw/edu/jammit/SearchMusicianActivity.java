@@ -16,6 +16,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Activity that allows a user to search for other Jammit users that
+ * match their preferences.
+ *
+ */
 public class SearchMusicianActivity extends AppCompatActivity {
 
     @Override

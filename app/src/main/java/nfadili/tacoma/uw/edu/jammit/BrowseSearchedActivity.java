@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,6 +22,11 @@ import java.util.concurrent.ExecutionException;
 import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
 
+/**
+ * Activity that allows a user to browse through a list of users that matched a previously
+ * entered set of parameters to meet their band-finding needs.
+ * 
+ */
 public class BrowseSearchedActivity extends AppCompatActivity implements SearchListFragment.OnSearchListFragmentInteractionListener {
 
     private final static String PROFILES_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/profiles.php";
@@ -65,7 +71,6 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
             e.printStackTrace();
         }
         Log.e("SearchResults: ", result);
-
     }
 
     @Override

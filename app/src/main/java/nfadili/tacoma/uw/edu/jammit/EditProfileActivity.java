@@ -1,13 +1,11 @@
 package nfadili.tacoma.uw.edu.jammit;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -20,6 +18,10 @@ import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
 
+/**
+ * Activity that allows a user to edit one or more parts of their account profile.
+ *
+ */
 public class EditProfileActivity extends AppCompatActivity implements EditProfileListFragment.OnListFragmentInteractionListener {
 
     /**
@@ -36,8 +38,6 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
         mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
-        Toast.makeText(getApplicationContext(), "City " + mAccount.getmCity(), Toast.LENGTH_SHORT)
-                .show();
         if (findViewById(R.id.fragment_container)!= null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new EditProfileListFragment())
@@ -108,6 +108,12 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             transaction.commit();
         }
     }
+
+    /**
+     * Gets the activity's UserAccount object.
+     *
+     * @return the user's account
+     */
     public UserAccount getmAccount() {
         return mAccount;
     }

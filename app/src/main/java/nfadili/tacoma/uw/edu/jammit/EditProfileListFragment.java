@@ -13,10 +13,9 @@ import android.view.ViewGroup;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
 /**
- * A fragment representing a list of Items.
- * <p>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * A fragment representing a list of possible parts of the profile
+ * a user can edit.
+ *
  */
 public class EditProfileListFragment extends Fragment {
 
@@ -79,13 +78,8 @@ public class EditProfileListFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(int parameter);
     }
 }

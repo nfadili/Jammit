@@ -21,6 +21,10 @@ import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
 
+/**
+ * Activity for the main menu of Jammit. Contains buttons that link to it's features.
+ *
+ */
 public class MainMenuActivity extends AppCompatActivity {
 
     private static final String PROFILE_URL
@@ -120,11 +124,15 @@ public class MainMenuActivity extends AppCompatActivity {
         mAccount = UserAccount.parseProfileQueryJSON(queryResult);
         TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
         nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
-//        super.onResume();
-//        Toast.makeText(getApplicationContext(), mAccount.toString(), Toast.LENGTH_SHORT)
-//                .show();
+
         Log.e("Account on Resume: ", mAccount.toString());
     }
+
+    /**
+     * Logs out current user
+     *
+     * @return true
+     */
     public boolean logoutUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();

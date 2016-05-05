@@ -1,33 +1,23 @@
 package nfadili.tacoma.uw.edu.jammit;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
+ * A fragment used for viewing profiles of other Jammit users.
  */
 public class ViewProfileFragment extends Fragment {
 
     public static final String ARG_POSITION = "POSITION" ;
 
-    //private OnFragmentInteractionListener mListener;
 
     private int mCurrentPosition = -1;
     @Override public void onStart()
@@ -59,6 +49,11 @@ public class ViewProfileFragment extends Fragment {
     }
 
 
+    /**
+     * Uses a passed integer to populate the fragment's TextViews
+     *
+     * @param pos
+     */
     public void updateProfileView(int pos) {
 //        Log.e("In", " HERE");
         TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
@@ -80,39 +75,23 @@ public class ViewProfileFragment extends Fragment {
         bioView.setText("BIO GOES HERE");
     }
 
+    /**
+     * Uses a UserAccount object to populate the fragment's TextViews
+     *
+     * @param user
+     */
     public void updateViewsWithAccount(UserAccount user) {
-        Log.e("In", " HERE");
         TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
         nameView.setText((CharSequence) user.getmName());
-        Log.e("In", " HERE");
         TextView ageView = (TextView) getActivity().findViewById(R.id.view_prof_age);
         ageView.setText((CharSequence) user.getmAge());
-        Log.e("In", " HERE");
         TextView cityView = (TextView) getActivity().findViewById(R.id.view_prof_city);
         cityView.setText((CharSequence) user.getmCity());
-        Log.e("In", " HERE");
         TextView instrumentsView = (TextView) getActivity().findViewById(R.id.view_prof_instruments);
         instrumentsView.setText((CharSequence) user.getmInstruments());
-        Log.e("In", " HERE");
         TextView stylesView = (TextView) getActivity().findViewById(R.id.view_prof_styles);
         stylesView.setText((CharSequence) user.getmStyles());
-        Log.e("In", " HERE");
         TextView bioView = (TextView) getActivity().findViewById(R.id.view_prof_bio);
         bioView.setText((CharSequence) user.getmBio());
-        Log.e("OUT", " HERE");
     }
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }

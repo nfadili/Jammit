@@ -2,13 +2,13 @@ package nfadili.tacoma.uw.edu.jammit;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
+/**
+ * Activity for viewing one's own Profile.
+ */
 public class ViewProfileActivity extends AppCompatActivity {
     private UserAccount mAccount;
 
