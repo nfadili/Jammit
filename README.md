@@ -4,23 +4,20 @@ Created by: Nabil Fadili & Riley Gratzer
 Android Min SDK: 15
 
 Features Implemented:
-
-Registration
-Log In (with User Authentication and Shared Preferences)
-View Profile
-Edit Profile
-Search Musicians
+Registration, 
+Log In (with User Authentication and Shared Preferences), 
+View Profile, 
+Edit Profile, 
+Search Musicians, 
 Log Out
   
 Use Cases Implemented (From Proposal):
-
-Use Case 1: Register an Account (required)
-Use Case 2: Log into Account (required)
-Use Case 3: Edit Account
-Use Case 4: Find Musicians
+Use Case 1: Register an Account (required), 
+Use Case 2: Log into Account (required), 
+Use Case 3: Edit Account, 
+Use Case 4: Find Musicians 
   
 Notes:
-
 View Profile functionality was not something included in our proposal, but we
 decided it made sense to let people see their own profile.
 Profiles will ideally have an image associated with them that can be
