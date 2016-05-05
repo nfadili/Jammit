@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Activity that allows a user to search for other Jammit users that
+ * match their preferences.
+ *
+ */
 public class SearchMusicianActivity extends AppCompatActivity {
 
     @Override

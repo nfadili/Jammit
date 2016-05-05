@@ -14,14 +14,10 @@ import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
 
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnSearchListFragmentInteractionListener}
- * interface.
+ * A fragment representing a list of profiles matching search parameters.
  */
 public class SearchListFragment extends Fragment {
 
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     private OnSearchListFragmentInteractionListener mListener;
@@ -81,13 +77,8 @@ public class SearchListFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnSearchListFragmentInteractionListener {
-
         void onSearchListFragmentInteraction(int position);
     }
 }
