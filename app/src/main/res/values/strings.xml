@@ -23,5 +23,8 @@
     <string name="LOGIN_PREFS">edu.uw.tacoma.nfadili.Jammit.PREFS</string>
     <string name="LOGGEDIN">loggedin</string>
     <string name="logout_text">Logout</string>
+    <string name="bio_label">Bio:</string>
+    <string name="instruments_label">Instruments:</string>
+    <string name="styles_label">Preffered Styles:</string>
 
 </resources>
