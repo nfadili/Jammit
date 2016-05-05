@@ -2,6 +2,7 @@ package nfadili.tacoma.uw.edu.jammit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,8 @@ public class EditProfileParameterFragment extends Fragment {
         courseShortDescTextView.setText((CharSequence) EditProfileContent.ITEMS.get(pos).details);
         final EditText edit = (EditText) getActivity().findViewById(R.id.editText);
         final Button submitButton = (Button) getActivity().findViewById(R.id.submit_button);
+        final EditProfileParameterFragment that = this;
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,30 +100,29 @@ public class EditProfileParameterFragment extends Fragment {
                 String text = edit.getText().toString();
                 if (text != "") {
                     switch (param) {
-                        //case: 2((EditProfileActivity)getActivity()).getmAccount().setmName(text);
                         case 2: ((EditProfileActivity) getActivity()).getmAccount().setmName(text);
-                            Toast.makeText(getActivity().getApplicationContext(), "name = " + ((EditProfileActivity)getActivity()).getmAccount().getmName(), Toast.LENGTH_SHORT)
-                                    .show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "name = " + ((EditProfileActivity)getActivity()).getmAccount().getmName(), Toast.LENGTH_SHORT)
+//                                    .show();
                             break;
                         case 3: ((EditProfileActivity) getActivity()).getmAccount().setmInstruments(text);
-                            Toast.makeText(getActivity().getApplicationContext(), "instr = " + ((EditProfileActivity)getActivity()).getmAccount().getmInstruments(), Toast.LENGTH_SHORT)
-                                    .show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "instr = " + ((EditProfileActivity)getActivity()).getmAccount().getmInstruments(), Toast.LENGTH_SHORT)
+//                                    .show();
                             break;
                         case 4: ((EditProfileActivity) getActivity()).getmAccount().setmStyles(text);
-                            Toast.makeText(getActivity().getApplicationContext(), "sty = " + ((EditProfileActivity)getActivity()).getmAccount().getmStyles(), Toast.LENGTH_SHORT)
-                                    .show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "sty = " + ((EditProfileActivity)getActivity()).getmAccount().getmStyles(), Toast.LENGTH_SHORT)
+//                                    .show();
                             break;
                         case 5: ((EditProfileActivity) getActivity()).getmAccount().setmAge(text);
-                            Toast.makeText(getActivity().getApplicationContext(), "age = " + ((EditProfileActivity)getActivity()).getmAccount().getmAge(), Toast.LENGTH_SHORT)
-                                    .show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "age = " + ((EditProfileActivity)getActivity()).getmAccount().getmAge(), Toast.LENGTH_SHORT)
+//                                    .show();
                             break;
                         case 6: ((EditProfileActivity) getActivity()).getmAccount().setmBio(text);
-                            Toast.makeText(getActivity().getApplicationContext(), "bio = " + ((EditProfileActivity)getActivity()).getmAccount().getmBio(), Toast.LENGTH_SHORT)
-                                    .show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "bio = " + ((EditProfileActivity)getActivity()).getmAccount().getmBio(), Toast.LENGTH_SHORT)
+//                                    .show();
                             break;
                         case 7: ((EditProfileActivity) getActivity()).getmAccount().setmCity(text);
-                            Toast.makeText(getActivity().getApplicationContext(), "city = " + ((EditProfileActivity)getActivity()).getmAccount().getmCity(), Toast.LENGTH_SHORT)
-                                    .show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "city = " + ((EditProfileActivity)getActivity()).getmAccount().getmCity(), Toast.LENGTH_SHORT)
+//                                    .show();
                             break;
                         default:
                             break;
@@ -128,7 +130,6 @@ public class EditProfileParameterFragment extends Fragment {
                 }
                 Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
                         .show();
-
             }
         });
     }

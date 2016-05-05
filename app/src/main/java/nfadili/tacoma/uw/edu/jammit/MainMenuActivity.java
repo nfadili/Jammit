@@ -52,6 +52,16 @@ public class MainMenuActivity extends AppCompatActivity {
         mAccount = UserAccount.parseProfileQueryJSON(queryResult);
         Log.e("INSTATIATE", mAccount.toString());
 
+        Button mViewProfileButton = (Button) findViewById(R.id.view_profile_button);
+        final Intent viewProfile = new Intent(this, ViewProfileActivity.class);
+        viewProfile.putExtra("Profile", mAccount);
+        mViewProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(viewProfile);
+            }
+        });
+
         Button mEditProfileButton = (Button) findViewById(R.id.edit_profile_button);
         final Intent edit = new Intent(this, EditProfileActivity.class);
         edit.putExtra("Profile", mAccount);

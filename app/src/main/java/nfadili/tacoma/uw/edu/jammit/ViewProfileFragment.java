@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 import nfadili.tacoma.uw.edu.jammit.search.SearchContent;
 
@@ -56,33 +58,9 @@ public class ViewProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_view_profile, container, false);
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
     public void updateProfileView(int pos) {
-//        TextView courseIdTextView = (TextView) getActivity().findViewById(R.id.prof_param_id);
-//        courseIdTextView.setText((CharSequence) String.valueOf(EditProfileContent.ITEMS.get(pos).id));
+//        Log.e("In", " HERE");
         TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
         nameView.setText((CharSequence) SearchContent.ITEMS.get(pos).username);
 
@@ -100,6 +78,28 @@ public class ViewProfileFragment extends Fragment {
 
         TextView bioView = (TextView) getActivity().findViewById(R.id.view_prof_bio);
         bioView.setText("BIO GOES HERE");
+    }
+
+    public void updateViewsWithAccount(UserAccount user) {
+        Log.e("In", " HERE");
+        TextView nameView = (TextView) getActivity().findViewById(R.id.view_prof_name);
+        nameView.setText((CharSequence) user.getmName());
+        Log.e("In", " HERE");
+        TextView ageView = (TextView) getActivity().findViewById(R.id.view_prof_age);
+        ageView.setText((CharSequence) user.getmAge());
+        Log.e("In", " HERE");
+        TextView cityView = (TextView) getActivity().findViewById(R.id.view_prof_city);
+        cityView.setText((CharSequence) user.getmCity());
+        Log.e("In", " HERE");
+        TextView instrumentsView = (TextView) getActivity().findViewById(R.id.view_prof_instruments);
+        instrumentsView.setText((CharSequence) user.getmInstruments());
+        Log.e("In", " HERE");
+        TextView stylesView = (TextView) getActivity().findViewById(R.id.view_prof_styles);
+        stylesView.setText((CharSequence) user.getmStyles());
+        Log.e("In", " HERE");
+        TextView bioView = (TextView) getActivity().findViewById(R.id.view_prof_bio);
+        bioView.setText((CharSequence) user.getmBio());
+        Log.e("OUT", " HERE");
     }
     /**
      * This interface must be implemented by activities that contain this
