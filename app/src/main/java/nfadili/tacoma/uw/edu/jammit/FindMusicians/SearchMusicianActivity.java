@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.FindMusicians;
 
 import android.content.Intent;
 
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import nfadili.tacoma.uw.edu.jammit.R;
 
 /**
  * Activity that allows a user to search for other Jammit users that

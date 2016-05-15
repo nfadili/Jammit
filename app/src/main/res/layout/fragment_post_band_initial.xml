@@ -2,42 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/editprofparam_frag"
     android:orientation="vertical"
-    tools:context=".EditProfile.EditProfileParameterFragment">
+    tools:context="nfadili.tacoma.uw.edu.jammit.PostBandInitialFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/prof_param_id" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/prof_param_content"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/prof_param_details" />
+        android:text="Enter a catchy headline for your band opening:" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:hint="Enter Text Here"
         android:layout_gravity="center"
-        android:elegantTextHeight="false" />
+        android:id="@+id/post_band_headline_edittext"
+        android:hint="Enter headline here" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Please state what instrument(s) you are looking to add:" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/post_band_instruments_needed_edittext"
+        android:hint="Enter instruments here" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/submit_button"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center"
+        android:text="Proceed"
+        android:id="@+id/post_band_initial_frag_button"/>
+
 
 </LinearLayout>

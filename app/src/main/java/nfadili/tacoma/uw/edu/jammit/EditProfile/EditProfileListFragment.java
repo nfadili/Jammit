@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,43 +10,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-
-import model.UserAccount;
-
-
+import nfadili.tacoma.uw.edu.jammit.R;
+import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
 /**
- * A fragment representing a list of profiles matching search parameters.
+ * A fragment representing a list of possible parts of the profile
+ * a user can edit.
+ *
  */
-public class SearchListFragment extends Fragment {
+public class EditProfileListFragment extends Fragment {
 
     private int mColumnCount = 1;
 
-    private ArrayList<UserAccount> mUsers;
-    private OnSearchListFragmentInteractionListener mListener;
+    private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public SearchListFragment() {
-
+    public EditProfileListFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUsers = ((BrowseSearchedActivity)getActivity()).mSelectedUsers;
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_searchlist_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_editprofilelist_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -57,7 +51,7 @@ public class SearchListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MySearchListRecyclerViewAdapter(mUsers, mListener));
+            recyclerView.setAdapter(new MyEditProfileListRecyclerViewAdapter(EditProfileContent.ITEMS, mListener));
         }
         return view;
     }
@@ -66,8 +60,8 @@ public class SearchListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnSearchListFragmentInteractionListener) {
-            mListener = (OnSearchListFragmentInteractionListener) context;
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -86,7 +80,7 @@ public class SearchListFragment extends Fragment {
      * to the activity and potentially other fragments contained in that
      * activity.
      */
-    public interface OnSearchListFragmentInteractionListener {
-        void onSearchListFragmentInteraction(int position);
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(int parameter);
     }
 }

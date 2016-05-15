@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import nfadili.tacoma.uw.edu.jammit.R;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
 

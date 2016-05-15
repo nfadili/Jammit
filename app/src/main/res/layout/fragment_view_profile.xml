@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/view_prof_frag"
-    tools:context="nfadili.tacoma.uw.edu.jammit.ViewProfileFragment">
+    tools:context=".FindMusicians.ViewProfileFragment">
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.FindMusicians;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import nfadili.tacoma.uw.edu.jammit.SearchListFragment.OnSearchListFragmentInteractionListener;
+import nfadili.tacoma.uw.edu.jammit.R;
+import nfadili.tacoma.uw.edu.jammit.FindMusicians.SearchListFragment.OnSearchListFragmentInteractionListener;
 import model.UserAccount;
 
 /**

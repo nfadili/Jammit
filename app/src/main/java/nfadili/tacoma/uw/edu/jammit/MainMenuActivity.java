@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.EditProfile.EditProfileActivity;
+import nfadili.tacoma.uw.edu.jammit.FindMusicians.SearchMusicianActivity;
 
 /**
  * Activity for the main menu of Jammit. Contains buttons that link to it's features.
@@ -60,6 +62,11 @@ public class MainMenuActivity extends AppCompatActivity {
         TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
         nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
 
+        setButtons();
+
+    }
+
+    private void setButtons() {
         Button mViewProfileButton = (Button) findViewById(R.id.view_profile_button);
         final Intent viewProfile = new Intent(this, ViewProfileActivity.class);
 
@@ -91,13 +98,54 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        Button mPostBandButton = (Button) findViewById(R.id.post_band_button);
+        final Intent post = new Intent(this, PostBandActivity.class);
+
+        mPostBandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //post.putExtra("Profile", mAccount);
+                startActivity(post);
+            }
+        });
+        Button mFindBandButton = (Button) findViewById(R.id.find_band_button);
+        final Intent findBand = new Intent(this, FindBandActivity.class);
+
+        mFindBandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //findBand.putExtra("Profile", mAccount);
+                startActivity(findBand);
+            }
+        });
+        Button mScheduleEventButton = (Button) findViewById(R.id.schedule_event_button);
+        final Intent schedule = new Intent(this, ScheduleEventActivity.class);
+
+        mScheduleEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //schedule.putExtra("Profile", mAccount);
+                startActivity(schedule);
+            }
+        });
+        Button mFindEventsButton = (Button) findViewById(R.id.find_events_button);
+        final Intent findEvents = new Intent(this, FindEventsActivity.class);
+
+        mFindEventsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //findEvents.putExtra("Profile", mAccount);
+                startActivity(findEvents);
+            }
+        });
+
         Button mLogoutButton = (Button) findViewById(R.id.action_logout);
-        final Intent loginActivity = new Intent(this, LoginActivity.class);
+        //final Intent loginActivity = new Intent(this, LoginActivity.class);
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(logoutUser()) {
-                    startActivity(loginActivity);
+                    finish();
                 }
             }
         });

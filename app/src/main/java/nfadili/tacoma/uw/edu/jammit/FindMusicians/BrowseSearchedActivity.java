@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.FindMusicians;
 
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.R;
 
 
 /**

@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.R;
 
 /**
  * Activity that allows a user to edit one or more parts of their account profile.

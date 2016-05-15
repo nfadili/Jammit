@@ -30,15 +30,19 @@
             android:name=".MainMenuActivity"
             android:label="Jammit - Main Menu" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".EditProfile.EditProfileActivity"
             android:label="Jammit - Edit Profile" />
         <activity
-            android:name=".SearchMusicianActivity"
+            android:name=".FindMusicians.SearchMusicianActivity"
             android:label="Jammit - Search Musicians" />
         <activity
-            android:name=".BrowseSearchedActivity"
+            android:name=".FindMusicians.BrowseSearchedActivity"
             android:label="Jammit - Search Results" />
-        <activity android:name=".ViewProfileActivity"></activity>
+        <activity android:name=".ViewProfileActivity" />
+        <activity android:name=".PostBandActivity" />
+        <activity android:name=".FindBandActivity" />
+        <activity android:name=".ScheduleEventActivity" />
+        <activity android:name=".FindEventsActivity"></activity>
     </application>
 
 </manifest>
