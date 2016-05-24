@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.ScheduleActivity;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,30 +9,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import nfadili.tacoma.uw.edu.jammit.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PostBandInitialFragment.OnPostBandInitialFragmentInteractionListener} interface
+ * {@link OnScheduleEventBioFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class PostBandInitialFragment extends Fragment {
+public class ScheduleEventBioFragment extends Fragment {
 
-    private OnPostBandInitialFragmentInteractionListener mListener;
+    private OnScheduleEventBioFragmentInteractionListener mListener;
 
-    public PostBandInitialFragment() {
+    public ScheduleEventBioFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
-
-        final Button proceedButton = (Button) getActivity().findViewById(R.id.post_band_initial_frag_button);
-        proceedButton.setOnClickListener(new View.OnClickListener() {
+        final Button submitButton = (Button) getActivity().findViewById(R.id.sched_event_bio_frag_button);
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PostBandActivity) getActivity()).onPostBandInitialFragmentInteraction(1);
+                ((ScheduleEventActivity) getActivity()).onScheduleEventBioFragmentInteraction(1);
             }
         });
     }
@@ -41,24 +43,24 @@ public class PostBandInitialFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post_band_initial, container, false);
+        return inflater.inflate(R.layout.fragment_schedule_event_bio, container, false);
     }
 
-
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onPostBandInitialFragmentInteraction(1);
+            mListener.onScheduleEventBioFragmentInteraction(1);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnPostBandInitialFragmentInteractionListener) {
-            mListener = (OnPostBandInitialFragmentInteractionListener) context;
+        if (context instanceof OnScheduleEventBioFragmentInteractionListener) {
+            mListener = (OnScheduleEventBioFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnScheduleEventBioFragmentInteractionListener");
         }
     }
 
@@ -78,8 +80,8 @@ public class PostBandInitialFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnPostBandInitialFragmentInteractionListener {
-
-        void onPostBandInitialFragmentInteraction(int position);
+    public interface OnScheduleEventBioFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onScheduleEventBioFragmentInteraction(int position);
     }
 }

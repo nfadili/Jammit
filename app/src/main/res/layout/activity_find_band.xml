@@ -1,12 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nfadili.tacoma.uw.edu.jammit.FindBandActivity">
+    tools:context=".FindBand.FindBandActivity">
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search for Band Openings"
+        android:textStyle="bold"
+        android:layout_gravity="top"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_weight="0.08"
+        android:id="@+id/search_header" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_search_band_instrument"
+        android:layout_weight="0.08"
+        android:hint="Enter instrument you play here"
+        android:layout_gravity="left" />
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_search_band_style"
+        android:layout_weight="0.08"
+        android:hint="Enter desired style here"
+        android:layout_gravity="left" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_search_band_city"
+        android:layout_weight="0.08"
+        android:hint="Enter your city here" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/search_band_button"
+        android:layout_weight="0.08" />
+</LinearLayout>

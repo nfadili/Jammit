@@ -39,10 +39,11 @@
             android:name=".FindMusicians.BrowseSearchedActivity"
             android:label="Jammit - Search Results" />
         <activity android:name=".ViewProfileActivity" />
-        <activity android:name=".PostBandActivity" />
-        <activity android:name=".FindBandActivity" />
-        <activity android:name=".ScheduleEventActivity" />
-        <activity android:name=".FindEventsActivity"></activity>
+        <activity android:name=".PostBandOpening.PostBandActivity" />
+        <activity android:name=".FindBand.FindBandActivity" />
+        <activity android:name=".ScheduleActivity.ScheduleEventActivity" />
+        <activity android:name=".FindEventsActivity" />
+        <activity android:name=".FindBand.BrowseSearchedBandsActivity"></activity>
     </application>
 
 </manifest>

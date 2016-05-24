@@ -70,7 +70,7 @@ public class SearchListFragment extends Fragment {
             mListener = (OnSearchListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement OnBandListFragmentInteractionListener");
         }
     }
 
