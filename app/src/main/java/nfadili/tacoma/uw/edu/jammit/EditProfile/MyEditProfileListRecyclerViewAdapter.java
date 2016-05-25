@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import nfadili.tacoma.uw.edu.jammit.EditProfileListFragment.OnListFragmentInteractionListener;
+import nfadili.tacoma.uw.edu.jammit.EditProfile.EditProfileListFragment.OnListFragmentInteractionListener;
+import nfadili.tacoma.uw.edu.jammit.R;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent.ProfileParameter;
 
 import java.util.List;

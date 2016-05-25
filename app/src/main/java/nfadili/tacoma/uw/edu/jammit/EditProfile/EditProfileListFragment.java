@@ -1,4 +1,4 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import nfadili.tacoma.uw.edu.jammit.R;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
 /**
@@ -63,7 +64,7 @@ public class EditProfileListFragment extends Fragment {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement OnBandListFragmentInteractionListener");
         }
     }
 

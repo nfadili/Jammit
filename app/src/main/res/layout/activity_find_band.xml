@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".FindMusicians.SearchMusicianActivity"
-    android:weightSum="1">
+    tools:context=".FindBand.FindBandActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search for Musicians"
+        android:text="Search for Band Openings"
         android:textStyle="bold"
         android:layout_gravity="top"
         android:textColor="@android:color/holo_red_dark"
@@ -24,9 +23,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_instrument"
+        android:id="@+id/edittext_search_band_instrument"
         android:layout_weight="0.08"
-        android:hint="Enter desired instrument here"
+        android:hint="Enter instrument you play here"
         android:layout_gravity="left" />
 
 
@@ -34,35 +33,23 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_style"
+        android:id="@+id/edittext_search_band_style"
         android:layout_weight="0.08"
         android:hint="Enter desired style here"
         android:layout_gravity="left" />
 
 
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_age"
+        android:id="@+id/edittext_search_band_city"
         android:layout_weight="0.08"
-        android:layout_gravity="left"
-        android:hint="Enter desired age here" />
-
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_city"
-        android:layout_weight="0.08"
-        android:hint="Enter desired city here" />
+        android:hint="Enter your city here" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
-        android:id="@+id/search_button"
+        android:id="@+id/search_band_button"
         android:layout_weight="0.08" />
-
 </LinearLayout>
