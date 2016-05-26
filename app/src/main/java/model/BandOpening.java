@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Created by Riley Gratzer on 5/23/16.
  */
-public class BandOpening {
+public class BandOpening implements Serializable {
 
     private String mPoster;
     private String mPosterEmail;

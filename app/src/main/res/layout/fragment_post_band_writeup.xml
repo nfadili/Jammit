@@ -5,26 +5,26 @@
     android:orientation="vertical"
     tools:context=".PostBandOpening.PostBandInitialFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Please write a detailed description of what you are looking for below::" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="Please write a detailed description of what you are looking for below::" />-->
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/post_band_writeup_edittext"
-        android:hint="Enter detailed description here" />
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:id="@+id/post_band_writeup_edittext"-->
+        <!--android:hint="Enter detailed description here" />-->
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Finish"
-        android:id="@+id/post_band_writeup_frag_button"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="Finish"-->
+        <!--android:id="@+id/post_band_writeup_frag_button"/>-->
 
 
 </LinearLayout>

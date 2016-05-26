@@ -1,9 +1,10 @@
 package model;
 
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class EventListing {
+public class EventListing implements Serializable{
     private String mPoster;
     private String mPosterEmail;
     private String mCity;

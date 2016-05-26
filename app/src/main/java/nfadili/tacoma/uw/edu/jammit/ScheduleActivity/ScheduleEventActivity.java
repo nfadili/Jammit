@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,16 +17,16 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
+import model.BandOpening;
 import model.EventListing;
 import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.R;
 
-public class ScheduleEventActivity extends AppCompatActivity implements ScheduleEventInitialFragment.OnScheduleEventInitialFragmentInteractionListener,
-                                                        ScheduleEventBioFragment.OnScheduleEventBioFragmentInteractionListener {
+public class ScheduleEventActivity extends AppCompatActivity {
 
     public final static String ADD_EVENT_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addEvent.php?";
 
-    private EventListing mEvent;
+    //private EventListing mEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,26 +34,54 @@ public class ScheduleEventActivity extends AppCompatActivity implements Schedule
         setContentView(R.layout.activity_schedule_event);
 
         //TODO: Populate with EditText fields
-        mEvent = new EventListing();
+        //mEvent = new EventListing();
 
-        if (findViewById(R.id.fragment_container4)!= null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container4, new ScheduleEventInitialFragment())
-                    .commit();
-        }
+//        if (findViewById(R.id.fragment_container4)!= null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.fragment_container4, new ScheduleEventInitialFragment())
+//                    .commit();
+//        }
+
+        final EventListing eventListing = new EventListing();
+        final EditText editHeadline = (EditText) findViewById(R.id.sched_event_headline_edittext);
+
+        final EditText editCity = (EditText) findViewById(R.id.sched_event_city_edittext);
+
+        final EditText editWriteup = (EditText) findViewById(R.id.sched_event_bio_edittext);
+
+        final Button proceedButton = (Button) findViewById(R.id.sched_event_submit_button);
+        proceedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventListing.setmHeadline(editHeadline.getText().toString());
+
+                eventListing.setmCity(editCity.getText().toString());
+
+                eventListing.setmDescription(editWriteup.getText().toString());
+
+//                Log.e("Add result1: ", bandOpening.getmHeadline());
+//                Log.e("Add result2: ", bandOpening.getmStyle());
+//                Log.e("Add result3: ", bandOpening.getmCity());
+//                Log.e("Add result4: ", bandOpening.getmInstrument());
+//                Log.e("Add result5: ", bandOpening.getmDescription());
+                //Need to get poster Info too
+                scheduleEvent(eventListing);
+                finish();
+            }
+        });
     }
 
-    @Override
-    public void onScheduleEventInitialFragmentInteraction(int position) {
+    //@Override
+    public void scheduleEvent(EventListing eventListing) {
         String urlString = "";
         try {
             //Builds INSERT url
-            urlString = ADD_EVENT_URL + "email=" + mEvent.getmPosterEmail() + "&" +
-                    "name=" + URLEncoder.encode(mEvent.getmPoster(), "UTF-8") + "&" +
-                    "city=" + URLEncoder.encode(mEvent.getmCity(), "UTF-8") + "&" +
-                    "title=" + URLEncoder.encode(mEvent.getmHeadline(), "UTF-8") + "&" +
-                    "description=" + URLEncoder.encode(mEvent.getmDescription(), "UTF-8") + "&" +
-                    "date=" + URLEncoder.encode(mEvent.getmDateTime(), "UTF-8");
+            urlString = ADD_EVENT_URL + "email=" + eventListing.getmPosterEmail() + "&" +
+                    "name=" + URLEncoder.encode(eventListing.getmPoster(), "UTF-8") + "&" +
+                    "city=" + URLEncoder.encode(eventListing.getmCity(), "UTF-8") + "&" +
+                    "title=" + URLEncoder.encode(eventListing.getmHeadline(), "UTF-8") + "&" +
+                    "description=" + URLEncoder.encode(eventListing.getmDescription(), "UTF-8") + "&" +
+                    "date=" + URLEncoder.encode(eventListing.getmDateTime(), "UTF-8");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -68,19 +98,19 @@ public class ScheduleEventActivity extends AppCompatActivity implements Schedule
             e.printStackTrace();
         }
         Log.e("Add event result: ", result);
-        Toast.makeText(getApplicationContext(), "This should take to the next fragment.", Toast.LENGTH_LONG)
+        Toast.makeText(getApplicationContext(), "Event Posted!.", Toast.LENGTH_LONG)
                 .show();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container4, new ScheduleEventBioFragment())
-                .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container4, new ScheduleEventBioFragment())
+//                .commit();
     }
 
-    @Override
-    public void onScheduleEventBioFragmentInteraction(int position) {
-        Toast.makeText(getApplicationContext(), "This should take me out of activity.", Toast.LENGTH_LONG)
-                .show();
-        finish();
-    }
+//    @Override
+//    public void onScheduleEventBioFragmentInteraction(int position) {
+//        Toast.makeText(getApplicationContext(), "This should take me out of activity.", Toast.LENGTH_LONG)
+//                .show();
+//        finish();
+//    }
 
     /**
      * This AsyncTask handles adding an empty profile to the `Profile` table.

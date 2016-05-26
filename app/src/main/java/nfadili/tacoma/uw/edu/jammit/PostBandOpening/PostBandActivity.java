@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -18,40 +21,68 @@ import model.BandOpening;
 import model.EventListing;
 import nfadili.tacoma.uw.edu.jammit.R;
 
-public class PostBandActivity extends AppCompatActivity implements PostBandInitialFragment.OnPostBandInitialFragmentInteractionListener,
-                                                                PostBandWriteupFragment.OnPostBandWriteupFragmentInteractionListener{
+public class PostBandActivity extends AppCompatActivity {
 
     public final static String ADD_EVENT_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addBandOpening.php?";
 
 
-    private BandOpening mOpening;
+    //private BandOpening mOpening;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_band);
 
         //TODO: Populate with EditText fields
-        mOpening = new BandOpening();
 
-        if (findViewById(R.id.fragment_container3)!= null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container3, new PostBandInitialFragment())
-                    .commit();
-        }
+        final BandOpening bandOpening = new BandOpening();
+        final EditText editHeadline = (EditText) findViewById(R.id.post_band_headline_edittext);
+        final EditText editStyle = (EditText) findViewById(R.id.post_band_style_edittext);
+        final EditText editCity = (EditText) findViewById(R.id.post_band_city_edittext);
+        final EditText editInstrument = (EditText) findViewById(R.id.post_band_instruments_needed_edittext);
+        final EditText editWriteup = (EditText) findViewById(R.id.post_band_writeup_edittext);
+
+        final Button proceedButton = (Button) findViewById(R.id.post_band_submit_button);
+        proceedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bandOpening.setmHeadline(editHeadline.getText().toString());
+                bandOpening.setmStyle(editStyle.getText().toString());
+                bandOpening.setmCity(editCity.getText().toString());
+                bandOpening.setmInstrument(editInstrument.getText().toString());
+                bandOpening.setmDescription(editWriteup.getText().toString());
+
+//                Log.e("Add result1: ", bandOpening.getmHeadline());
+//                Log.e("Add result2: ", bandOpening.getmStyle());
+//                Log.e("Add result3: ", bandOpening.getmCity());
+//                Log.e("Add result4: ", bandOpening.getmInstrument());
+//                Log.e("Add result5: ", bandOpening.getmDescription());
+                //Need to get poster Info too
+                createPosting(bandOpening);
+                finish();
+            }
+        });
+
+        //mOpening = new BandOpening();
+
+//        if (findViewById(R.id.fragment_container3)!= null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.fragment_container3, new PostBandInitialFragment())
+//                    .commit();
+//        }
     }
 
-    @Override
-    public void onPostBandInitialFragmentInteraction(int position) {
+    //@Override
+    public void createPosting(BandOpening bandOpening) {
         String urlString = "";
         try {
             //Builds INSERT url
-            urlString = ADD_EVENT_URL + "email=" + mOpening.getmPosterEmail() + "&" +
-                    "name=" + URLEncoder.encode(mOpening.getmPoster(), "UTF-8") + "&" +
-                    "title=" + URLEncoder.encode(mOpening.getmHeadline(), "UTF-8") + "&" +
-                    "instrument=" + URLEncoder.encode(mOpening.getmInstrument(), "UTF-8") + "&" +
-                    "style=" + URLEncoder.encode(mOpening.getmStyle(), "UTF-8") + "&" +
-                    "city=" + URLEncoder.encode(mOpening.getmCity(), "UTF-8") + "&" +
-                    "description=" + URLEncoder.encode(mOpening.getmDescription(), "UTF-8");
+            urlString = ADD_EVENT_URL + "email=" + bandOpening.getmPosterEmail() + "&" +
+                    "name=" + URLEncoder.encode(bandOpening.getmPoster(), "UTF-8") + "&" +
+                    "title=" + URLEncoder.encode(bandOpening.getmHeadline(), "UTF-8") + "&" +
+                    "instrument=" + URLEncoder.encode(bandOpening.getmInstrument(), "UTF-8") + "&" +
+                    "style=" + URLEncoder.encode(bandOpening.getmStyle(), "UTF-8") + "&" +
+                    "city=" + URLEncoder.encode(bandOpening.getmCity(), "UTF-8") + "&" +
+                    "description=" + URLEncoder.encode(bandOpening.getmDescription(), "UTF-8");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -68,19 +99,19 @@ public class PostBandActivity extends AppCompatActivity implements PostBandIniti
             e.printStackTrace();
         }
         Log.e("Add result: ", result);
-        Toast.makeText(getApplicationContext(), "This should take to the next fragment.", Toast.LENGTH_LONG)
+        Toast.makeText(getApplicationContext(), "Band Opening Posted!.", Toast.LENGTH_LONG)
                 .show();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container3, new PostBandWriteupFragment())
-                .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment_container3, new PostBandWriteupFragment())
+//                .commit();
     }
 
-    @Override
-    public void onPostBandWriteupFragmentInteraction(int position) {
-        Toast.makeText(getApplicationContext(), "This should take me out of activity.", Toast.LENGTH_LONG)
-                .show();
-        finish();
-    }
+//    @Override
+//    public void onPostBandWriteupFragmentInteraction(int position) {
+//        Toast.makeText(getApplicationContext(), "This should take me out of activity.", Toast.LENGTH_LONG)
+//                .show();
+//        finish();
+//    }
 
     /**
      * This AsyncTask handles adding an empty profile to the `Profile` table.
