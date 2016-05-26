@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 /**
  * Created by Riley Gratzer on 5/23/16.
  */
@@ -14,8 +16,9 @@ public class BandOpening {
     private String mDescription;
 
     public BandOpening() {
+        Random rand = new Random();
         mPoster = "";
-        mPosterEmail = "";
+        mPosterEmail = "test@test.com" + String.valueOf(rand.nextInt() % 50);   //semi random email generator
         mCity = "";
         mInstrument = "";
         mStyle = "";
@@ -23,7 +26,7 @@ public class BandOpening {
         mDescription = "";
     }
 
-    public BandOpening(String poster, String posterEmail, String city, String instrument, String style, String headline, String description) {
+    public BandOpening(String posterEmail, String poster, String headline, String instrument, String style, String city, String description) {
         mPoster = poster;
         mPosterEmail = posterEmail;
         mCity = city;

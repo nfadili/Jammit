@@ -32,7 +32,7 @@ public class ScheduleEventActivity extends AppCompatActivity implements Schedule
         setContentView(R.layout.activity_schedule_event);
 
         //TODO: Populate with EditText fields
-        mEvent = new EventListing("why@why.com", "asd", "asd", "asd", "asd", "2016-06-06 19:30:00");
+        mEvent = new EventListing();
 
         if (findViewById(R.id.fragment_container4)!= null) {
             getSupportFragmentManager().beginTransaction()

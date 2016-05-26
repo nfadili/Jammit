@@ -1,6 +1,8 @@
 package model;
 
 
+import java.util.Random;
+
 public class EventListing {
     private String mPoster;
     private String mPosterEmail;
@@ -10,8 +12,9 @@ public class EventListing {
     private String mDescription;
 
     public EventListing() {
+        Random rand = new Random();
         mPoster = "";
-        mPosterEmail = "";
+        mPosterEmail = "test@test.com" + String.valueOf(rand.nextInt() % 50); //semi random email generator
         mCity = "";
         mDateTime = "";
         mTitle = "";
