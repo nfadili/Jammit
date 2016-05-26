@@ -127,7 +127,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mScheduleEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //schedule.putExtra("Profile", mAccount);
+                schedule.putExtra("Profile", mAccount);
                 startActivity(schedule);
             }
         });

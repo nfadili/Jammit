@@ -6,7 +6,7 @@ public class EventListing {
     private String mPosterEmail;
     private String mCity;
     private String mDateTime;
-    private String mHeadline;
+    private String mTitle;
     private String mDescription;
 
     public EventListing() {
@@ -14,16 +14,16 @@ public class EventListing {
         mPosterEmail = "";
         mCity = "";
         mDateTime = "";
-        mHeadline = "";
+        mTitle = "";
         mDescription = "";
     }
 
-    public EventListing(String poster, String posterEmail, String city, String dateTime, String headline, String description) {
+    public EventListing(String posterEmail, String poster,  String city, String headline, String description, String dateTime) {
         mPoster = poster;
         mPosterEmail = posterEmail;
         mCity = city;
         mDateTime = dateTime;
-        mHeadline = headline;
+        mTitle = headline;
         mDescription = description;
     }
 
@@ -38,7 +38,7 @@ public class EventListing {
     }
     public String getmDateTime() { return mDateTime; }
     public String getmHeadline() {
-        return mHeadline;
+        return mTitle;
     }
     public String getmDescription() {
         return mDescription;
@@ -54,7 +54,7 @@ public class EventListing {
         mCity = newParam;
     }
     public void setmDateTime(String newParam) { mDateTime = newParam; }
-    public void setmHeadline(String newParam) { mHeadline = newParam;
+    public void setmHeadline(String newParam) { mTitle = newParam;
     }
     public void setmDescription(String newParam) {
         mDescription = newParam;
