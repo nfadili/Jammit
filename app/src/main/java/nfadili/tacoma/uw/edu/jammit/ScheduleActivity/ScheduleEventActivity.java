@@ -26,38 +26,35 @@ public class ScheduleEventActivity extends AppCompatActivity {
 
     public final static String ADD_EVENT_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addEvent.php?";
 
-    //private EventListing mEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_event);
 
-        //TODO: Populate with EditText fields
-        //mEvent = new EventListing();
-
-//        if (findViewById(R.id.fragment_container4)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.fragment_container4, new ScheduleEventInitialFragment())
-//                    .commit();
-//        }
+        final UserAccount userAccount =  (UserAccount) getIntent().getSerializableExtra("Profile");
 
         final EventListing eventListing = new EventListing();
+
         final EditText editHeadline = (EditText) findViewById(R.id.sched_event_headline_edittext);
 
         final EditText editCity = (EditText) findViewById(R.id.sched_event_city_edittext);
 
         final EditText editWriteup = (EditText) findViewById(R.id.sched_event_bio_edittext);
 
+        final EditText editDate = (EditText) findViewById(R.id.sched_event_date_edittext);
+        final EditText editTime = (EditText) findViewById(R.id.sched_event_time_edittext);
+
         final Button proceedButton = (Button) findViewById(R.id.sched_event_submit_button);
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                eventListing.setmPosterEmail(userAccount.getEmail());
+                eventListing.setmPoster(userAccount.getmName());
                 eventListing.setmHeadline(editHeadline.getText().toString());
-
                 eventListing.setmCity(editCity.getText().toString());
-
                 eventListing.setmDescription(editWriteup.getText().toString());
+                eventListing.setmDateTime(editDate.getText().toString() + " " + editTime.getText().toString());
 
 //                Log.e("Add result1: ", bandOpening.getmHeadline());
 //                Log.e("Add result2: ", bandOpening.getmStyle());
