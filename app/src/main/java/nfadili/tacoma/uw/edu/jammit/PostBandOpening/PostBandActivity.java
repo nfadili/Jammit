@@ -34,6 +34,7 @@ public class PostBandActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_band);
 
+        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
         //TODO: Populate with EditText fields
 
         final BandOpening bandOpening = new BandOpening();

@@ -3,6 +3,7 @@ package nfadili.tacoma.uw.edu.jammit.FindBand;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,9 +27,14 @@ public class FindBandActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Log.e("Add result1: ", byInstrument.getText().toString());
+//                Log.e("Add result2: ", byCity.getText().toString());
+//                Log.e("Add result3: ", byStyle.getText().toString());
+
                 search.putExtra("Instrument", byInstrument.getText().toString());
                 search.putExtra("City", byCity.getText().toString());
                 search.putExtra("Style", byStyle.getText().toString());
+
                 startActivity(search);
             }
         });

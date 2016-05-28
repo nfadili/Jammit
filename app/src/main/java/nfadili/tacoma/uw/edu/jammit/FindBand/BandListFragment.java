@@ -6,14 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.BandOpening;
+import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 /**
@@ -33,6 +39,8 @@ public class BandListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
+
+
     public BandListFragment() {
     }
 
@@ -43,20 +51,75 @@ public class BandListFragment extends Fragment {
 
     }
 
+    private ArrayList<BandOpening> parseResult(String result) {
+        ArrayList<BandOpening> parsedList = new ArrayList<BandOpening>();
+
+        try {
+            JSONArray array = new JSONArray(result);
+            JSONObject profile;
+
+            for(int i = 0; i < array.length(); i++) {
+                profile = array.getJSONObject(i);
+                String name = profile.getString("name");
+                String email = profile.getString("email");
+                String instruments = profile.getString("instruments");
+                String city = profile.getString("city");
+                String styles = profile.getString("styles");
+                String description = profile.getString("description");
+                String title = profile.getString("headline");
+                parsedList.add(new BandOpening(email, name, title, instruments, styles, city, description));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return parsedList;
+    }
+    private ArrayList<BandOpening> trimResults(ArrayList<BandOpening> oldList) {
+        ArrayList<BandOpening> trimmedList = new ArrayList<BandOpening>();
+
+        String targetCity = ((BrowseSearchedBandsActivity) getActivity()).getmCity();
+        String targetStyle = ((BrowseSearchedBandsActivity) getActivity()).getmStyle();
+        String targetInstrument = ((BrowseSearchedBandsActivity) getActivity()).getmInstrument();
+
+        for (int i = 0; i < oldList.size(); i++) {
+            if (targetInstrument != "" && oldList.get(i).getmInstrument().contains(targetInstrument)) {
+
+                    if (targetCity != "" && oldList.get(i).getmCity().contains(targetCity)) {
+                        if (targetStyle != "" && oldList.get(i).getmStyle().contains(targetStyle)) {
+                            trimmedList.add(oldList.get(i));
+                        }
+                    }
+
+            }
+        }
+
+        return trimmedList;
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bandlist_list, container, false);
 
-        List<BandOpening> selectedBands = new ArrayList<BandOpening>();
-        selectedBands.add(new BandOpening());
-        selectedBands.get(0).setmHeadline("This is listing 0");
+        String bands = ((BrowseSearchedBandsActivity) getActivity()).getResult();
+        Log.e("string bands", bands);
+        ArrayList<BandOpening> selectedBands = parseResult(bands);
 
-        selectedBands.add(new BandOpening());
-        selectedBands.get(1).setmHeadline("This is listing 1");
+        Log.e("parsed bands tostring", selectedBands.toString());
 
-        selectedBands.add(new BandOpening());
-        selectedBands.get(2).setmHeadline("This is listing 2");
+        selectedBands = trimResults(selectedBands);
+        Log.e("Selected bands tostring", selectedBands.toString());
+        ((BrowseSearchedBandsActivity) getActivity()).setmBands(selectedBands);
+
+//        selectedBands.add(new BandOpening());
+//        selectedBands.get(0).setmHeadline("This is listing 0");
+//
+//        selectedBands.add(new BandOpening());
+//        selectedBands.get(1).setmHeadline("This is listing 1");
+//
+//        selectedBands.add(new BandOpening());
+//        selectedBands.get(2).setmHeadline("This is listing 2");
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();

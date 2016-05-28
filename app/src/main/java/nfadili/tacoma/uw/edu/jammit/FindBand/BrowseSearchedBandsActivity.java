@@ -1,6 +1,7 @@
 package nfadili.tacoma.uw.edu.jammit.FindBand;
 
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,22 +12,38 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import model.BandOpening;
+import nfadili.tacoma.uw.edu.jammit.FindMusicians.ViewProfileFragment;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 public class BrowseSearchedBandsActivity extends AppCompatActivity implements BandListFragment.OnBandListFragmentInteractionListener{
 
     public final static String FIND_BANDS_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/openings.php";
+    private ArrayList<BandOpening> mBands;
+
+    private String mBandsString;
+    private String mCity;
+    private String mStyle;
+    private String mInstrument;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_searched_bands);
 
+        mCity = getIntent().getStringExtra("City");
+        mStyle = getIntent().getStringExtra("Style");
+        mInstrument = getIntent().getStringExtra("Instrument");
+
         //TODO: take result and display it in list. Filter by search?
         String result = showBands();
         Log.e("Query: ", result);
-        finish();
+        mBandsString = result;
+        Log.e("mBandsString = ", mBandsString);
+        //finish();
 //        final Button showEventsButton = (Button) findViewById(R.id.find_events_button);
 //        showEventsButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -44,6 +61,25 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
         }
     }
 
+    public String getmCity() {
+        return mCity;
+    }
+    public String getmInstrument() {
+        return mInstrument;
+    }
+    public String getmStyle() {
+        return mStyle;
+    }
+    public ArrayList<BandOpening> getmBands() {
+        return mBands;
+    }
+
+    public void setmBands(ArrayList<BandOpening> bands) {
+        mBands = bands;
+    }
+    public String getResult() {
+        return mBandsString;
+    }
     private String showBands() {
         String urlString = "";
         try {
@@ -95,6 +131,7 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
                         urlConnection.disconnect();
                 }
             }
+            Log.e("Response thing", response);
             return response;
         }
 
@@ -110,12 +147,14 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
+            } else {
+                Log.e("Not unable: ", result);
             }
             // Everything is good, return to login activity.
             if (result.contains("success")) {
                 Log.e("Loaded bands", "");
 
-                finish();
+                //finish();
             }
             else {
                 Toast.makeText(getApplicationContext(), "Unable to load bands", Toast.LENGTH_LONG)
@@ -127,5 +166,29 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
         @Override
     public void onBandListFragmentInteraction(int position) {
 
+            // Capture the student fragment from the activity layout
+            BandDetailsFragment bandListing = (BandDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.band_details_frag);
+            //profParamFragment.setParameter(parameter);
+            if (bandListing != null) {
+                // If courseItem frag is available, we're in two-pane layout...
+                // Call a method in the student fragment to update its username
+                bandListing.updateViews(position);
+            } else {
+                // If the frag is not available, we're in the one-pane layout and must swap frags...
+                // Create fragment and give it an argument for the selected student
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                bandListing = new BandDetailsFragment();
+                Bundle args = new Bundle();
+                args.putInt(ViewProfileFragment.ARG_POSITION, position);
+                bandListing.setArguments(args);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container5, bandListing)
+                        .addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
     }
 }
