@@ -107,7 +107,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mPostBandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //post.putExtra("Profile", mAccount);
+                post.putExtra("Profile", mAccount);
                 startActivity(post);
             }
         });

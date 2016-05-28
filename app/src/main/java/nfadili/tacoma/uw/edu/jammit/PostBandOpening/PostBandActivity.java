@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 import model.BandOpening;
 import model.EventListing;
+import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 public class PostBandActivity extends AppCompatActivity {
@@ -26,7 +27,8 @@ public class PostBandActivity extends AppCompatActivity {
     public final static String ADD_EVENT_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addBandOpening.php?";
 
 
-    //private BandOpening mOpening;
+    private UserAccount mAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,8 @@ public class PostBandActivity extends AppCompatActivity {
                 bandOpening.setmCity(editCity.getText().toString());
                 bandOpening.setmInstrument(editInstrument.getText().toString());
                 bandOpening.setmDescription(editWriteup.getText().toString());
+                bandOpening.setmPoster(mAccount.getmName());
+                bandOpening.setmPosterEmail(mAccount.getEmail());
 
 //                Log.e("Add result1: ", bandOpening.getmHeadline());
 //                Log.e("Add result2: ", bandOpening.getmStyle());
