@@ -91,7 +91,6 @@ public class EventListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnEventListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onEventListFragmentInteraction(int position);
     }
 }

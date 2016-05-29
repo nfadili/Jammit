@@ -1,5 +1,6 @@
 package nfadili.tacoma.uw.edu.jammit.FindEvents;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,9 @@ import java.util.ArrayList;
 
 import model.BandOpening;
 import model.EventListing;
+import nfadili.tacoma.uw.edu.jammit.FindBand.BandDetailsFragment;
 import nfadili.tacoma.uw.edu.jammit.FindBand.BandListFragment;
+import nfadili.tacoma.uw.edu.jammit.FindMusicians.ViewProfileFragment;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 
@@ -95,6 +98,29 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
 
     @Override
     public void onEventListFragmentInteraction(int position) {
+        // Capture the student fragment from the activity layout
+        EventDetailsFragment eventListing = (EventDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.event_details_frag);
+        //profParamFragment.setParameter(parameter);
+        if (eventListing != null) {
+            // If courseItem frag is available, we're in two-pane layout...
+            // Call a method in the student fragment to update its username
+            eventListing.updateViews(position);
+        } else {
+            // If the frag is not available, we're in the one-pane layout and must swap frags...
+            // Create fragment and give it an argument for the selected student
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            eventListing = new EventDetailsFragment();
+            Bundle args = new Bundle();
+            args.putInt(EventDetailsFragment.ARG_POSITION, position);
+            eventListing.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container6, eventListing)
+                    .addToBackStack(null);
 
+            // Commit the transaction
+            transaction.commit();
+        }
     }
 }

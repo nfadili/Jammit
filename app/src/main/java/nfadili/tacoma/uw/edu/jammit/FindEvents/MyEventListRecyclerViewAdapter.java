@@ -38,7 +38,7 @@ public class MyEventListRecyclerViewAdapter extends RecyclerView.Adapter<MyEvent
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         //holder.mItem = mValues.get(position);
         //holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).getmHeadline());
@@ -49,7 +49,7 @@ public class MyEventListRecyclerViewAdapter extends RecyclerView.Adapter<MyEvent
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onEventListFragmentInteraction(1);
+                    mListener.onEventListFragmentInteraction(position);
                 }
             }
         });

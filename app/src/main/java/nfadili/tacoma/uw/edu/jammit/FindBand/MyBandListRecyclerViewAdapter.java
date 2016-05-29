@@ -9,12 +9,12 @@ import android.widget.TextView;
 import model.BandOpening;
 import nfadili.tacoma.uw.edu.jammit.FindBand.BandListFragment.OnBandListFragmentInteractionListener;
 import nfadili.tacoma.uw.edu.jammit.R;
-import nfadili.tacoma.uw.edu.jammit.dummy.DummyContent.DummyItem;
+
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link BandOpening} and makes a call to the
  * specified {@link OnBandListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
@@ -37,7 +37,7 @@ public class MyBandListRecyclerViewAdapter extends RecyclerView.Adapter<MyBandLi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         /*
          * TODO - write stuff to show up in recycler
          */
@@ -51,7 +51,7 @@ public class MyBandListRecyclerViewAdapter extends RecyclerView.Adapter<MyBandLi
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onBandListFragmentInteraction(1);
+                    mListener.onBandListFragmentInteraction(position);
                 }
             }
         });
@@ -66,7 +66,7 @@ public class MyBandListRecyclerViewAdapter extends RecyclerView.Adapter<MyBandLi
         public final View mView;
 //        public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+
 
         public ViewHolder(View view) {
             super(view);
