@@ -84,7 +84,7 @@ public class BandDetailsFragment extends Fragment {
 
     public void updateViews(int param) {
 
-        BandOpening band = ((BrowseSearchedBandsActivity)getActivity()).getmBands().get(param-1);
+        BandOpening band = ((BrowseSearchedBandsActivity)getActivity()).getmBands().get(param);
 
 
 
