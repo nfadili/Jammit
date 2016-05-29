@@ -55,7 +55,7 @@ public class UserAccount implements Serializable {
         mEmail = "";
         mPassword = "";
         authenticated = false;
-        mName = "";
+        mName = "New User";
         mAge = "";
         mInstruments = "";
         mCity = "";

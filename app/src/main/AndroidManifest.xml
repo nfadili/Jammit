@@ -42,8 +42,9 @@
         <activity android:name=".PostBandOpening.PostBandActivity" />
         <activity android:name=".FindBand.FindBandActivity" />
         <activity android:name=".ScheduleActivity.ScheduleEventActivity" />
-        <activity android:name=".FindEventsActivity" />
-        <activity android:name=".FindBand.BrowseSearchedBandsActivity"></activity>
+        <activity android:name=".FindEvents.FindEventsActivity" />
+        <activity android:name=".FindBand.BrowseSearchedBandsActivity" />
+        <activity android:name=".FindEvents.BrowseSearchedEventsActivity"></activity>
     </application>
 
 </manifest>

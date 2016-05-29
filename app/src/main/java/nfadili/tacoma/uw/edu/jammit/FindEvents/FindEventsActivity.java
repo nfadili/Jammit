@@ -1,11 +1,13 @@
-package nfadili.tacoma.uw.edu.jammit;
+package nfadili.tacoma.uw.edu.jammit.FindEvents;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -16,6 +18,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
+import nfadili.tacoma.uw.edu.jammit.FindBand.BrowseSearchedBandsActivity;
+import nfadili.tacoma.uw.edu.jammit.R;
+
 public class FindEventsActivity extends AppCompatActivity {
 
     final static String FIND_EVENTS_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/events.php";
@@ -25,10 +30,30 @@ public class FindEventsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_events);
 
+        final EditText byCity = (EditText) findViewById(R.id.edittext_search_event_city);
+
         //TODO: take result and display it in list. Maybe filter by date??
-        String result = showEvents();
+        final String result = showEvents();
         Log.e("Query: ", result);
-        finish();
+
+        Button mSearchButton = (Button) findViewById(R.id.search_event_button);
+        final Intent search = new Intent(this, BrowseSearchedEventsActivity.class);
+        mSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Log.e("Add result1: ", byInstrument.getText().toString());
+//                Log.e("Add result2: ", byCity.getText().toString());
+//                Log.e("Add result3: ", byStyle.getText().toString());
+
+                //search.putExtra("Instrument", byInstrument.getText().toString());
+                search.putExtra("City", byCity.getText().toString());
+                search.putExtra("Result", result);
+                //search.putExtra("Style", byStyle.getText().toString());
+
+                startActivity(search);
+            }
+        });
+        //finish();
 //        final Button showEventsButton = (Button) findViewById(R.id.find_events_button);
 //        showEventsButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

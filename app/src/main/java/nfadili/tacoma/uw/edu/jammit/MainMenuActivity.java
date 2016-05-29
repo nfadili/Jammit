@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.EditProfile.EditProfileActivity;
 import nfadili.tacoma.uw.edu.jammit.FindBand.FindBandActivity;
+import nfadili.tacoma.uw.edu.jammit.FindEvents.FindEventsActivity;
 import nfadili.tacoma.uw.edu.jammit.FindMusicians.SearchMusicianActivity;
 import nfadili.tacoma.uw.edu.jammit.PostBandOpening.PostBandActivity;
 import nfadili.tacoma.uw.edu.jammit.ScheduleActivity.ScheduleEventActivity;
