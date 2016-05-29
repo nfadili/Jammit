@@ -38,13 +38,29 @@
         <activity
             android:name=".FindMusicians.BrowseSearchedActivity"
             android:label="Jammit - Search Results" />
-        <activity android:name=".ViewProfileActivity" />
-        <activity android:name=".PostBandOpening.PostBandActivity" />
-        <activity android:name=".FindBand.FindBandActivity" />
-        <activity android:name=".ScheduleActivity.ScheduleEventActivity" />
-        <activity android:name=".FindEvents.FindEventsActivity" />
-        <activity android:name=".FindBand.BrowseSearchedBandsActivity" />
-        <activity android:name=".FindEvents.BrowseSearchedEventsActivity"></activity>
+        <activity
+            android:name=".PostBandOpening.PostBandActivity"
+            android:label="Jammit - Post Band Opening" />
+        <activity
+            android:name=".FindBand.FindBandActivity"
+            android:label="Jammit - Search Band Openings" />
+        <activity
+            android:name=".FindBand.BrowseSearchedBandsActivity"
+            android:label="Jammit - Search Results" />
+        <activity
+            android:name=".ScheduleActivity.ScheduleEventActivity"
+            android:label="Jammit - Schedule Event" />
+
+        <activity
+            android:name=".FindEvents.FindEventsActivity"
+            android:label="Jammit - Search Events" />
+        <activity
+            android:name=".FindEvents.BrowseSearchedEventsActivity"
+            android:label="Jammit - Search Results" />
+
+        <activity android:name=".ViewProfileActivity"
+            android:label="Jammit - View Profile"/>
+
     </application>
 
 </manifest>

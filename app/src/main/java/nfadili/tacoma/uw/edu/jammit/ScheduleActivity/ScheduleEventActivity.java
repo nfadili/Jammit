@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -42,8 +44,9 @@ public class ScheduleEventActivity extends AppCompatActivity {
 
         final EditText editWriteup = (EditText) findViewById(R.id.sched_event_bio_edittext);
 
-        final EditText editDate = (EditText) findViewById(R.id.sched_event_date_edittext);
-        final EditText editTime = (EditText) findViewById(R.id.sched_event_time_edittext);
+        final DatePicker date = (DatePicker) findViewById(R.id.sched_event_datepicker);
+        final TimePicker time = (TimePicker) findViewById(R.id.sched_event_timepicker);
+
 
         final Button proceedButton = (Button) findViewById(R.id.sched_event_submit_button);
         proceedButton.setOnClickListener(new View.OnClickListener() {
@@ -54,13 +57,13 @@ public class ScheduleEventActivity extends AppCompatActivity {
                 eventListing.setmHeadline(editHeadline.getText().toString());
                 eventListing.setmCity(editCity.getText().toString());
                 eventListing.setmDescription(editWriteup.getText().toString());
-                eventListing.setmDateTime(editDate.getText().toString() + " " + editTime.getText().toString());
+                eventListing.setmDateTime(formatDateTimeString(date, time));
 
-//                Log.e("Add result1: ", bandOpening.getmHeadline());
-//                Log.e("Add result2: ", bandOpening.getmStyle());
-//                Log.e("Add result3: ", bandOpening.getmCity());
-//                Log.e("Add result4: ", bandOpening.getmInstrument());
-//                Log.e("Add result5: ", bandOpening.getmDescription());
+                Log.e("Add result1: ", eventListing.getmHeadline());
+
+                Log.e("Add result3: ", eventListing.getmCity());
+
+                Log.e("Add result5: ", eventListing.getmDateTime());
                 //Need to get poster Info too
                 scheduleEvent(eventListing);
                 finish();
@@ -169,5 +172,34 @@ public class ScheduleEventActivity extends AppCompatActivity {
                         .show();
             }
         }
+    }
+
+    public String formatDateTimeString(DatePicker date, TimePicker time) {
+        StringBuilder dateTime = new StringBuilder();
+
+        dateTime.append(date.getYear());
+        dateTime.append("-");
+        if (date.getMonth() < 10) {
+            dateTime.append(0);
+        }
+        dateTime.append(date.getMonth());
+        dateTime.append("-");
+        if (date.getDayOfMonth() < 10) {
+            dateTime.append(0);
+        }
+        dateTime.append(date.getDayOfMonth());
+        dateTime.append(" ");
+        if (time.getCurrentHour() < 10) {
+            dateTime.append(0);
+        }
+        dateTime.append(time.getCurrentHour());
+        dateTime.append(":");
+        if (time.getCurrentMinute() < 10) {
+            dateTime.append(0);
+        }
+        dateTime.append(time.getCurrentMinute());
+        dateTime.append(":00");
+
+        return dateTime.toString();
     }
 }
