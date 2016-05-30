@@ -83,7 +83,7 @@ public class PostBandActivity extends AppCompatActivity {
             //Builds INSERT url
             urlString = ADD_EVENT_URL + "email=" + bandOpening.getmPosterEmail() + "&" +
                     "name=" + URLEncoder.encode(bandOpening.getmPoster(), "UTF-8") + "&" +
-                    "title=" + URLEncoder.encode(bandOpening.getmHeadline(), "UTF-8") + "&" +
+                    "headline=" + URLEncoder.encode(bandOpening.getmHeadline(), "UTF-8") + "&" +
                     "instruments=" + URLEncoder.encode(bandOpening.getmInstrument(), "UTF-8") + "&" +
                     "styles=" + URLEncoder.encode(bandOpening.getmStyle(), "UTF-8") + "&" +
                     "city=" + URLEncoder.encode(bandOpening.getmCity(), "UTF-8") + "&" +
