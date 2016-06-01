@@ -1,13 +1,18 @@
 package nfadili.tacoma.uw.edu.jammit.FindBand;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import model.BandOpening;
 import nfadili.tacoma.uw.edu.jammit.FindMusicians.BrowseSearchedActivity;
@@ -24,7 +29,8 @@ public class BandDetailsFragment extends Fragment {
    // private OnFragmentInteractionListener mListener;
 
     public static final String ARG_POSITION = "POSITION" ;
-
+    public Button sendEmailButton;
+    public String emailRecipient;
 
     private int mCurrentPosition = -1;
 
@@ -42,6 +48,28 @@ public class BandDetailsFragment extends Fragment {
         // applied to the fragment at this point so we can safely call the method
         // below that sets the article text.
         Bundle args = getArguments();
+        emailRecipient = "";
+
+        sendEmailButton = (Button) getActivity().findViewById(R.id.send_email_button);
+        sendEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                String to = emailRecipient;
+                String subject = "";
+                String message = "";
+                email.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
+                // email.putExtra(Intent.EXTRA_CC, new String[]{ to});
+                // email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+                email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                email.putExtra(Intent.EXTRA_TEXT, message);
+
+                // need this to prompts email client only
+                email.setType("message/rfc822");
+
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+            }
+        });
         if (args != null) {
             // Set article based on argument passed in
             updateViews(args.getInt(ARG_POSITION));
@@ -102,6 +130,7 @@ public class BandDetailsFragment extends Fragment {
         posterView.setText((CharSequence) (band.getmPoster()));
         TextView emailView = (TextView) getActivity().findViewById(R.id.band_poster_email);
         emailView.setText((CharSequence) (band.getmPosterEmail()));
+        emailRecipient = band.getmPosterEmail();
     }
     /**
      * This interface must be implemented by activities that contain this
