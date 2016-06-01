@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".ScheduleActivity.ScheduleEventActivity">
 
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,33 +22,52 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Enter a catchy headline for your event:" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/sched_event_headline_edittext"
-                android:hint="Enter headline here" />
+                android:text="Schedule Event"
+                android:textStyle="bold"
+                android:layout_gravity="top|center_horizontal"
+                android:textColor="@android:color/holo_red_dark"
+                android:layout_weight="0.08"
+                android:paddingBottom="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Please state what city your event will be hosted in:" />
+                android:text="Trying to book a show at a local venue? Or maybe you just want to set up a casual jam session with some new people? Enter the information below to let other users know about your event!"
+                android:paddingBottom="40dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Enter a catchy headline for your event:" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:paddingBottom="20dp"
+                android:id="@+id/sched_event_headline_edittext"
+                android:hint="Enter headline here"
+                android:layout_gravity="left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please state what city your event will be hosted in:"
+                android:layout_gravity="left" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingBottom="20dp"
                 android:id="@+id/sched_event_city_edittext"
                 android:hint="Enter city here" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:text="Please select the date and start time:" />
 
 
@@ -56,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/sched_event_datepicker"
+                android:paddingBottom="20dp"
                 android:datePickerMode="spinner" />
 
 
@@ -64,24 +85,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/sched_event_timepicker"
+                android:paddingBottom="20dp"
                 android:timePickerMode="spinner" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:text="Please write a detailed description of what you are looking for below::" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:id="@+id/sched_event_bio_edittext"
-                android:hint="Enter detailed description here" />
+                android:paddingBottom="20dp"
+                android:hint="Enter detailed description here"
+                android:layout_gravity="left" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Submit Event"

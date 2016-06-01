@@ -16,38 +16,16 @@
         android:layout_height="wrap_content"
         android:text="Search for Musicians"
         android:textStyle="bold"
-        android:layout_gravity="top"
+        android:layout_gravity="top|center_horizontal"
         android:textColor="@android:color/holo_red_dark"
         android:layout_weight="0.08"
         android:id="@+id/search_header" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_instrument"
-        android:layout_weight="0.08"
-        android:hint="Enter desired instrument here"
-        android:layout_gravity="left" />
-
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_style"
-        android:layout_weight="0.08"
-        android:hint="Enter desired style here"
-        android:layout_gravity="left" />
-
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_by_age"
-        android:layout_weight="0.08"
-        android:layout_gravity="left"
-        android:hint="Enter desired age here" />
+        android:text="Use any or all of the options below to filter your search."
+        android:layout_gravity="center_horizontal" />
 
 
 
@@ -56,13 +34,51 @@
         android:layout_height="wrap_content"
         android:id="@+id/edittext_search_by_city"
         android:layout_weight="0.08"
-        android:hint="Enter desired city here" />
+        android:hint="Search by desired city here" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext_search_by_age"
+        android:layout_weight="0.08"
+        android:layout_gravity="left"
+        android:hint="Search by desired age here" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose one of the instruments below:"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_weight="0.08"
+        android:id="@+id/instrument_spinner"
+
+        android:outlineProvider="bounds" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose one of the styles below:"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_weight="0.08"
+
+        android:outlineProvider="bounds"
+        android:id="@+id/style_spinner" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/search_button"
-        android:layout_weight="0.08" />
+        android:layout_weight="0.08"
+        android:layout_gravity="top" />
 
 </LinearLayout>

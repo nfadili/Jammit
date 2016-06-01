@@ -19,6 +19,12 @@
         android:textColor="@android:color/holo_red_dark"
         android:layout_weight="0.08"
         android:id="@+id/search_header" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Looking to join a band? Use any or all filters below to find a band in need of your services!"
+        android:paddingBottom="40dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -31,7 +37,7 @@
 
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edittext_search_band_style"
         android:layout_weight="0.08"
@@ -40,14 +46,15 @@
 
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edittext_search_band_city"
         android:layout_weight="0.08"
+        android:layout_gravity="left"
         android:hint="Enter your city here" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/search_band_button"

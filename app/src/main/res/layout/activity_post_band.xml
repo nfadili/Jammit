@@ -6,77 +6,119 @@
     android:orientation="vertical"
     tools:context=".PostBandOpening.PostBandActivity">
 
-    <TextView
+
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Enter a catchy headline for your band opening:" />
+        android:id="@+id/scrollView" >
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/post_band_headline_edittext"
-        android:hint="Enter headline here" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".PostBandOpening.PostBandActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Please state what instrument(s) you are looking to add:" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/post_band_instruments_needed_edittext"
-        android:hint="Enter instruments here" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post Band Opening"
+                android:textStyle="bold"
+                android:layout_gravity="top|center_horizontal"
+                android:textColor="@android:color/holo_red_dark"
+                android:layout_weight="0.08"
+                android:paddingBottom="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Please state what style your band will play:" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Looking to start a band? Enter the information below to let other users know!"
+                android:paddingBottom="40dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/post_band_style_edittext"
-        android:hint="Enter style here" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="Enter a catchy headline for your band opening:"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Please state what city your band will be based out of:" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:id="@+id/post_band_headline_edittext"
+                android:hint="Enter headline here"
+                android:paddingBottom="20dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/post_band_city_edittext"
-        android:hint="Enter city here" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="Please state what instrument(s) you are looking to add:"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Please write a detailed description of what you are looking for below::" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:id="@+id/post_band_instruments_needed_edittext"
+                android:hint="Enter instruments here"
+                android:paddingBottom="20dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/post_band_writeup_edittext"
-        android:hint="Enter detailed description here" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="Please state what style your band will play:"
+                android:textStyle="bold" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Proceed"
-        android:id="@+id/post_band_submit_button"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:id="@+id/post_band_style_edittext"
+                android:hint="Enter style here"
+                android:paddingBottom="20dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="Please state what city your band will be based out of:"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:id="@+id/post_band_city_edittext"
+                android:hint="Enter city here"
+                android:paddingBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="Please write a detailed description of what you are looking for below::"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:id="@+id/post_band_writeup_edittext"
+                android:hint="Enter detailed description here"
+                android:paddingBottom="20dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Proceed"
+                android:id="@+id/post_band_submit_button"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

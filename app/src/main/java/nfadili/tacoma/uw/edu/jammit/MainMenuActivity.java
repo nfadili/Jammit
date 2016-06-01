@@ -33,6 +33,9 @@ import nfadili.tacoma.uw.edu.jammit.ScheduleActivity.ScheduleEventActivity;
  */
 public class MainMenuActivity extends AppCompatActivity {
 
+    public static String[] STYLE_ARRAY = new String[]{"", "Rock", "Pop", "Metal", "Prog", "Rap", "Hip-Hop", "R & B", "Punk", "Classical", "Jazz", "Fusion", "Electronic", "Dubstep", "Techno"};
+    public static String[] INSTRUMENT_ARRAY = new String[]{"", "Guitar", "Bass", "Drums", "Vocals", "Keyboards", "Brass", "Woodwind", "Percussion"};;
+
     private static final String PROFILE_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/getProfiles.php";
 

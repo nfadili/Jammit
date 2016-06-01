@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -32,9 +33,12 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/updateProfile.php";
 
     public UserAccount mAccount;
+    public boolean hasCheckBoxes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hasCheckBoxes = false;
         setContentView(R.layout.activity_edit_profile);
 
         mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
@@ -48,10 +52,22 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (hasCheckBoxes) {
+            ((LinearLayout) findViewById(R.id.edit_act_lin_layout)).removeAllViews();
+            hasCheckBoxes = false;
+            super.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
     @Override
     public void onListFragmentInteraction(int parameter) {
         // Capture the student fragment from the activity layout
         EditProfileParameterFragment profParamFragment = (EditProfileParameterFragment) getSupportFragmentManager().findFragmentById(R.id.editprofparam_frag);
+        EditProfileOptionFragment profOptionFragment = (EditProfileOptionFragment) getSupportFragmentManager().findFragmentById(R.id.profile_option_frag);
         //profParamFragment.setParameter(parameter);
         if (parameter == 0) {
             //UPDATE `Profile` table with changes
@@ -96,17 +112,32 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             // Create fragment and give it an argument for the selected student
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack so the user can navigate back
-            profParamFragment = new EditProfileParameterFragment();
-            Bundle args = new Bundle();
-            args.putInt(EditProfileParameterFragment.ARG_POSITION, parameter);
-            profParamFragment.setArguments(args);
-            FragmentTransaction transaction = getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, profParamFragment)
-                    .addToBackStack(null);
+            if (parameter == 3 || parameter == 4) {
+                profOptionFragment = new EditProfileOptionFragment();
+                Bundle args = new Bundle();
+                args.putInt(EditProfileOptionFragment.ARG_POSITION, parameter);
+                profOptionFragment.setArguments(args);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, profOptionFragment)
+                        .addToBackStack(null);
 
-            // Commit the transaction
-            transaction.commit();
+                // Commit the transaction
+                transaction.commit();
+            } else {
+                profParamFragment = new EditProfileParameterFragment();
+                Bundle args = new Bundle();
+                args.putInt(EditProfileParameterFragment.ARG_POSITION, parameter);
+                profParamFragment.setArguments(args);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, profParamFragment)
+                        .addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
+
         }
     }
 
