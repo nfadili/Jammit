@@ -60,6 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/send_email_button"
-        android:onClick="sendEmail"/>
+        android:text="Send Email" />
 
 </LinearLayout>
