@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -28,6 +29,14 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
     private String mCity;
     private String mStyle;
     private String mInstrument;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

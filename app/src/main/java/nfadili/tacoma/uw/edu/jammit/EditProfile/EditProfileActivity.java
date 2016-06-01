@@ -1,11 +1,16 @@
 package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -18,6 +23,8 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 /**
@@ -34,6 +41,47 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
     public UserAccount mAccount;
     public boolean hasCheckBoxes;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent action;
+        switch(item.getItemId()){
+            case R.id.logout_overflow:
+                // your action goes here
+                Log.e("BACK TO", "LOGOUT");
+                if (logoutUser()) {
+                    action = new Intent(this, LoginActivity.class);
+                    startActivity(action);
+                }
+                return true;
+            case R.id.action_main:
+                // your action goes here
+                Log.e("BACK TO", "MAIN");
+                action = new Intent(this, MainMenuActivity.class);
+
+                action.putExtra("loggedInEmail", mAccount.getEmail());
+                startActivity(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    /**
+     * Logs out current user
+     *
+     * @return true
+     */
+    public boolean logoutUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package nfadili.tacoma.uw.edu.jammit;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 
 import model.UserAccount;
@@ -11,6 +12,13 @@ import model.UserAccount;
  */
 public class ViewProfileActivity extends AppCompatActivity {
     private UserAccount mAccount;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

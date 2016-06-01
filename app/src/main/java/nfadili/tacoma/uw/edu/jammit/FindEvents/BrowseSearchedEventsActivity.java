@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +25,13 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
     private String mCity;
     private String mResult;
     private ArrayList<EventListing> mEvents;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
 
     private ArrayList<EventListing> parseEventsIntoList(String result) {
         ArrayList<EventListing> selectedEvents = new ArrayList<EventListing>();
