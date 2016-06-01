@@ -49,6 +49,12 @@ public class UserAccount implements Serializable {
         mEmail = email;
         mPassword = password;
         authenticated = auth;
+        mName = "New User";
+        mAge = "";
+        mInstruments = "";
+        mCity = "";
+        mStyles = "";
+        mBio = "";
     }
 
     public UserAccount() {
