@@ -150,16 +150,6 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
             } else {
                 Log.e("Not unable: ", result);
             }
-            // Everything is good, return to login activity.
-            if (result.contains("success")) {
-                Log.e("Loaded bands", "");
-
-                //finish();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Unable to load bands", Toast.LENGTH_LONG)
-                        .show();
-            }
         }
     }
 

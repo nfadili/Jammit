@@ -135,17 +135,7 @@ public class FindEventsActivity extends AppCompatActivity {
             }
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("ScheduleEventActivity", result.toString());
-            }
-            // Everything is good, return to login activity.
-            if (result.contains("success")) {
-                Log.e("ScheduleEventActivity", "Event added.");
-
-                finish();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Unable to add event.", Toast.LENGTH_LONG)
-                        .show();
+                Log.e("FindEventsActivity", result.toString());
             }
         }
     }
