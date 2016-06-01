@@ -56,4 +56,10 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/band_poster_email" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_email_button"
+        android:onClick="sendEmail"/>
+
 </LinearLayout>
