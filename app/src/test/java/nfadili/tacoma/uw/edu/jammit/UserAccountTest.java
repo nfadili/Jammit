@@ -70,10 +70,4 @@ public class UserAccountTest {
         assertEquals(authorizedAccount.getPassword(), "");
         assertTrue(authorizedAccount.getAuthenticated());
     }
-
-
-//    @Test
-//    public void testParseProfileQueryJSON() {
-//        //Must be tested with robotium because JSONObject is part of the Android SDK
-//    }
 }

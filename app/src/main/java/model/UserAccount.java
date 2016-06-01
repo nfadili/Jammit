@@ -121,12 +121,18 @@ public class UserAccount implements Serializable {
                 //Parse JSON object
                 JSONObject obj = new JSONObject(profileInfoJSON);
                 account.setEmail(obj.getString(UserAccount.EMAIL));
-                account.setmName(obj.getString(UserAccount.NAME));
-                account.setmAge(obj.getString(UserAccount.AGE));
-                account.setmInstruments(obj.getString(UserAccount.INSTRUMENTS));
-                account.setmStyles(obj.getString(UserAccount.STYLES));
-                account.setmCity(obj.getString(UserAccount.CITY));
-                account.setmBio(obj.getString(UserAccount.BIO));
+                if (obj.getString(UserAccount.NAME) == null || obj.getString(UserAccount.NAME) == "null") { account.setmName("New User"); }
+                else { account.setmName(obj.getString(UserAccount.NAME)); }
+                if (obj.getString(UserAccount.AGE) == null || obj.getString(UserAccount.AGE) == "null") { account.setmAge("No Age"); }
+                else { account.setmAge(obj.getString(UserAccount.AGE));}
+                if (obj.getString(UserAccount.INSTRUMENTS) == null || obj.getString(UserAccount.INSTRUMENTS) == "null") { account.setmInstruments("No Instruments"); }
+                else { account.setmInstruments(obj.getString(UserAccount.INSTRUMENTS)); }
+                if (obj.getString(UserAccount.STYLES) == null || obj.getString(UserAccount.STYLES) == "null") { account.setmStyles("No Styles"); }
+                else { account.setmStyles(obj.getString(UserAccount.STYLES)); }
+                if (obj.getString(UserAccount.CITY) == null || obj.getString(UserAccount.CITY) == "null") { account.setmCity("No City"); }
+                else { account.setmCity(obj.getString(UserAccount.CITY)); }
+                if (obj.getString(UserAccount.BIO) == null || obj.getString(UserAccount.BIO) == "null") { account.setmBio("No Bio"); }
+                else { account.setmBio(obj.getString(UserAccount.BIO)); }
                 account.authenticated = true;
             } catch (JSONException e) {
                 e.printStackTrace();

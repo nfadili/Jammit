@@ -68,9 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
                     //If the register attempt it successful, and empty profile entry is inserted in the database
                     attemptRegister();
-                    Log.e("FLAG OUTSUDE IS", String.valueOf(accountCreated));
                     if (accountCreated) {
-                        Log.e("", "ENTERED!!!");
                         addEmptyProfile();
                     }
                     return true;
@@ -85,7 +83,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 attemptRegister();
                 if (accountCreated) {
-                    Log.e("", "ENTERED!!!");
                     addEmptyProfile();
                 }
             }
@@ -102,7 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
     private void addEmptyProfile() {
         InsertEmptyProfileTask task = new InsertEmptyProfileTask();
         String addProfileString = EMPTY_PROFILE_URL + "?email=" + mEmailView.getText().toString();
-        Log.e("EMAIL",mEmailView.getText().toString());
         String resultProfileAdd = "Unable to add profile.";
         try {
             resultProfileAdd = task.execute(new String[]{addProfileString}).get();
@@ -111,7 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.e("RegisterActivity", resultProfileAdd);
     }
 
 
@@ -173,13 +168,10 @@ public class RegisterActivity extends AppCompatActivity {
             String authString = REGISTER_URL + "?email=" + mEmailView.getText() + "&password=" + mPasswordView.getText();
             try {
                 String resultAuth = task.execute(new String[]{authString}).get();
-                Log.e("RegisterActivity", resultAuth);
                 if (resultAuth.contains("success")) {
-                    Log.e("FLAG IS", "TRUE");
                     accountCreated = true;
                 }
                 else {
-                    Log.e("FLAG IS", "FALSE");
                     accountCreated = false;
                 }
             } catch (InterruptedException e) {
@@ -248,7 +240,6 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                Log.e("RegisterActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
@@ -259,7 +250,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
             // Everything is good, return to login activity.
             if (result.contains("success")) {
-                Log.e("RegisterActivity", "User account created.");
                 Toast.makeText(getApplicationContext(), "User account created.", Toast.LENGTH_LONG)
                         .show();
                 showProgress(false);
