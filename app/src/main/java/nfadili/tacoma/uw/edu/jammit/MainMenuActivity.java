@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,9 +47,43 @@ public class MainMenuActivity extends AppCompatActivity {
     public UserAccount mAccount;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent action;
+        switch(item.getItemId()){
+            case R.id.logout_overflow:
+                // your action goes here
+                Log.e("BACK TO", "LOGOUT");
+                if (logoutUser()) {
+                    action = new Intent(this, LoginActivity.class);
+                    startActivity(action);
+                }
+                return true;
+            case R.id.action_main:
+                // your action goes here
+                Log.e("BACK TO", "MAIN");
+                action = new Intent(this, MainMenuActivity.class);
+
+                action.putExtra("loggedInEmail", mAccount.getEmail());
+                startActivity(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+//
+//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+//        setSupportActionBar(myToolbar);
 
         Intent intent = getIntent();
         String accountEmail = intent.getExtras().getString("loggedInEmail");
@@ -147,12 +185,14 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         Button mLogoutButton = (Button) findViewById(R.id.action_logout);
-        //final Intent loginActivity = new Intent(this, LoginActivity.class);
+        final Intent loginActivity = new Intent(this, LoginActivity.class);
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(logoutUser()) {
-                    finish();
+                    loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //loginActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(loginActivity);
                 }
             }
         });

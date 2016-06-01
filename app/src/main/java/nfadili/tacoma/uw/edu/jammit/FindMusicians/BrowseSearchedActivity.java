@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -40,6 +41,14 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     private String mStyles;
 
     public ArrayList<UserAccount> mSelectedUsers;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
