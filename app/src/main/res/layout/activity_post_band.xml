@@ -56,31 +56,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
-                android:text="Please state what instrument(s) you are looking to add:"
-                android:textStyle="bold" />
-
-            <EditText
+                android:textStyle="bold"
+                android:text="Choose one of the instruments below:"
+                />
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|center"
-                android:id="@+id/post_band_instruments_needed_edittext"
-                android:hint="Enter instruments here"
-                android:paddingBottom="20dp" />
+                android:layout_gravity="left"
+                android:layout_weight="0.08"
+                android:id="@+id/instrument_spinner"
+
+                android:outlineProvider="bounds" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
-                android:text="Please state what style your band will play:"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="Choose one of the styles below:"
+                />
 
-            <EditText
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|center"
-                android:id="@+id/post_band_style_edittext"
-                android:hint="Enter style here"
-                android:paddingBottom="20dp" />
+                android:layout_gravity="left"
+                android:layout_weight="0.08"
+
+                android:outlineProvider="bounds"
+                android:id="@+id/style_spinner" />
 
             <TextView
                 android:layout_width="wrap_content"

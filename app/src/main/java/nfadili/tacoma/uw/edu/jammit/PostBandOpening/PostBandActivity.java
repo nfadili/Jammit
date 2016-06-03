@@ -1,13 +1,19 @@
 package nfadili.tacoma.uw.edu.jammit.PostBandOpening;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -21,6 +27,8 @@ import java.util.concurrent.ExecutionException;
 import model.BandOpening;
 import model.EventListing;
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 public class PostBandActivity extends AppCompatActivity {
@@ -28,7 +36,45 @@ public class PostBandActivity extends AppCompatActivity {
     public final static String ADD_EVENT_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addBandOpening.php?";
 
 
-    private UserAccount mAccount;
+    public UserAccount mAccount;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent action;
+        switch(item.getItemId()){
+            case R.id.logout_overflow:
+                // your action goes here
+                Log.e("BACK TO", "LOGOUT");
+                if (logoutUser()) {
+                    action = new Intent(this, MainMenuActivity.class);
+                    action.putExtra("finish", true);
+                    action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(action);
+                }
+                return true;
+            case R.id.action_main:
+                // your action goes here
+                Log.e("BACK TO", "MAIN");
+                action = new Intent(this, MainMenuActivity.class);
+                action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                action.putExtra("loggedInEmail", mAccount.getEmail());
+                startActivity(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    /**
+     * Logs out current user
+     *
+     * @return true
+     */
+    public boolean logoutUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();
+        return true;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,19 +92,29 @@ public class PostBandActivity extends AppCompatActivity {
 
         final BandOpening bandOpening = new BandOpening();
         final EditText editHeadline = (EditText) findViewById(R.id.post_band_headline_edittext);
-        final EditText editStyle = (EditText) findViewById(R.id.post_band_style_edittext);
+        //final EditText editStyle = (EditText) findViewById(R.id.post_band_style_edittext);
         final EditText editCity = (EditText) findViewById(R.id.post_band_city_edittext);
-        final EditText editInstrument = (EditText) findViewById(R.id.post_band_instruments_needed_edittext);
+        //final EditText editInstrument = (EditText) findViewById(R.id.post_band_instruments_needed_edittext);
         final EditText editWriteup = (EditText) findViewById(R.id.post_band_writeup_edittext);
+
+        final Spinner instrSpin = (Spinner) findViewById(R.id.instrument_spinner);
+        final Spinner styleSpin = (Spinner) findViewById(R.id.style_spinner);
+
+        ArrayAdapter<String> instrAdapter = new  ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, MainMenuActivity.INSTRUMENT_ARRAY);
+        instrSpin.setAdapter(instrAdapter);
+
+
+        ArrayAdapter<String> styleAdapter = new  ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, MainMenuActivity.STYLE_ARRAY);
+        styleSpin.setAdapter(styleAdapter);
 
         final Button proceedButton = (Button) findViewById(R.id.post_band_submit_button);
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bandOpening.setmHeadline(editHeadline.getText().toString());
-                bandOpening.setmStyle(editStyle.getText().toString());
+                bandOpening.setmStyle(styleSpin.getSelectedItem().toString());
                 bandOpening.setmCity(editCity.getText().toString());
-                bandOpening.setmInstrument(editInstrument.getText().toString());
+                bandOpening.setmInstrument(instrSpin.getSelectedItem().toString());
                 bandOpening.setmDescription(editWriteup.getText().toString());
                 bandOpening.setmPoster(mAccount.getmName());
                 bandOpening.setmPosterEmail(mAccount.getEmail());

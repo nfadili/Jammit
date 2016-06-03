@@ -39,8 +39,10 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     private static final String UPDATE_PROFILE_URL
             = "http://cssgate.insttech.washington.edu/~_450atm1/Android/updateProfile.php";
 
-    public UserAccount mAccount;
+
     public boolean hasCheckBoxes;
+
+    public UserAccount mAccount;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -50,7 +52,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
                 // your action goes here
                 Log.e("BACK TO", "LOGOUT");
                 if (logoutUser()) {
-                    action = new Intent(this, LoginActivity.class);
+                    action = new Intent(this, MainMenuActivity.class);
+                    action.putExtra("finish", true);
+                    action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(action);
                 }
                 return true;
@@ -58,7 +62,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
                 // your action goes here
                 Log.e("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
-
+                action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
                 startActivity(action);
                 return true;
@@ -144,8 +148,8 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             }
             Log.e("Update profile result: ", result);
 
-            Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
-                    .show();
+//            Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
+//                    .show();
             finish();
         } else if (parameter == 1) {
             Toast.makeText(getApplicationContext(), "Image functionality coming soon!", Toast.LENGTH_SHORT)
@@ -186,6 +190,37 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             }
 
         }
+    }
+
+    public void sendUpdate() {
+        //UPDATE `Profile` table with changes
+        Log.e("Account: ", mAccount.toString());
+        String urlString = "";
+        try {
+            urlString = UPDATE_PROFILE_URL + "?email=" + mAccount.getEmail() + "&" +
+                    "name=" + URLEncoder.encode(mAccount.getmName(), "UTF-8") + "&" +
+                    "age=" + URLEncoder.encode(mAccount.getmAge(), "UTF-8") + "&" +
+                    "instruments=" + URLEncoder.encode(mAccount.getmInstruments(), "UTF-8") + "&" +
+                    "styles=" + URLEncoder.encode(mAccount.getmStyles(), "UTF-8") + "&" +
+                    "city=" + URLEncoder.encode(mAccount.getmCity(), "UTF-8") + "&" +
+                    "bio=" + URLEncoder.encode(mAccount.getmBio(), "UTF-8");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("URL: ", urlString);
+        UpdateProfileTask task = new UpdateProfileTask();
+        String result = "";
+        try {
+            result = task.execute(urlString).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.e("Update profile result: ", result);
+        Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
+                .show();
     }
 
     /**
@@ -249,6 +284,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
                 Log.e("", result.toString());
             }
         }
+
 
     }
 }
