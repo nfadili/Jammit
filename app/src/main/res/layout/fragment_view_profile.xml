@@ -68,4 +68,10 @@
         android:minLines="1"
         android:id="@+id/view_prof_bio" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Email"
+        android:id="@+id/view_profile_send_button"/>
+
 </LinearLayout>

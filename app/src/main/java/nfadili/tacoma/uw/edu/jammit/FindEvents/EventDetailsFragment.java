@@ -1,12 +1,14 @@
 package nfadili.tacoma.uw.edu.jammit.FindEvents;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import model.BandOpening;
@@ -22,6 +24,8 @@ public class EventDetailsFragment extends Fragment {
     public static final String ARG_POSITION = "POSITION" ;
     //private OnFragmentInteractionListener mListener;
     private int mCurrentPosition = -1;
+    public String emailRecipient;
+    public Button sendEmailButton;
 
 
     public EventDetailsFragment() {
@@ -39,6 +43,29 @@ public class EventDetailsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        emailRecipient = "";
+
+        sendEmailButton = (Button) getActivity().findViewById(R.id.view_event_send_email_button);
+        sendEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                String to = emailRecipient;
+                String subject = "";
+                String message = "";
+                email.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
+                // email.putExtra(Intent.EXTRA_CC, new String[]{ to});
+                // email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+                email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                email.putExtra(Intent.EXTRA_TEXT, message);
+
+                // need this to prompts email client only
+                email.setType("message/rfc822");
+
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+            }
+        });
 
         // During startup, check if there are arguments passed to the fragment.
         // onStart is a good place to do this because the layout has already been
