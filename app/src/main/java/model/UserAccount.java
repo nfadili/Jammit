@@ -82,13 +82,13 @@ public class UserAccount implements Serializable {
     }
 
     public UserAccount(String email, String name, String age, String instruments, String styles, String city, String bio) {
+        mEmail = email;
         mName = name;
         mAge = age;
         mInstruments = instruments;
         mStyles = styles;
         mCity = city;
         mBio = bio;
-        mEmail = "";
         mPassword = "";
         authenticated = false;
     }
