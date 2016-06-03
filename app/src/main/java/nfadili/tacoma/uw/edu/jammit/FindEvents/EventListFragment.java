@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import model.EventListing;
 import nfadili.tacoma.uw.edu.jammit.R;
-import nfadili.tacoma.uw.edu.jammit.FindEvents.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,6 @@ import java.util.ArrayList;
  */
 public class EventListFragment extends Fragment {
 
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     private OnEventListFragmentInteractionListener mListener;

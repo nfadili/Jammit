@@ -16,13 +16,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import model.BandOpening;
+
 import model.EventListing;
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.FindBand.BandDetailsFragment;
-import nfadili.tacoma.uw.edu.jammit.FindBand.BandListFragment;
-import nfadili.tacoma.uw.edu.jammit.FindMusicians.ViewProfileFragment;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -78,6 +75,12 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
         return true;
     }
 
+    /**
+     * Parses JSON string into usable List of EventListings
+     *
+     * @param result
+     * @return the ArrayList of EventListings from the database
+     */
     private ArrayList<EventListing> parseEventsIntoList(String result) {
         ArrayList<EventListing> selectedEvents = new ArrayList<EventListing>();
         selectedEvents = parseEvents(result);
@@ -134,16 +137,7 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
         mEvents = parseEventsIntoList(mResult);
         Log.e("mRes toString: ", mResult);
         Log.e("mEv toString: ", mEvents.toString());
-        //finish();
-//        final Button showEventsButton = (Button) findViewById(R.id.find_events_button);
-//        showEventsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String result = showEvents();
-//                Log.e("Query: ", result);
-//                finish();
-//            }
-//        });
+
 
         if (findViewById(R.id.fragment_container6)!= null) {
             getSupportFragmentManager().beginTransaction()

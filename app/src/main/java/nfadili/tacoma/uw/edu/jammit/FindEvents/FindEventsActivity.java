@@ -19,12 +19,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.FindBand.BrowseSearchedBandsActivity;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -87,7 +84,6 @@ public class FindEventsActivity extends AppCompatActivity {
 
         final EditText byCity = (EditText) findViewById(R.id.edittext_search_event_city);
 
-        //TODO: take result and display it in list. Maybe filter by date??
         final String result = showEvents();
         Log.e("Query: ", result);
 
@@ -96,31 +92,22 @@ public class FindEventsActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.e("Add result1: ", byInstrument.getText().toString());
-//                Log.e("Add result2: ", byCity.getText().toString());
-//                Log.e("Add result3: ", byStyle.getText().toString());
 
-                //search.putExtra("Instrument", byInstrument.getText().toString());
                 search.putExtra("Profile", mAccount);
                 search.putExtra("City", byCity.getText().toString());
                 search.putExtra("Result", result);
-                //search.putExtra("Style", byStyle.getText().toString());
 
                 startActivity(search);
             }
         });
-        //finish();
-//        final Button showEventsButton = (Button) findViewById(R.id.find_events_button);
-//        showEventsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String result = showEvents();
-//                Log.e("Query: ", result);
-//                finish();
-//            }
-//        });
+
     }
 
+    /**
+     * Method for getting EventListings from the database
+     *
+     * @return the String of all EventListings
+     */
     private String showEvents() {
         String urlString = "";
         try {
@@ -184,7 +171,6 @@ public class FindEventsActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                //Log.e("ScheduleEventActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;

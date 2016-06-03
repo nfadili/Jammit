@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,9 +90,6 @@ public class MainMenuActivity extends AppCompatActivity {
             finish();
             return;
         }
-//
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-//        setSupportActionBar(myToolbar);
 
         Intent intent = getIntent();
         String accountEmail = intent.getExtras().getString("loggedInEmail");
@@ -111,7 +106,7 @@ public class MainMenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //Instaniate the current user's account as an object.
+        //Instantiate the current user's account as an object.
         mAccount = UserAccount.parseProfileQueryJSON(queryResult);
         Log.e("INSTATIATE", mAccount.toString());
 
@@ -122,6 +117,9 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Helper method to set up button functionality on the main menu.
+     */
     private void setButtons() {
         Button mViewProfileButton = (Button) findViewById(R.id.view_profile_button);
         final Intent viewProfile = new Intent(this, ViewProfileActivity.class);
@@ -203,7 +201,6 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(logoutUser()) {
                     loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //loginActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(loginActivity);
                 }
             }
@@ -221,14 +218,13 @@ public class MainMenuActivity extends AppCompatActivity {
         String queryResult = "";
         try {
             queryResult = task.execute(new String[]{authString}).get();
-            //Log.e("THIS RIGHT HERE", queryResult);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        //Instaniate the current user's account as an object.
+        //Instantiate the current user's account as an object.
         mAccount = UserAccount.parseProfileQueryJSON(queryResult);
         TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
         nameView.setText((CharSequence) "Hello, " + mAccount.getmName());

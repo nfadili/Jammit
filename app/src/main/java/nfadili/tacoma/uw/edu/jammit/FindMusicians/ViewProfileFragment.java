@@ -35,8 +35,7 @@ public class ViewProfileFragment extends Fragment {
                 String subject = "";
                 String message = "";
                 email.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
-                // email.putExtra(Intent.EXTRA_CC, new String[]{ to});
-                // email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+
                 email.putExtra(Intent.EXTRA_SUBJECT, subject);
                 email.putExtra(Intent.EXTRA_TEXT, message);
 
@@ -59,7 +58,6 @@ public class ViewProfileFragment extends Fragment {
             // Set article based on saved instance state defined during onCreateView
             updateProfileView(mCurrentPosition);
         }
-        //if (mUser != null) updateProfileViewWithAccount(mUser);
     }
     public ViewProfileFragment() {
         // Required empty public constructor

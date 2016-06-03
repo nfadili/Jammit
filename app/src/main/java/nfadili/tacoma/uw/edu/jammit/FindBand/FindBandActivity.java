@@ -19,7 +19,6 @@ import android.widget.Spinner;
 
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -77,9 +76,7 @@ public class FindBandActivity extends AppCompatActivity {
 
         mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
-        //final EditText byInstrument = (EditText) findViewById(R.id.edittext_search_band_instrument);
         final EditText byCity = (EditText) findViewById(R.id.edittext_search_band_city);
-        //final EditText byStyle = (EditText) findViewById(R.id.edittext_search_band_style);
 
         final Spinner instrSpin = (Spinner) findViewById(R.id.instrument_spinner);
         final Spinner styleSpin = (Spinner) findViewById(R.id.style_spinner);
@@ -97,10 +94,6 @@ public class FindBandActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.e("Add result1: ", byInstrument.getText().toString());
-//                Log.e("Add result2: ", byCity.getText().toString());
-//                Log.e("Add result3: ", byStyle.getText().toString());
-
                 search.putExtra("Profile", mAccount);
                 search.putExtra("Instrument", instrSpin.getSelectedItem().toString());
                 search.putExtra("City", byCity.getText().toString());

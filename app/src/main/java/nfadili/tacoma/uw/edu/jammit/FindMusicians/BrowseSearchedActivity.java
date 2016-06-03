@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 

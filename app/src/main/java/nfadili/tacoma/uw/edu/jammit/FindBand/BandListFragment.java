@@ -16,10 +16,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 import model.BandOpening;
-import model.UserAccount;
+
 import nfadili.tacoma.uw.edu.jammit.R;
 
 /**
@@ -30,7 +30,7 @@ import nfadili.tacoma.uw.edu.jammit.R;
  */
 public class BandListFragment extends Fragment {
 
-    // TODO: Customize parameters
+
     private int mColumnCount = 1;
 
     private OnBandListFragmentInteractionListener mListener;
@@ -51,6 +51,12 @@ public class BandListFragment extends Fragment {
 
     }
 
+    /**
+     * Method to parse a JSON string into a usable List of BandOpenings
+     *
+     * @param result
+     * @return the ArrayList of BandOpenings
+     */
     private ArrayList<BandOpening> parseResult(String result) {
         ArrayList<BandOpening> parsedList = new ArrayList<BandOpening>();
 
@@ -75,6 +81,14 @@ public class BandListFragment extends Fragment {
         }
         return parsedList;
     }
+
+    /**
+     * Method to take BandOpenings from the database and trim down the results based on
+     * search criteria.
+     *
+     * @param oldList
+     * @return A new list of BandOpenings fitting user's search criteria
+     */
     private ArrayList<BandOpening> trimResults(ArrayList<BandOpening> oldList) {
         ArrayList<BandOpening> trimmedList = new ArrayList<BandOpening>();
 
@@ -112,14 +126,6 @@ public class BandListFragment extends Fragment {
         Log.e("Selected bands tostring", selectedBands.toString());
         ((BrowseSearchedBandsActivity) getActivity()).setmBands(selectedBands);
 
-//        selectedBands.add(new BandOpening());
-//        selectedBands.get(0).setmHeadline("This is listing 0");
-//
-//        selectedBands.add(new BandOpening());
-//        selectedBands.get(1).setmHeadline("This is listing 1");
-//
-//        selectedBands.add(new BandOpening());
-//        selectedBands.get(2).setmHeadline("This is listing 2");
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -163,7 +169,7 @@ public class BandListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnBandListFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onBandListFragmentInteraction(int position);
     }
 }

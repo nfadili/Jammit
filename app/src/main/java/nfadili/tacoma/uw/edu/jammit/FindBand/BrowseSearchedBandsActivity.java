@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 import model.BandOpening;
 import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.FindMusicians.ViewProfileFragment;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -94,21 +94,12 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
         mStyle = getIntent().getStringExtra("Style");
         mInstrument = getIntent().getStringExtra("Instrument");
 
-        //TODO: take result and display it in list. Filter by search?
+
         String result = showBands();
         Log.e("Query: ", result);
         mBandsString = result;
         Log.e("mBandsString = ", mBandsString);
-        //finish();
-//        final Button showEventsButton = (Button) findViewById(R.id.find_events_button);
-//        showEventsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String result = showEvents();
-//                Log.e("Query: ", result);
-//                finish();
-//            }
-//        });
+
 
         if (findViewById(R.id.fragment_container5)!= null) {
             getSupportFragmentManager().beginTransaction()
@@ -136,6 +127,12 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
     public String getResult() {
         return mBandsString;
     }
+
+    /**
+     * Method to get String of bands from the database
+     *
+     * @return a String of the bands in the database
+     */
     private String showBands() {
         String urlString = "";
         try {
@@ -210,7 +207,7 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
     }
 
         @Override
-    public void onBandListFragmentInteraction(int position) {
+        public void onBandListFragmentInteraction(int position) {
 
             // Capture the student fragment from the activity layout
             BandDetailsFragment bandListing = (BandDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.band_details_frag);
@@ -236,5 +233,5 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
                 // Commit the transaction
                 transaction.commit();
             }
-    }
+        }
 }

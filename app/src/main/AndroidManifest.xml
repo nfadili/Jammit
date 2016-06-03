@@ -35,35 +35,35 @@
             android:label="Jammit" />
         <activity
             android:name=".EditProfile.EditProfileActivity"
-            android:label="Jammit - Edit Profile" />
+            android:label="Jammit" />
         <activity
             android:name=".FindMusicians.SearchMusicianActivity"
-            android:label="Jammit - Search Musicians" />
+            android:label="Jammit" />
         <activity
             android:name=".FindMusicians.BrowseSearchedActivity"
-            android:label="Jammit - Search Results" />
+            android:label="Jammit" />
         <activity
             android:name=".PostBandOpening.PostBandActivity"
-            android:label="Jammit - Post Band Opening" />
+            android:label="Jammit" />
         <activity
             android:name=".FindBand.FindBandActivity"
-            android:label="Jammit - Search Band Openings" />
+            android:label="Jammit" />
         <activity
             android:name=".FindBand.BrowseSearchedBandsActivity"
-            android:label="Jammit - Search Results" />
+            android:label="Jammit" />
         <activity
             android:name=".ScheduleActivity.ScheduleEventActivity"
-            android:label="Jammit - Schedule Event" />
+            android:label="Jammit" />
 
         <activity
             android:name=".FindEvents.FindEventsActivity"
-            android:label="Jammit - Search Events" />
+            android:label="Jammit" />
         <activity
             android:name=".FindEvents.BrowseSearchedEventsActivity"
-            android:label="Jammit - Search Results" />
+            android:label="Jammit" />
 
         <activity android:name=".ViewProfileActivity"
-            android:label="Jammit - View Profile"/>
+            android:label="Jammit" />
 
     </application>
 
