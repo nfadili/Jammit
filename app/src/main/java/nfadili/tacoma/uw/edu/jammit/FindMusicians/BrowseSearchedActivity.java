@@ -3,6 +3,8 @@ package nfadili.tacoma.uw.edu.jammit.FindMusicians;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
+import nfadili.tacoma.uw.edu.jammit.MusicianDB;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 
@@ -47,6 +50,9 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     private String mStyles;
 
     public ArrayList<UserAccount> mSelectedUsers;
+
+    public ArrayList<UserAccount> mMusicianList;
+    public MusicianDB mMusicianDB;
 
     public UserAccount mAccount;
 
@@ -98,35 +104,68 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_searched);
 
-        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
-        mInstrument = getIntent().getStringExtra("Instrument");
-        mCity = getIntent().getStringExtra("City");
-        mAge = getIntent().getStringExtra("Age");
-        mStyles = getIntent().getStringExtra("Style");
+        mMusicianDB = new MusicianDB(this);
+        //mMusicianDB.deleteMusicians();
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isConnected()) {
+            Toast.makeText(getApplicationContext(),
+                    "No network connection available. Displaying locally stored data",
+                    Toast.LENGTH_SHORT) .show();
 
-        String result = "";
-        SelectProfilesTask task = new SelectProfilesTask();
-        try {
-            result = task.execute(PROFILES_URL).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+            if (mMusicianDB == null) {
+                mMusicianDB = new MusicianDB(this);
+            }
+            if (mMusicianList == null) {
+                mMusicianList = mMusicianDB.getMusicians();
+            }
+            //Use db for results
+            mSelectedUsers = new ArrayList(mMusicianList);
+            if (mSelectedUsers.size() == 0) {
+                Toast.makeText(getApplicationContext(), "No users match search query.", Toast.LENGTH_LONG)
+                        .show();
+            }
+            if (findViewById(R.id.fragment_container2) != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container2, new SearchListFragment())
+                        .commit();
+            }
         }
-        Log.e("AllSearchResults: ", result);
-        ArrayList<UserAccount> allUsers = parseListOfProfilesJSON(result);
-        mSelectedUsers = trimList(allUsers);
-        Log.e("SearchResults: ", mSelectedUsers.toString());
 
-        if (mSelectedUsers.size() == 0) {
-            Toast.makeText(getApplicationContext(), "No users match search query.", Toast.LENGTH_LONG)
-                    .show();
-        }
-        if (findViewById(R.id.fragment_container2)!= null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container2, new SearchListFragment())
-                    .commit();
+        //Network connectivity established
+        else {
+            mInstrument = getIntent().getStringExtra("Instrument");
+            mCity = getIntent().getStringExtra("City");
+            mAge = getIntent().getStringExtra("Age");
+            mStyles = getIntent().getStringExtra("Style");
+
+            String result = "";
+            SelectProfilesTask task = new SelectProfilesTask();
+            try {
+                result = task.execute(PROFILES_URL).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            Log.e("AllSearchResults: ", result);
+            ArrayList<UserAccount> allUsers = parseListOfProfilesJSON(result);
+            saveUsersToDB(allUsers);
+            mSelectedUsers = trimList(allUsers);
+            //mMusicianDB.deleteMusicians();
+            Log.e("SearchResults: ", mSelectedUsers.toString());
+
+            if (mSelectedUsers.size() == 0) {
+                Toast.makeText(getApplicationContext(), "No users match search query.", Toast.LENGTH_LONG)
+                        .show();
+            }
+            if (findViewById(R.id.fragment_container2) != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container2, new SearchListFragment())
+                        .commit();
+            }
         }
 
     }
@@ -134,6 +173,15 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public void saveUsersToDB(ArrayList<UserAccount> allUsers) {
+        for(int i = 0; i < allUsers.size(); i++) {
+            UserAccount user = allUsers.get(i);
+            Log.e("USER", user.toString());
+            mMusicianDB.insertMusician(user.getEmail(), user.getmName(), user.getmAge(),
+                    user.getmInstruments(), user.getmStyles(), user.getmCity(), user.getmBio());
+        }
     }
 
     /**
@@ -145,8 +193,6 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
      */
     private ArrayList<UserAccount> trimList(List<UserAccount> oldList) {
         ArrayList<UserAccount> users = new ArrayList<UserAccount>();
-
-
         for (int i = 0; i < oldList.size(); i++) {
             if (mInstrument != "" && oldList.get(i).getmInstruments().contains(mInstrument)) {
                 if (mAge != "" && oldList.get(i).getmAge().contains(mAge)) {
@@ -204,13 +250,14 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
 
             for(int i = 0; i < array.length(); i++) {
                 profile = array.getJSONObject(i);
+                String email = profile.getString("email");
                 String name = profile.getString("name");
                 String age = profile.getString("age");
                 String instruments = profile.getString("instruments");
                 String city = profile.getString("city");
                 String styles = profile.getString("styles");
                 String bio = profile.getString("bio");
-                users.add(new UserAccount(name, age, instruments, styles, city, bio));
+                users.add(new UserAccount(email, name, age, instruments, styles, city, bio));
 
             }
         } catch (JSONException e) {
