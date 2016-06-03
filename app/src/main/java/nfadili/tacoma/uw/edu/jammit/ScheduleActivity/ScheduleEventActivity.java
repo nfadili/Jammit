@@ -24,10 +24,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-import model.BandOpening;
 import model.EventListing;
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -109,20 +107,17 @@ public class ScheduleEventActivity extends AppCompatActivity {
                 eventListing.setmCity(editCity.getText().toString());
                 eventListing.setmDescription(editWriteup.getText().toString());
                 eventListing.setmDateTime(formatDateTimeString(date, time));
-
-                Log.e("Add result1: ", eventListing.getmHeadline());
-
-                Log.e("Add result3: ", eventListing.getmCity());
-
-                Log.e("Add result5: ", eventListing.getmDateTime());
-                //Need to get poster Info too
                 scheduleEvent(eventListing);
                 finish();
             }
         });
     }
 
-    //@Override
+    /**
+     * Method for Scheduling an EventListing and sending it to the database
+     *
+     * @param eventListing
+     */
     public void scheduleEvent(EventListing eventListing) {
         String urlString = "";
         try {
@@ -151,17 +146,9 @@ public class ScheduleEventActivity extends AppCompatActivity {
         Log.e("Add event result: ", result);
         Toast.makeText(getApplicationContext(), "Event Posted!.", Toast.LENGTH_LONG)
                 .show();
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment_container4, new ScheduleEventBioFragment())
-//                .commit();
+
     }
 
-//    @Override
-//    public void onScheduleEventBioFragmentInteraction(int position) {
-//        Toast.makeText(getApplicationContext(), "This should take me out of activity.", Toast.LENGTH_LONG)
-//                .show();
-//        finish();
-//    }
 
     /**
      * This AsyncTask handles adding an empty profile to the `Profile` table.
@@ -203,7 +190,6 @@ public class ScheduleEventActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                //Log.e("ScheduleEventActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
@@ -225,6 +211,14 @@ public class ScheduleEventActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Helper method for getting information from date and time pickers and formatting
+     * a string to the format used by mySql
+     *
+     * @param date
+     * @param time
+     * @return a mySql formatted DATETIME string
+     */
     public String formatDateTimeString(DatePicker date, TimePicker time) {
         StringBuilder dateTime = new StringBuilder();
 

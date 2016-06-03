@@ -9,7 +9,6 @@ import java.util.Map;
  * Helper class for providing sample username for user interfaces created by
  * Android template wizards.
  * <p>
- * TODO: Replace all uses of this class before publishing your app.
  */
 public class EditProfileContent {
 
@@ -26,10 +25,6 @@ public class EditProfileContent {
     private static final int COUNT = 25;
 
     static {
-        // Add some sample items.
-//        for (int i = 1; i <= COUNT; i++) {
-//            addItem(createDummyItem(i));
-//        }
         addItem(new ProfileParameter(1,"Exit","Return to the main menu."));
         addItem(new ProfileParameter(2,"Image","Change your profile picture."));
         addItem(new ProfileParameter(3,"Name","Update your name."));
@@ -45,9 +40,6 @@ public class EditProfileContent {
         ITEM_MAP.put(item.id, item);
     }
 
-//    private static ProfileParameter createDummyItem(int position) {
-//        return new ProfileParameter(String.valueOf(position), "Item " + position, makeDetails(position));
-//    }
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();

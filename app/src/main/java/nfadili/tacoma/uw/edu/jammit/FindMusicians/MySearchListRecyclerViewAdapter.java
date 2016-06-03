@@ -62,9 +62,7 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
         public final TextView mNameView;
         public final TextView mAgeView;
         public final TextView mCityView;
-//        public final TextView mInstrumentsView;
-//        public final TextView mStylesView;
-//        public final TextView mBioView;
+
 
         public UserAccount mItem;
 
@@ -74,9 +72,6 @@ public class MySearchListRecyclerViewAdapter extends RecyclerView.Adapter<MySear
             mNameView = (TextView) view.findViewById(R.id.name);
             mAgeView = (TextView) view.findViewById(R.id.age);
             mCityView = (TextView) view.findViewById(R.id.city);
-//            mNameView = (TextView) view.findViewById(R.id.instruments);
-//            mAgeView = (TextView) view.findViewById(R.id.);
-//            mCityView = (TextView) view.findViewById(R.id.city);
         }
 
         @Override

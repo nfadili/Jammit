@@ -16,7 +16,6 @@ import model.UserAccount;
  * Activity for viewing one's own Profile.
  */
 public class ViewProfileActivity extends AppCompatActivity {
-    //private UserAccount mAccount;
 
     public UserAccount mAccount;
 

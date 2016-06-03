@@ -23,7 +23,6 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -119,7 +118,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     public void onListFragmentInteraction(int parameter) {
         EditProfileParameterFragment profParamFragment = (EditProfileParameterFragment) getSupportFragmentManager().findFragmentById(R.id.editprofparam_frag);
         EditProfileOptionFragment profOptionFragment = (EditProfileOptionFragment) getSupportFragmentManager().findFragmentById(R.id.profile_option_frag);
-        //profParamFragment.setParameter(parameter);
+
         if (parameter == 0) {
             //UPDATE `Profile` table with changes
             Log.e("Account: ", mAccount.toString());
@@ -148,8 +147,6 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             }
             Log.e("Update profile result: ", result);
 
-//            Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
-//                    .show();
             finish();
         } else if (parameter == 1) {
             Toast.makeText(getApplicationContext(), "Image functionality coming soon!", Toast.LENGTH_SHORT)

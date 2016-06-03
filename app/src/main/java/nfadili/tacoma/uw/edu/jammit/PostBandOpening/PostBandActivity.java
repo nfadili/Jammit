@@ -25,9 +25,7 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
 import model.BandOpening;
-import model.EventListing;
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -88,13 +86,10 @@ public class PostBandActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_band);
 
         mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
-        //TODO: Populate with EditText fields
 
         final BandOpening bandOpening = new BandOpening();
         final EditText editHeadline = (EditText) findViewById(R.id.post_band_headline_edittext);
-        //final EditText editStyle = (EditText) findViewById(R.id.post_band_style_edittext);
         final EditText editCity = (EditText) findViewById(R.id.post_band_city_edittext);
-        //final EditText editInstrument = (EditText) findViewById(R.id.post_band_instruments_needed_edittext);
         final EditText editWriteup = (EditText) findViewById(R.id.post_band_writeup_edittext);
 
         final Spinner instrSpin = (Spinner) findViewById(R.id.instrument_spinner);
@@ -119,27 +114,18 @@ public class PostBandActivity extends AppCompatActivity {
                 bandOpening.setmPoster(mAccount.getmName());
                 bandOpening.setmPosterEmail(mAccount.getEmail());
 
-//                Log.e("Add result1: ", bandOpening.getmHeadline());
-//                Log.e("Add result2: ", bandOpening.getmStyle());
-//                Log.e("Add result3: ", bandOpening.getmCity());
-//                Log.e("Add result4: ", bandOpening.getmInstrument());
-//                Log.e("Add result5: ", bandOpening.getmDescription());
-                //Need to get poster Info too
                 createPosting(bandOpening);
                 finish();
             }
         });
 
-        //mOpening = new BandOpening();
-
-//        if (findViewById(R.id.fragment_container3)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.fragment_container3, new PostBandInitialFragment())
-//                    .commit();
-//        }
     }
 
-    //@Override
+    /**
+     * Method to create a BandOpening and send it to the database
+     *
+     * @param bandOpening
+     */
     public void createPosting(BandOpening bandOpening) {
         String urlString = "";
         try {
@@ -169,17 +155,8 @@ public class PostBandActivity extends AppCompatActivity {
         Log.e("Add result: ", result);
         Toast.makeText(getApplicationContext(), "Band Opening Posted!.", Toast.LENGTH_LONG)
                 .show();
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment_container3, new PostBandWriteupFragment())
-//                .commit();
-    }
 
-//    @Override
-//    public void onPostBandWriteupFragmentInteraction(int position) {
-//        Toast.makeText(getApplicationContext(), "This should take me out of activity.", Toast.LENGTH_LONG)
-//                .show();
-//        finish();
-//    }
+    }
 
     /**
      * This AsyncTask handles adding an empty profile to the `Profile` table.
@@ -221,7 +198,6 @@ public class PostBandActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                //Log.e("ScheduleEventActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;

@@ -16,11 +16,9 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link BandOpening} and makes a call to the
  * specified {@link OnBandListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyBandListRecyclerViewAdapter extends RecyclerView.Adapter<MyBandListRecyclerViewAdapter.ViewHolder> {
 
-    //private final List<DummyItem> mValues;
     private final List<BandOpening> mBands;
     private final OnBandListFragmentInteractionListener mListener;
 
@@ -38,11 +36,7 @@ public class MyBandListRecyclerViewAdapter extends RecyclerView.Adapter<MyBandLi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        /*
-         * TODO - write stuff to show up in recycler
-         */
-//        holder.mItem = mValues.get(position);
-//        holder.mIdView.setText(mValues.get(position).id);
+
         holder.mContentView.setText(mBands.get(position).getmHeadline());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +65,6 @@ public class MyBandListRecyclerViewAdapter extends RecyclerView.Adapter<MyBandLi
         public ViewHolder(View view) {
             super(view);
             mView = view;
-//            mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 

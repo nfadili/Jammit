@@ -1,8 +1,6 @@
 package nfadili.tacoma.uw.edu.jammit.EditProfile;
 
-import android.app.ActionBar;
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,33 +9,25 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
+
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link EditProfileOptionFragment.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-//
-// */
+/**
+ * Fragment for dealing with edit profile parameters dealing with check boxes.
+ */
 public class EditProfileOptionFragment extends Fragment {
 
 
-    //private OnFragmentInteractionListener mListener;
 
     public static final String ARG_POSITION = "POSITION" ;
 
@@ -58,6 +48,12 @@ public class EditProfileOptionFragment extends Fragment {
             updateProfileParameterView(mCurrentPosition);
         }
     }
+
+    /**
+     * Method to programmatically generate the views and check boxes for editting profile options.
+     *
+     * @param position
+     */
     public void updateProfileParameterView(final int position) {
         final LinearLayout ll = (LinearLayout) getActivity().findViewById(R.id.edit_act_lin_layout);
 
@@ -68,11 +64,11 @@ public class EditProfileOptionFragment extends Fragment {
         if (position == 3) {
             contentTextView.setText((CharSequence) "Please select from the instruments below:");
             options = MainMenuActivity.INSTRUMENT_ARRAY;
-            //options = new String[]{"Guitar", "Bass", "Drums", "Vocals", "Keyboards", "Brass", "Woodwind", "Percussion"};
+
         } else if (position == 4) {
             contentTextView.setText((CharSequence) "Please select from the styles below:");
             options = MainMenuActivity.STYLE_ARRAY;
-            //options = new String[]{"Rock", "Pop", "Metal", "Prog", "Rap", "Hip-Hop", "R & B", "Punk", "Classical", "Jazz", "Fusion", "Electronic", "Dubstep", "Techno"};
+
         }
 
         final CheckBox[] cbs = new CheckBox[options.length];
@@ -95,7 +91,7 @@ public class EditProfileOptionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int param = position;
-//                String text = edit.getText().toString();
+
                 String s = "";
                 for (int i = 1; i < cbs.length; i++) {
                     if (cbs[i].isChecked()) {
@@ -114,8 +110,7 @@ public class EditProfileOptionFragment extends Fragment {
                     ((EditProfileActivity) getActivity()).getmAccount().setmStyles(s);
                 }
                 ll.removeAllViews();
-//                Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
-//                        .show();
+
                 ((EditProfileActivity) getActivity()).sendUpdate();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
@@ -143,42 +138,4 @@ public class EditProfileOptionFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_edit_profile_option, container, false);
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }

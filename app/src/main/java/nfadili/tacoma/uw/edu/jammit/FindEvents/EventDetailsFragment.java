@@ -1,8 +1,6 @@
 package nfadili.tacoma.uw.edu.jammit.FindEvents;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import model.BandOpening;
 import model.EventListing;
-import nfadili.tacoma.uw.edu.jammit.FindBand.BrowseSearchedBandsActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 /**
@@ -22,7 +18,6 @@ import nfadili.tacoma.uw.edu.jammit.R;
 public class EventDetailsFragment extends Fragment {
 
     public static final String ARG_POSITION = "POSITION" ;
-    //private OnFragmentInteractionListener mListener;
     private int mCurrentPosition = -1;
     public String emailRecipient;
     public Button sendEmailButton;
@@ -55,8 +50,7 @@ public class EventDetailsFragment extends Fragment {
                 String subject = "";
                 String message = "";
                 email.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
-                // email.putExtra(Intent.EXTRA_CC, new String[]{ to});
-                // email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+
                 email.putExtra(Intent.EXTRA_SUBJECT, subject);
                 email.putExtra(Intent.EXTRA_TEXT, message);
 
@@ -104,42 +98,4 @@ public class EventDetailsFragment extends Fragment {
         emailView.setText((CharSequence) (event.getmPosterEmail()));
 
     }
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }

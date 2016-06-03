@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import nfadili.tacoma.uw.edu.jammit.R;
 import nfadili.tacoma.uw.edu.jammit.editcontent.EditProfileContent;
@@ -92,8 +91,7 @@ public class EditProfileParameterFragment extends Fragment {
                     }
                 }
                 ((EditProfileActivity) getActivity()).sendUpdate();
-//                Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
-//                        .show();
+
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
             }

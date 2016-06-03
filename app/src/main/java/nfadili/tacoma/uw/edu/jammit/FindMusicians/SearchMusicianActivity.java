@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import model.UserAccount;
-import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
@@ -80,10 +79,8 @@ public class SearchMusicianActivity extends AppCompatActivity {
 
         mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
-        //final EditText byInstrument = (EditText) findViewById(R.id.edittext_search_by_instrument);
         final EditText byCity = (EditText) findViewById(R.id.edittext_search_by_city);
         final EditText byAge = (EditText) findViewById(R.id.edittext_search_by_age);
-        //final EditText byStyle = (EditText) findViewById(R.id.edittext_search_by_style);
 
         final Spinner instrSpin = (Spinner) findViewById(R.id.instrument_spinner);
         final Spinner styleSpin = (Spinner) findViewById(R.id.style_spinner);

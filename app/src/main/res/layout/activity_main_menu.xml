@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.v7.widget.Toolbar android:id="@+id/my_toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--android:background="?attr/colorPrimary"-->
-    <!--android:elevation="4dp"-->
-    <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto" />-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,18 +11,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nfadili.tacoma.uw.edu.jammit.MainMenuActivity">
-
-<!--<android.support.v7.widget.Toolbar android:id="@+id/my_toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--android:background="#26fd00"-->
-    <!--android:elevation="4dp"-->
-    <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:layout_gravity="top" />-->
-
 
     <ImageView
         android:id="@+id/profile_image_main"
