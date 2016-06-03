@@ -30,7 +30,7 @@ public class EditProfileContent {
 //        for (int i = 1; i <= COUNT; i++) {
 //            addItem(createDummyItem(i));
 //        }
-        addItem(new ProfileParameter(1,"Save","Submit all changes."));
+        addItem(new ProfileParameter(1,"Exit","Return to the main menu."));
         addItem(new ProfileParameter(2,"Image","Change your profile picture."));
         addItem(new ProfileParameter(3,"Name","Update your name."));
         addItem(new ProfileParameter(4,"Instruments","List the instruments that you can play."));

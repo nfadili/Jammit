@@ -26,23 +26,34 @@
         android:text="Looking to join a band? Use any or all filters below to find a band in need of your services!"
         android:paddingBottom="40dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_band_instrument"
-        android:layout_weight="0.08"
-        android:hint="Enter instrument you play here"
-        android:layout_gravity="left" />
-
-
-
-    <EditText
+        android:text="Choose one of the instruments below:"
+        />
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_search_band_style"
+        android:layout_gravity="left"
         android:layout_weight="0.08"
-        android:hint="Enter desired style here"
-        android:layout_gravity="left" />
+        android:id="@+id/instrument_spinner"
+
+        android:outlineProvider="bounds" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose one of the styles below:"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_weight="0.08"
+
+        android:outlineProvider="bounds"
+        android:id="@+id/style_spinner" />
 
 
     <EditText

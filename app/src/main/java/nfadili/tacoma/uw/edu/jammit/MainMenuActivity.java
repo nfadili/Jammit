@@ -54,7 +54,9 @@ public class MainMenuActivity extends AppCompatActivity {
                 // your action goes here
                 Log.e("BACK TO", "LOGOUT");
                 if (logoutUser()) {
-                    action = new Intent(this, LoginActivity.class);
+                    action = new Intent(this, MainMenuActivity.class);
+                    action.putExtra("finish", true);
+                    action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(action);
                 }
                 return true;
@@ -62,7 +64,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 // your action goes here
                 Log.e("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
-
+                action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
                 startActivity(action);
                 return true;
@@ -81,6 +83,15 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        boolean finish = getIntent().getBooleanExtra("finish", false);
+        if (finish) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+            finish();
+            return;
+        }
 //
 //        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 //        setSupportActionBar(myToolbar);
@@ -139,6 +150,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mSearchMusicianButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                search.putExtra("Profile", mAccount);
                 startActivity(search);
             }
         });
@@ -159,7 +171,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mFindBandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //findBand.putExtra("Profile", mAccount);
+                findBand.putExtra("Profile", mAccount);
                 startActivity(findBand);
             }
         });
@@ -179,7 +191,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mFindEventsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //findEvents.putExtra("Profile", mAccount);
+                findEvents.putExtra("Profile", mAccount);
                 startActivity(findEvents);
             }
         });
