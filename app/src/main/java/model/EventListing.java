@@ -4,6 +4,9 @@ package model;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Model class representing Event postings inside of Jammit.
+ */
 public class EventListing implements Serializable{
     private String mPoster;
     private String mPosterEmail;
@@ -12,6 +15,9 @@ public class EventListing implements Serializable{
     private String mTitle;
     private String mDescription;
 
+    /**
+     * Constructor for testing purposes. Creates a semi random email address.
+     */
     public EventListing() {
         Random rand = new Random();
         mPoster = "";
@@ -22,6 +28,15 @@ public class EventListing implements Serializable{
         mDescription = "";
     }
 
+    /**
+     * Constructor for actual events posted within Jammit
+     * @param posterEmail
+     * @param poster
+     * @param city
+     * @param headline
+     * @param description
+     * @param dateTime
+     */
     public EventListing(String posterEmail, String poster,  String city, String headline, String description, String dateTime) {
         mPoster = poster;
         mPosterEmail = posterEmail;

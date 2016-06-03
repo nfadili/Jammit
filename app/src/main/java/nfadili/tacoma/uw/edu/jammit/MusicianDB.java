@@ -12,7 +12,7 @@ import java.util.List;
 import model.UserAccount;
 
 /**
- * Created by nabilfadili on 5/29/16.
+ * Database interface class. Assists in SQLite functionality.
  */
 public class MusicianDB {
 
@@ -53,7 +53,7 @@ public class MusicianDB {
     }
 
     /**
-     * Returns the list of musicianss from the local Musician table.
+     * Returns the list of musicians from the local Musician table.
      * @return list
      */
     public ArrayList<UserAccount> getMusicians() {

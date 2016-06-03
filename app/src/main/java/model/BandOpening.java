@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
- * Created by Riley Gratzer on 5/23/16.
+ * Model class for representing band openings within Jammit.
  */
 public class BandOpening implements Serializable {
 
@@ -16,6 +16,9 @@ public class BandOpening implements Serializable {
     private String mHeadline;
     private String mDescription;
 
+    /**
+     * Default constructor that generates a semi-random email for testing.
+     */
     public BandOpening() {
         Random rand = new Random();
         mPoster = "";
@@ -27,6 +30,16 @@ public class BandOpening implements Serializable {
         mDescription = "";
     }
 
+    /**
+     * Constructor for actual band opening posts.
+     * @param posterEmail
+     * @param poster
+     * @param headline
+     * @param instrument
+     * @param style
+     * @param city
+     * @param description
+     */
     public BandOpening(String posterEmail, String poster, String headline, String instrument, String style, String city, String description) {
         mPoster = poster;
         mPosterEmail = posterEmail;

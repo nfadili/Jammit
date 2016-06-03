@@ -45,6 +45,12 @@ public class UserAccount implements Serializable {
     private String mStyles;
     private String mBio;
 
+    /**
+     * Constructor for login authentication
+     * @param email
+     * @param password
+     * @param auth
+     */
     public UserAccount(String email, String password, boolean auth) {
         mEmail = email;
         mPassword = password;
@@ -57,6 +63,9 @@ public class UserAccount implements Serializable {
         mBio = "";
     }
 
+    /**
+     * Constructor for default UserAccount
+     */
     public UserAccount() {
         mEmail = "";
         mPassword = "";
@@ -69,6 +78,15 @@ public class UserAccount implements Serializable {
         mBio = "";
     }
 
+    /**
+     * Constructor for email privacy UserAccount
+     * @param name
+     * @param age
+     * @param instruments
+     * @param styles
+     * @param city
+     * @param bio
+     */
     public UserAccount(String name, String age, String instruments, String styles, String city, String bio) {
         mName = name;
         mAge = age;
@@ -81,6 +99,16 @@ public class UserAccount implements Serializable {
         authenticated = false;
     }
 
+    /**
+     * Constructor for creating a full UserAccount
+     * @param email
+     * @param name
+     * @param age
+     * @param instruments
+     * @param styles
+     * @param city
+     * @param bio
+     */
     public UserAccount(String email, String name, String age, String instruments, String styles, String city, String bio) {
         mEmail = email;
         mName = name;
