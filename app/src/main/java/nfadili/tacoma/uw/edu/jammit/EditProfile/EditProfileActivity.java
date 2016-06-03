@@ -113,7 +113,6 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     }
     @Override
     public void onListFragmentInteraction(int parameter) {
-        // Capture the student fragment from the activity layout
         EditProfileParameterFragment profParamFragment = (EditProfileParameterFragment) getSupportFragmentManager().findFragmentById(R.id.editprofparam_frag);
         EditProfileOptionFragment profOptionFragment = (EditProfileOptionFragment) getSupportFragmentManager().findFragmentById(R.id.profile_option_frag);
         //profParamFragment.setParameter(parameter);
