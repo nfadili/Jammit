@@ -3,6 +3,8 @@ package nfadili.tacoma.uw.edu.jammit.FindMusicians;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.LoginActivity;
 import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
+import nfadili.tacoma.uw.edu.jammit.MusicianDB;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 
@@ -47,6 +50,9 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     private String mStyles;
 
     public ArrayList<UserAccount> mSelectedUsers;
+
+    public ArrayList<UserAccount> savedUserList;
+    public MusicianDB musicianDB;
 
     public UserAccount mAccount;
 
@@ -98,26 +104,47 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_searched);
 
-        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
+        ConnectivityManager connMgr = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if (networkInfo == null && !networkInfo.isConnected()) {
+            if (savedUserList == null) {
+                savedUserList = new ArrayList<>();
+            }
+            if (musicianDB == null) {
+                musicianDB = new MusicianDB(this);
+            }
+            mSelectedUsers = musicianDB.getMusicians();
+
+        }
+        else {
+            String result = "";
+            SelectProfilesTask task = new SelectProfilesTask();
+            try {
+                result = task.execute(PROFILES_URL).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            Log.e("AllSearchResults: ", result);
+            ArrayList<UserAccount> allUsers = parseListOfProfilesJSON(result);
+            mSelectedUsers = trimList(allUsers);
+            Log.e("SearchResults: ", mSelectedUsers.toString());
+
+            //SQLite storage
+            insertMusiciansIntoDB();
+        }
+
+
+        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
         mInstrument = getIntent().getStringExtra("Instrument");
         mCity = getIntent().getStringExtra("City");
         mAge = getIntent().getStringExtra("Age");
         mStyles = getIntent().getStringExtra("Style");
 
-        String result = "";
-        SelectProfilesTask task = new SelectProfilesTask();
-        try {
-            result = task.execute(PROFILES_URL).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        Log.e("AllSearchResults: ", result);
-        ArrayList<UserAccount> allUsers = parseListOfProfilesJSON(result);
-        mSelectedUsers = trimList(allUsers);
-        Log.e("SearchResults: ", mSelectedUsers.toString());
+
 
         if (mSelectedUsers.size() == 0) {
             Toast.makeText(getApplicationContext(), "No users match search query.", Toast.LENGTH_LONG)
@@ -136,6 +163,14 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         super.onStart();
     }
 
+    public void insertMusiciansIntoDB() {
+        for(int i = 0; i < mSelectedUsers.size(); i++) {
+            UserAccount user = mSelectedUsers.get(i);
+            musicianDB.insertMusician(user.getEmail(), user.getmName(), user.getmAge(),
+                    user.getmInstruments(), user.getmStyles(), user.getmCity(), user.getmBio());
+        }
+    }
+
     /**
      * Method for taking search parameters and filtering out the undesirable elements from the
      * database;
@@ -145,8 +180,6 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
      */
     private ArrayList<UserAccount> trimList(List<UserAccount> oldList) {
         ArrayList<UserAccount> users = new ArrayList<UserAccount>();
-
-
         for (int i = 0; i < oldList.size(); i++) {
             if (mInstrument != "" && oldList.get(i).getmInstruments().contains(mInstrument)) {
                 if (mAge != "" && oldList.get(i).getmAge().contains(mAge)) {

@@ -56,7 +56,7 @@ public class MusicianDB {
      * Returns the list of musicianss from the local Musician table.
      * @return list
      */
-    public List<UserAccount> getMusicians() {
+    public ArrayList<UserAccount> getMusicians() {
 
         String[] columns = {
                 "email", "name", "age", "instruments", "styles", "city", "bio"
@@ -72,7 +72,7 @@ public class MusicianDB {
                 null                                 // The sort order
         );
         c.moveToFirst();
-        List<UserAccount> list = new ArrayList<UserAccount>();
+        ArrayList<UserAccount> list = new ArrayList<UserAccount>();
         for (int i=0; i<c.getCount(); i++) {
             String email = c.getString(0);
             String name = c.getString(1);
