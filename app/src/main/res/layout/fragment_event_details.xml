@@ -66,5 +66,11 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/event_poster_email" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_event_send_email_button"
+        android:text="Send Email"/>
+
 
 </LinearLayout>

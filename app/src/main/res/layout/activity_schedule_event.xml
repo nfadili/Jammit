@@ -68,22 +68,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:paddingBottom="20dp"
                 android:text="Please select the date and start time:" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Date:" />
 
             <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:id="@+id/sched_event_datepicker"
-                android:paddingBottom="20dp"
-                android:datePickerMode="spinner" />
+                android:paddingBottom="0dp"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Time:" />
 
             <TimePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:id="@+id/sched_event_timepicker"
                 android:paddingBottom="20dp"
                 android:timePickerMode="spinner" />
@@ -93,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Please write a detailed description of what you are looking for below::" />
+                android:text="Please write a detailed description of what you are looking for below:" />
 
             <EditText
                 android:layout_width="wrap_content"
