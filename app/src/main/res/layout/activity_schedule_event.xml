@@ -77,7 +77,8 @@
                 android:layout_gravity="center"
                 android:id="@+id/sched_event_datepicker"
                 android:paddingBottom="20dp"
-                android:datePickerMode="spinner" />
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false" />
 
 
             <TimePicker

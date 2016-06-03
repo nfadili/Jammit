@@ -1,11 +1,16 @@
 package nfadili.tacoma.uw.edu.jammit.FindMusicians;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -22,6 +27,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 
@@ -40,10 +47,58 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     private String mStyles;
 
     public ArrayList<UserAccount> mSelectedUsers;
+
+    public UserAccount mAccount;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent action;
+        switch(item.getItemId()){
+            case R.id.logout_overflow:
+                // your action goes here
+                Log.e("BACK TO", "LOGOUT");
+                if (logoutUser()) {
+                    action = new Intent(this, MainMenuActivity.class);
+                    action.putExtra("finish", true);
+                    action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(action);
+                }
+                return true;
+            case R.id.action_main:
+                // your action goes here
+                Log.e("BACK TO", "MAIN");
+                action = new Intent(this, MainMenuActivity.class);
+                action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                action.putExtra("loggedInEmail", mAccount.getEmail());
+                startActivity(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    /**
+     * Logs out current user
+     *
+     * @return true
+     */
+    public boolean logoutUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_searched);
+
+        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
         mInstrument = getIntent().getStringExtra("Instrument");
         mCity = getIntent().getStringExtra("City");

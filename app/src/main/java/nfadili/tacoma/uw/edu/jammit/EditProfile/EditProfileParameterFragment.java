@@ -91,8 +91,9 @@ public class EditProfileParameterFragment extends Fragment {
                             break;
                     }
                 }
-                Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
-                        .show();
+                ((EditProfileActivity) getActivity()).sendUpdate();
+//                Toast.makeText(getActivity().getApplicationContext(), "Changes staged for submission!", Toast.LENGTH_SHORT)
+//                        .show();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
             }

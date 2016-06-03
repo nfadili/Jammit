@@ -1,9 +1,14 @@
 package nfadili.tacoma.uw.edu.jammit.FindEvents;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,9 +18,12 @@ import java.util.ArrayList;
 
 import model.BandOpening;
 import model.EventListing;
+import model.UserAccount;
 import nfadili.tacoma.uw.edu.jammit.FindBand.BandDetailsFragment;
 import nfadili.tacoma.uw.edu.jammit.FindBand.BandListFragment;
 import nfadili.tacoma.uw.edu.jammit.FindMusicians.ViewProfileFragment;
+import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 
@@ -24,6 +32,51 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
     private String mCity;
     private String mResult;
     private ArrayList<EventListing> mEvents;
+
+    public UserAccount mAccount;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent action;
+        switch(item.getItemId()){
+            case R.id.logout_overflow:
+                // your action goes here
+                Log.e("BACK TO", "LOGOUT");
+                if (logoutUser()) {
+                    action = new Intent(this, MainMenuActivity.class);
+                    action.putExtra("finish", true);
+                    action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(action);
+                }
+                return true;
+            case R.id.action_main:
+                // your action goes here
+                Log.e("BACK TO", "MAIN");
+                action = new Intent(this, MainMenuActivity.class);
+                action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                action.putExtra("loggedInEmail", mAccount.getEmail());
+                startActivity(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    /**
+     * Logs out current user
+     *
+     * @return true
+     */
+    public boolean logoutUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
 
     private ArrayList<EventListing> parseEventsIntoList(String result) {
         ArrayList<EventListing> selectedEvents = new ArrayList<EventListing>();
@@ -67,10 +120,13 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
     public ArrayList<EventListing> getmEvents() {
         return mEvents;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_searched_events);
+
+        mAccount = (UserAccount) getIntent().getSerializableExtra("Profile");
 
         mCity = getIntent().getStringExtra("City");
         mResult = getIntent().getStringExtra("Result");

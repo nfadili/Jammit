@@ -1,9 +1,14 @@
 package nfadili.tacoma.uw.edu.jammit.ScheduleActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,6 +27,8 @@ import java.util.concurrent.ExecutionException;
 import model.BandOpening;
 import model.EventListing;
 import model.UserAccount;
+import nfadili.tacoma.uw.edu.jammit.LoginActivity;
+import nfadili.tacoma.uw.edu.jammit.MainMenuActivity;
 import nfadili.tacoma.uw.edu.jammit.R;
 
 public class ScheduleEventActivity extends AppCompatActivity {
@@ -29,12 +36,56 @@ public class ScheduleEventActivity extends AppCompatActivity {
     public final static String ADD_EVENT_URL = "http://cssgate.insttech.washington.edu/~_450atm1/Android/addEvent.php?";
 
 
+    public UserAccount mAccount;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent action;
+        switch(item.getItemId()){
+            case R.id.logout_overflow:
+                // your action goes here
+                Log.e("BACK TO", "LOGOUT");
+                if (logoutUser()) {
+                    action = new Intent(this, MainMenuActivity.class);
+                    action.putExtra("finish", true);
+                    action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(action);
+                }
+                return true;
+            case R.id.action_main:
+                // your action goes here
+                Log.e("BACK TO", "MAIN");
+                action = new Intent(this, MainMenuActivity.class);
+                action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                action.putExtra("loggedInEmail", mAccount.getEmail());
+                startActivity(action);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    /**
+     * Logs out current user
+     *
+     * @return true
+     */
+    public boolean logoutUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false).commit();
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_event);
 
-        final UserAccount userAccount =  (UserAccount) getIntent().getSerializableExtra("Profile");
+        mAccount =  (UserAccount) getIntent().getSerializableExtra("Profile");
 
         final EventListing eventListing = new EventListing();
 
@@ -52,8 +103,8 @@ public class ScheduleEventActivity extends AppCompatActivity {
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventListing.setmPosterEmail(userAccount.getEmail());
-                eventListing.setmPoster(userAccount.getmName());
+                eventListing.setmPosterEmail(mAccount.getEmail());
+                eventListing.setmPoster(mAccount.getmName());
                 eventListing.setmHeadline(editHeadline.getText().toString());
                 eventListing.setmCity(editCity.getText().toString());
                 eventListing.setmDescription(editWriteup.getText().toString());
