@@ -278,7 +278,7 @@ public class LoginActivity extends AppCompatActivity {
             UserAccount account = UserAccount.parseUserAccountJSON(result);
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("", result.toString());
+                Log.d("", result.toString());
             }
             // Everything is good, allow access!
             if (account.getAuthenticated()) {

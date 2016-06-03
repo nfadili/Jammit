@@ -46,7 +46,7 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -56,7 +56,7 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -96,9 +96,9 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
 
 
         String result = showBands();
-        Log.e("Query: ", result);
+        Log.d("Query: ", result);
         mBandsString = result;
-        Log.e("mBandsString = ", mBandsString);
+        Log.d("mBandsString = ", mBandsString);
 
 
         if (findViewById(R.id.fragment_container5)!= null) {
@@ -141,7 +141,7 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("URL: ", urlString);
+        Log.d("URL: ", urlString);
         FindBandsTask task = new FindBandsTask();
         String result = "";
         try {
@@ -184,7 +184,7 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
                         urlConnection.disconnect();
                 }
             }
-            Log.e("Response thing", response);
+            Log.d("Response thing", response);
             return response;
         }
 
@@ -196,12 +196,12 @@ public class BrowseSearchedBandsActivity extends AppCompatActivity implements Ba
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                //Log.e("ScheduleEventActivity", result.toString());
+                //Log.d("ScheduleEventActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
             } else {
-                Log.e("Not unable: ", result);
+                Log.d("Not unable: ", result);
             }
         }
     }

@@ -49,7 +49,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -59,7 +59,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -121,7 +121,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
         if (parameter == 0) {
             //UPDATE `Profile` table with changes
-            Log.e("Account: ", mAccount.toString());
+            Log.d("Account: ", mAccount.toString());
             String urlString = "";
             try {
                 urlString = UPDATE_PROFILE_URL + "?email=" + mAccount.getEmail() + "&" +
@@ -135,7 +135,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("URL: ", urlString);
+            Log.d("URL: ", urlString);
             UpdateProfileTask task = new UpdateProfileTask();
             String result = "";
             try {
@@ -145,7 +145,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Log.e("Update profile result: ", result);
+            Log.d("Update profile result: ", result);
 
             finish();
         } else if (parameter == 1) {
@@ -191,7 +191,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
     public void sendUpdate() {
         //UPDATE `Profile` table with changes
-        Log.e("Account: ", mAccount.toString());
+        Log.d("Account: ", mAccount.toString());
         String urlString = "";
         try {
             urlString = UPDATE_PROFILE_URL + "?email=" + mAccount.getEmail() + "&" +
@@ -205,7 +205,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("URL: ", urlString);
+        Log.d("URL: ", urlString);
         UpdateProfileTask task = new UpdateProfileTask();
         String result = "";
         try {
@@ -215,7 +215,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.e("Update profile result: ", result);
+        Log.d("Update profile result: ", result);
         Toast.makeText(getApplicationContext(), "Changes Submitted!", Toast.LENGTH_SHORT)
                 .show();
     }
@@ -278,7 +278,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("", result.toString());
+                Log.d("", result.toString());
             }
         }
 

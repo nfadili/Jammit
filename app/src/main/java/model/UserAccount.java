@@ -135,7 +135,7 @@ public class UserAccount implements Serializable {
                     JSONObject obj = new JSONObject(userAccountJSON);
                     account = new UserAccount(obj.getString(UserAccount.EMAIL), "", true);
                 } catch (JSONException e) {
-                    Log.e("JSON PARSE ERROR", "Unable to parse data, Reason: " + e.getMessage());
+                    Log.d("JSON PARSE ERROR", "Unable to parse data, Reason: " + e.getMessage());
                 }
             }
             else {

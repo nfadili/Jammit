@@ -38,7 +38,7 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -48,7 +48,7 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -135,8 +135,8 @@ public class BrowseSearchedEventsActivity extends AppCompatActivity implements E
         mResult = getIntent().getStringExtra("Result");
 
         mEvents = parseEventsIntoList(mResult);
-        Log.e("mRes toString: ", mResult);
-        Log.e("mEv toString: ", mEvents.toString());
+        Log.d("mRes toString: ", mResult);
+        Log.d("mEv toString: ", mEvents.toString());
 
 
         if (findViewById(R.id.fragment_container6)!= null) {

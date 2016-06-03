@@ -61,7 +61,7 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -71,7 +71,7 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -149,12 +149,12 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Log.e("AllSearchResults: ", result);
+            Log.d("AllSearchResults: ", result);
             ArrayList<UserAccount> allUsers = parseListOfProfilesJSON(result);
             saveUsersToDB(allUsers);
             mSelectedUsers = trimList(allUsers);
             //mMusicianDB.deleteMusicians();
-            Log.e("SearchResults: ", mSelectedUsers.toString());
+            Log.d("SearchResults: ", mSelectedUsers.toString());
 
             if (mSelectedUsers.size() == 0) {
                 Toast.makeText(getApplicationContext(), "No users match search query.", Toast.LENGTH_LONG)
@@ -177,7 +177,7 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
     public void saveUsersToDB(ArrayList<UserAccount> allUsers) {
         for(int i = 0; i < allUsers.size(); i++) {
             UserAccount user = allUsers.get(i);
-            Log.e("USER", user.toString());
+            Log.d("USER", user.toString());
             mMusicianDB.insertMusician(user.getEmail(), user.getmName(), user.getmAge(),
                     user.getmInstruments(), user.getmStyles(), user.getmCity(), user.getmBio());
         }
@@ -310,7 +310,7 @@ public class BrowseSearchedActivity extends AppCompatActivity implements SearchL
             }
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("", result.toString());
+                Log.d("", result.toString());
             }
         }
 

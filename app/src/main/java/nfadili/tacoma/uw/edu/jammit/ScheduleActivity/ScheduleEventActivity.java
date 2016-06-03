@@ -42,7 +42,7 @@ public class ScheduleEventActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -52,7 +52,7 @@ public class ScheduleEventActivity extends AppCompatActivity {
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -132,7 +132,7 @@ public class ScheduleEventActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("URL: ", urlString);
+        Log.d("URL: ", urlString);
         AddNewEventTask task = new AddNewEventTask();
         String result = "";
         try {
@@ -143,7 +143,7 @@ public class ScheduleEventActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.e("Add event result: ", result);
+        Log.d("Add event result: ", result);
         Toast.makeText(getApplicationContext(), "Event Posted!.", Toast.LENGTH_LONG)
                 .show();
 
@@ -196,11 +196,11 @@ public class ScheduleEventActivity extends AppCompatActivity {
             }
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("ScheduleEventActivity", result.toString());
+                Log.d("ScheduleEventActivity", result.toString());
             }
             // Everything is good, return to login activity.
             if (result.contains("success")) {
-                Log.e("ScheduleEventActivity", "Event added.");
+                Log.d("ScheduleEventActivity", "Event added.");
 
                 finish();
             }

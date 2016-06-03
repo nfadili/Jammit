@@ -38,7 +38,7 @@ public class FindEventsActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -48,7 +48,7 @@ public class FindEventsActivity extends AppCompatActivity {
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -85,7 +85,7 @@ public class FindEventsActivity extends AppCompatActivity {
         final EditText byCity = (EditText) findViewById(R.id.edittext_search_event_city);
 
         final String result = showEvents();
-        Log.e("Query: ", result);
+        Log.d("Query: ", result);
 
         Button mSearchButton = (Button) findViewById(R.id.search_event_button);
         final Intent search = new Intent(this, BrowseSearchedEventsActivity.class);
@@ -117,7 +117,7 @@ public class FindEventsActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("URL: ", urlString);
+        Log.d("URL: ", urlString);
         FindEventsTask task = new FindEventsTask();
         String result = "";
         try {
@@ -177,7 +177,7 @@ public class FindEventsActivity extends AppCompatActivity {
             }
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("FindEventsActivity", result.toString());
+                Log.d("FindEventsActivity", result.toString());
             }
         }
     }

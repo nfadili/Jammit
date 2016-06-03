@@ -117,13 +117,13 @@ public class BandListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bandlist_list, container, false);
 
         String bands = ((BrowseSearchedBandsActivity) getActivity()).getResult();
-        Log.e("string bands", bands);
+        Log.d("string bands", bands);
         ArrayList<BandOpening> selectedBands = parseResult(bands);
 
-        Log.e("parsed bands tostring", selectedBands.toString());
+        Log.d("parsed bands tostring", selectedBands.toString());
 
         selectedBands = trimResults(selectedBands);
-        Log.e("Selected bands tostring", selectedBands.toString());
+        Log.d("Selected bands tostring", selectedBands.toString());
         ((BrowseSearchedBandsActivity) getActivity()).setmBands(selectedBands);
 
         // Set the adapter

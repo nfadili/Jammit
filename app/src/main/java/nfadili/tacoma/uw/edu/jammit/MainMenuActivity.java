@@ -50,7 +50,7 @@ public class MainMenuActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.logout_overflow:
                 // your action goes here
-                Log.e("BACK TO", "LOGOUT");
+                Log.d("BACK TO", "LOGOUT");
                 if (logoutUser()) {
                     action = new Intent(this, MainMenuActivity.class);
                     action.putExtra("finish", true);
@@ -60,7 +60,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 return true;
             case R.id.action_main:
                 // your action goes here
-                Log.e("BACK TO", "MAIN");
+                Log.d("BACK TO", "MAIN");
                 action = new Intent(this, MainMenuActivity.class);
                 action.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 action.putExtra("loggedInEmail", mAccount.getEmail());
@@ -99,7 +99,7 @@ public class MainMenuActivity extends AppCompatActivity {
         String queryResult = "";
         try {
             queryResult = task.execute(new String[]{authString}).get();
-            Log.e("THIS RIGHT HERE", queryResult);
+            Log.d("THIS RIGHT HERE", queryResult);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -108,7 +108,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //Instantiate the current user's account as an object.
         mAccount = UserAccount.parseProfileQueryJSON(queryResult);
-        Log.e("INSTATIATE", mAccount.toString());
+        Log.d("INSTATIATE", mAccount.toString());
 
         TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
         nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
@@ -229,7 +229,7 @@ public class MainMenuActivity extends AppCompatActivity {
         TextView nameView = (TextView) findViewById(R.id.welcome_user_main);
         nameView.setText((CharSequence) "Hello, " + mAccount.getmName());
 
-        Log.e("Account on Resume: ", mAccount.toString());
+        Log.d("Account on Resume: ", mAccount.toString());
     }
 
     /**
@@ -275,7 +275,7 @@ public class MainMenuActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
-                Log.e("MainMenuActivity", result.toString());
+                Log.d("MainMenuActivity", result.toString());
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
@@ -283,7 +283,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("RESULT", result.toString());
+                Log.d("RESULT", result.toString());
             }
         }
 

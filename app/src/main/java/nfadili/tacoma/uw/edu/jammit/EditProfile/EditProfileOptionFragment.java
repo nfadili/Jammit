@@ -102,7 +102,7 @@ public class EditProfileOptionFragment extends Fragment {
                         }
                     }
                 }
-                Log.e("Resulting string", s);
+                Log.d("Resulting string", s);
 
                 if (param == 3) {
                     ((EditProfileActivity) getActivity()).getmAccount().setmInstruments(s);

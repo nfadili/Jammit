@@ -245,7 +245,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             // Displays result info. For debugging
             if (result != null) {
-                Log.e("", result.toString());
+                Log.d("", result.toString());
             }
             // Everything is good, return to login activity.
             if (result.contains("success")) {
