@@ -29,7 +29,7 @@ Data Storage:
   -Shared preferences data storage implemented. If a user is logged in and exits the app to do other things, when returning
   to the app the user will still be logged in.
   -SQLite data storage implemented. When a user searches for musicians, the results are saved via a local SQLite database so
-  that if the user loses network connectivty, the results will still be viewable.
+  that if the user loses network connectivity, the results will still be viewable.
   
 Web Services:
   -All users, profiles, band openings, and events entered in the app are inserted into a remote database on the insttech
