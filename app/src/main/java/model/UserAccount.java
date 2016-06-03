@@ -81,6 +81,18 @@ public class UserAccount implements Serializable {
         authenticated = false;
     }
 
+    public UserAccount(String email, String name, String age, String instruments, String styles, String city, String bio) {
+        mName = name;
+        mAge = age;
+        mInstruments = instruments;
+        mStyles = styles;
+        mCity = city;
+        mBio = bio;
+        mEmail = "";
+        mPassword = "";
+        authenticated = false;
+    }
+
 
     /**
      * Parses the json string, returns a authenticated account if successful.
